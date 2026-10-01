@@ -1,0 +1,99 @@
+meta {
+  name: Subscribe to all events
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/v1/events
+  body: none
+  auth: inherit
+}
+
+headers {
+  Accept: application/json
+}
+
+script:pre-request {
+  const allEventTypes = [
+    "REQUEST_COMPLETE",
+    "RETRIEVAL_COMPLETE",
+    "DOCUMENT_UPLOADED",
+    "ANALYSIS_COMPLETE",
+    "ANONYMOUS_RECORD_UPLOAD_COMPLETED",
+    "ANONYMOUS_RECORD_UPLOAD_ERROR",
+    "CURATED_DATA",
+  ];
+  const webhookUri = bru.interpolate("{{webhookUri}}");
+  const secret = bru.getProcessEnv("PREDOC_WEBHOOK_SECRET");
+  const notificationEmail = bru.interpolate("{{requestingProviderEmail}}");
+
+  if (!/^https?:\/\//.test(webhookUri) || webhookUri.includes("your-unique-id")) {
+    throw new Error(`Set PREDOC_WEBHOOK_URI in .env (got "${webhookUri}")`);
+  }
+  if (!secret || secret === "change-me") {
+    throw new Error("Set PREDOC_WEBHOOK_SECRET in .env to a random value");
+  }
+
+  const selectedEventTypes = (bru.getProcessEnv("PREDOC_WEBHOOK_EVENT_TYPES") ?? "")
+    .split(",")
+    .map((eventType) => eventType.trim())
+    .filter(Boolean);
+  const eventTypes = selectedEventTypes.length > 0 ? selectedEventTypes : allEventTypes;
+
+  const baseUrl = bru.getEnvVar("baseUrl");
+  const headers = { Authorization: `Bearer ${bru.getVar("bearerToken")}`, "Content-Type": "application/json" };
+  const existing = await bru
+    .sendRequest({ method: "GET", url: `${baseUrl}/v1/events`, headers })
+    .catch((error) => error.response ?? { status: 0, data: error.message });
+  if (existing.status === 403) {
+    throw new Error("403 Forbidden: this client id can't manage webhooks. Ask Predoc to enable webhooks for it.");
+  }
+  if (!Array.isArray(existing.data)) {
+    throw new Error(`Listing webhooks failed (${existing.status}): ${JSON.stringify(existing.data)}`);
+  }
+  const subscribedEventTypes = existing.data
+    .filter((configuration) => configuration.url === webhookUri)
+    .map((configuration) => configuration.eventType);
+
+  for (const eventType of eventTypes) {
+    if (subscribedEventTypes.includes(eventType)) {
+      console.log(`${eventType}: already subscribed`);
+      continue;
+    }
+    try {
+      const created = await bru.sendRequest({
+        method: "POST",
+        url: `${baseUrl}/v1/events`,
+        headers,
+        data: {
+          eventType,
+          serviceName: "Inato",
+          notificationEmail,
+          webhookUri,
+          customHeaders: [{ key: "X-Partner-Auth", value: secret }],
+        },
+      });
+      console.log(`${eventType}: subscribed (${created.data.configurationId})`);
+    } catch (error) {
+      throw new Error(`${eventType}: ${JSON.stringify(error.response?.data ?? error.message)}`);
+    }
+  }
+}
+
+tests {
+  test("webhookUri has subscriptions", () => {
+    const webhookUri = bru.interpolate("{{webhookUri}}");
+    const subscribed = res.body.filter((configuration) => configuration.url === webhookUri);
+    expect(subscribed).to.not.be.empty;
+  });
+}
+
+docs {
+  Subscribes `webhookUri` to every event type, or to `PREDOC_WEBHOOK_EVENT_TYPES` when set.
+
+  - Safe to send again: existing subscriptions to this URL are skipped.
+  - The response is the resulting list of subscriptions.
+  - Each delivery carries `X-Partner-Auth: <PREDOC_WEBHOOK_SECRET>`.
+  - Failed deliveries are reported to `notificationEmail` (`PREDOC_REQUESTING_PROVIDER_EMAIL`).
+}

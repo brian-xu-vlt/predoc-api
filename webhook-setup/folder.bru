@@ -1,0 +1,19 @@
+meta {
+  name: Webhook setup
+  seq: 3
+}
+
+docs {
+  # Webhook setup
+
+  Self-service once Predoc has enabled webhooks for the client id. Until then, `GET /v1/events` answers `403 Forbidden resource`.
+
+  1. Set `PREDOC_WEBHOOK_URI` and `PREDOC_WEBHOOK_SECRET` in `.env`.
+  2. Send **Subscribe to all events**. Already subscribed event types are left alone.
+  3. Send **List my subscriptions** to check.
+  4. Changed the URL or the secret? Send **Unsubscribe this URL**, then subscribe again.
+
+  - Predoc sends `X-Partner-Auth: <PREDOC_WEBHOOK_SECRET>` on every delivery. Reject calls without it.
+  - `PREDOC_WEBHOOK_EVENT_TYPES` limits the event types, comma separated. Empty = all.
+  - Subscriptions belong to the client id: sandbox and production are separate.
+}

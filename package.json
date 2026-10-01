@@ -3,10 +3,14 @@
   "private": true,
   "description": "Bruno collection for the Predoc Partner API",
   "scripts": {
-    "mock": "python3 mock-server/server.py",
+    "mock": "python3 -u mock-server/server.py",
     "demo:local": "bru run demo -r --env local-mock",
     "demo:sandbox": "bru run demo -r --env sandbox --bail",
-    "token:sandbox": "bru run \"v1/auth/Get Access Token.bru\" --env sandbox"
+    "token:sandbox": "bru run \"v1/auth/Get Access Token.bru\" --env sandbox",
+    "webhooks:subscribe": "bru run \"webhook-setup/Subscribe to all events.bru\" --env sandbox",
+    "webhooks:list": "bru run \"webhook-setup/List my subscriptions.bru\" --env sandbox",
+    "webhooks:unsubscribe": "bru run \"webhook-setup/Unsubscribe this URL.bru\" --env sandbox",
+    "tunnel": "cloudflared tunnel --url http://127.0.0.1:4010"
   },
   "devDependencies": {
     "@usebruno/cli": "4.2.0"

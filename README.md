@@ -21,6 +21,7 @@ predoc-api/
 │   ├── 4 Previous-provider retrieval (Harriet Dare)/
 │   └── 5 Anonymous fax upload/
 ├── sandbox-test-patients/ # one click = one test patient + HIE or medications request
+├── webhook-setup/         # subscribe, list, unsubscribe in one click each
 ├── v2/                    # current endpoints
 ├── v1/                    # endpoints with no v2 equivalent
 │   └── legacy/            # superseded by v2, kept for reference
@@ -53,8 +54,9 @@ predoc-api/
    | `PREDOC_CLIENT_ID` | Partner client id, from Predoc |
    | `PREDOC_SECRET_KEY` | Partner secret key, from Predoc |
    | `PREDOC_REQUESTING_PROVIDER_EMAIL` | Sent as `requestingProviderEmail` and webhook `notificationEmail` |
-   | `PREDOC_WEBHOOK_URI` | Public URL receiving webhooks, e.g. a [webhook.site](https://webhook.site) URL |
-   | `PREDOC_WEBHOOK_SECRET` | Sent in the `X-Partner-Auth` webhook header |
+   | `PREDOC_WEBHOOK_URI` | Public URL receiving webhooks. See [Webhooks](#webhooks) |
+   | `PREDOC_WEBHOOK_SECRET` | Random value, sent back in the `X-Partner-Auth` webhook header |
+   | `PREDOC_WEBHOOK_EVENT_TYPES` | Optional. Comma-separated event types to subscribe to. Empty = all |
    | `PREDOC_FACESHEET_CONFIG_ID` | Optional. Facesheet config for HIE requests. Empty = first config of the account |
 
 `.env` is git-ignored. Never commit credentials.
@@ -102,7 +104,11 @@ Docs: [overview](https://docs.usebruno.com/vs-code-extension/overview) · [insta
 |---|---|
 | `pnpm demo:sandbox` | Run all demo flows against the Predoc sandbox |
 | `pnpm token:sandbox` | Check your credentials |
+| `pnpm webhooks:subscribe` | Subscribe `PREDOC_WEBHOOK_URI` to the sandbox events |
+| `pnpm webhooks:list` | List the sandbox subscriptions |
+| `pnpm webhooks:unsubscribe` | Remove every sandbox subscription to `PREDOC_WEBHOOK_URI` |
 | `pnpm mock` | Start the local mock on port 4010 |
+| `pnpm tunnel` | Expose the local mock publicly, to receive real sandbox webhooks |
 | `pnpm demo:local` | Run all demo flows against the local mock |
 
 Run a single flow or request:
@@ -163,6 +169,66 @@ Choices made on top of the docs:
 - **No deprecated field.** `doNotKnowPreviousProvider` is deprecated. Requests send `previousProviders: []` instead.
 - **Reason for request:** `reasonForRequest: 2` (information gathering). We have no upcoming appointment to declare.
 
+## Webhooks
+
+You subscribe through the API yourself, once Predoc has enabled webhooks for your client id.
+
+- Not enabled yet? `GET /v1/events` answers `403 Forbidden resource`, while other endpoints work.
+- Ask Predoc support to enable webhook configuration for your client id, sandbox and production.
+
+### How it works
+
+- You subscribe a URL per event type with `POST /v1/events`.
+- You choose a secret. Predoc sends it back as `X-Partner-Auth` on every delivery.
+- Your receiver rejects calls without the right header.
+- You give Predoc no credentials of yours.
+- Subscriptions belong to the client id: sandbox and production are set up separately.
+- After repeated failed deliveries, Predoc emails `notificationEmail` (`PREDOC_REQUESTING_PROVIDER_EMAIL`).
+
+### Pick a receiver
+
+| Receiver | Use for | Data stays with you |
+|---|---|---|
+| [webhook.site](https://webhook.site) | Quick sandbox demo | ❌ Anyone with the URL can read it |
+| `pnpm mock` + `pnpm tunnel` | Sandbox, privately | ✅ Shown only on your machine |
+| Your Inato endpoint | Production | ✅ |
+
+⚠️ Production webhooks may carry PHI. Never point them at webhook.site or a tunnel.
+
+### Set it up
+
+1. Generate a secret: `openssl rand -hex 32`. Put it in `PREDOC_WEBHOOK_SECRET`.
+2. Pick a receiver:
+   - **webhook.site:** copy your unique URL into `PREDOC_WEBHOOK_URI`.
+   - **Local mock + tunnel:**
+     1. `brew install cloudflared`
+     2. In one terminal: `MOCK_WEBHOOK_SECRET=<your secret> pnpm mock`
+     3. In another: `pnpm tunnel`. It prints a `https://….trycloudflare.com` URL.
+     4. Set `PREDOC_WEBHOOK_URI=https://….trycloudflare.com/_mock/webhook-sink`
+3. Subscribe: send `webhook-setup/Subscribe to all events`, or run `pnpm webhooks:subscribe`.
+4. Trigger: send any HIE request from `sandbox-test-patients/`.
+5. Watch:
+   - **webhook.site:** the page updates live.
+   - **Local mock:** the mock terminal prints each delivery. It warns when `X-Partner-Auth` doesn't match `MOCK_WEBHOOK_SECRET`. Full history: `http://localhost:4010/_mock/webhook-sink`.
+
+Good to know:
+
+- **Safe to replay.** Subscribe skips event types already subscribed for this URL.
+- **Changing the URL or the secret?** Unsubscribe first, then subscribe again. Quick tunnel URLs change at every `pnpm tunnel`.
+- **Demo over?** Run `pnpm webhooks:unsubscribe`, or Predoc keeps sending to that URL.
+- **The secret is not hidden.** `GET /v1/events` returns it in clear. Don't reuse a real password.
+- **Through the tunnel,** the delivery history answers `403`. Only `localhost` can read it.
+
+### Ask Predoc support
+
+The docs don't cover what a production receiver needs:
+
+- the payload schema per event type
+- any signature beyond the custom header: algorithm and header name
+- retries: count, delay, timeout, which responses count as success
+- source IPs to allowlist
+- which events fire in the sandbox, and whether one can be replayed on demand
+
 ## Local mock server
 
 `mock-server/server.py` is a fake Predoc API. It uses only the Python standard library.
@@ -182,7 +248,7 @@ What it does:
   - retrievals: `Processing` → `Completed`
   - uploads: `IDENTIFYING` → … → `VALIDATED`
 - Sends `REQUEST_COMPLETE`, `RETRIEVAL_COMPLETE` and `ANONYMOUS_RECORD_UPLOAD_COMPLETED` webhooks to subscribed URLs.
-- Collects webhooks sent to `http://localhost:4010/_mock/webhook-sink`. `GET` that URL to see them.
+- Collects webhooks sent to `http://localhost:4010/_mock/webhook-sink`. `GET` that URL to see them, from your machine only. It also works as a receiver for real sandbox webhooks: see [Webhooks](#webhooks).
 - Answers every other endpoint with its Postman example response, from `mock-server/examples.json`.
 
 ⚠️ Some mock behaviour is invented. It is not Predoc behaviour:

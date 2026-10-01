@@ -10,6 +10,7 @@ from pathlib import Path
 
 PORT = int(os.environ.get("MOCK_PORT", "4010"))
 STEP_SECONDS = float(os.environ.get("MOCK_STEP_SECONDS", "3"))
+WEBHOOK_SECRET = os.environ.get("MOCK_WEBHOOK_SECRET")
 EXAMPLES = json.loads((Path(__file__).parent / "examples.json").read_text())
 
 MOCK_FACESHEET_CONFIG_ID = "00000000-0000-4000-8000-00000000fac5"
@@ -92,7 +93,12 @@ class Handler(BaseHTTPRequestHandler):
         if path == "/_mock/webhook-sink":
             if method == "POST":
                 webhook_deliveries.append({"headers": dict(self.headers), "body": body})
+                print(f"[mock] webhook received: {json.dumps(body)}")
+                if WEBHOOK_SECRET and self.headers.get("X-Partner-Auth") != WEBHOOK_SECRET:
+                    print("[mock] webhook X-Partner-Auth does not match MOCK_WEBHOOK_SECRET")
                 return self.send_json(200, {"received": True})
+            if self.headers.get("X-Forwarded-For") or self.headers.get("Cf-Connecting-Ip"):
+                return self.send_json(403, {"message": "Deliveries are only visible from this machine"})
             return self.send_json(200, webhook_deliveries)
 
         if path == "/api/v1/auth/token" and method == "POST":

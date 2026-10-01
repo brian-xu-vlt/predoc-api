@@ -1,0 +1,50 @@
+meta {
+  name: Unsubscribe this URL
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/v1/events
+  body: none
+  auth: inherit
+}
+
+headers {
+  Accept: application/json
+}
+
+script:pre-request {
+  const webhookUri = bru.interpolate("{{webhookUri}}");
+  const baseUrl = bru.getEnvVar("baseUrl");
+  const headers = { Authorization: `Bearer ${bru.getVar("bearerToken")}` };
+  const existing = await bru
+    .sendRequest({ method: "GET", url: `${baseUrl}/v1/events`, headers })
+    .catch((error) => error.response ?? { status: 0, data: error.message });
+  if (existing.status === 403) {
+    throw new Error("403 Forbidden: this client id can't manage webhooks. Ask Predoc to enable webhooks for it.");
+  }
+  if (!Array.isArray(existing.data)) {
+    throw new Error(`Listing webhooks failed (${existing.status}): ${JSON.stringify(existing.data)}`);
+  }
+
+  for (const configuration of existing.data.filter((configuration) => configuration.url === webhookUri)) {
+    await bru.sendRequest({ method: "DELETE", url: `${baseUrl}/v1/events/${configuration.configurationId}`, headers });
+    console.log(`${configuration.eventType}: unsubscribed (${configuration.configurationId})`);
+  }
+}
+
+tests {
+  test("nothing points at webhookUri anymore", () => {
+    const webhookUri = bru.interpolate("{{webhookUri}}");
+    expect(res.body.filter((configuration) => configuration.url === webhookUri)).to.be.empty;
+  });
+}
+
+docs {
+  Deletes every subscription pointing at `webhookUri`. Subscriptions to other URLs are kept.
+
+  - Use it before changing `PREDOC_WEBHOOK_URI` or `PREDOC_WEBHOOK_SECRET`, then subscribe again.
+  - Use it when a demo with webhook.site is over.
+  - The response is the remaining list of subscriptions.
+}

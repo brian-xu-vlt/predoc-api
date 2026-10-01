@@ -1,0 +1,41 @@
+meta {
+  name: List my subscriptions
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/v1/events
+  body: none
+  auth: inherit
+}
+
+headers {
+  Accept: application/json
+}
+
+script:post-response {
+  if (res.status === 403) {
+    console.error("403 Forbidden: this client id can't manage webhooks. Ask Predoc to enable webhooks for it.");
+    return;
+  }
+  if (!Array.isArray(res.body)) {
+    console.error(`Predoc answered ${res.status}:`, JSON.stringify(res.body));
+    return;
+  }
+  const webhookUri = bru.interpolate("{{webhookUri}}");
+  for (const configuration of res.body) {
+    const marker = configuration.url === webhookUri ? "this URL" : "other URL";
+    console.log(`${configuration.eventType} -> ${configuration.url} (${marker}, active: ${configuration.isActive})`);
+  }
+}
+
+tests {
+  test("responds 2xx", () => {
+    expect(res.status).to.be.within(200, 299);
+  });
+}
+
+docs {
+  Every webhook subscription of the client id. The console marks the ones pointing at `webhookUri`.
+}

@@ -11,7 +11,7 @@ post {
 }
 
 params:path {
-  patientId: {{patientId}}
+  patientId: 64d0019c-cd41-5bb2-9b48-c0ab2cc33d8a
 }
 
 headers {
@@ -31,15 +31,15 @@ body:json {
 
 docs {
   Searches the patient’s available documents using the supplied criteria. Results follow the organization’s document-set delivery mode: `CANVAS_SET` includes `CANVAS_SET`, `PRESPLICED`, and untagged historical records; `SEGMENT_SET` includes `SEGMENT_SET`, `PRESPLICED`, and untagged historical records. If no mode is configured, `CANVAS_SET` behavior applies. Partner-facing display text is returned without literal `|` separators, while identifiers, URLs, categories, dates, and splice metadata are preserved as received.
-
+  
   ### Fields
-
+  
   | Field | Description |
   |---|---|
   | `patientId` | Unique identifier of the patient. |
-
+  
   ### Example response 200 OK
-
+  
   ```json
   {
     "partnerPatientId": "a3bd0708-5d2d-fa6f-5767-a161e03bfffe",
