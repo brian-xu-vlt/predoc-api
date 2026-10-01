@@ -55,6 +55,7 @@ predoc-api/
    | `PREDOC_REQUESTING_PROVIDER_EMAIL` | Sent as `requestingProviderEmail` and webhook `notificationEmail` |
    | `PREDOC_WEBHOOK_URI` | Public URL receiving webhooks, e.g. a [webhook.site](https://webhook.site) URL |
    | `PREDOC_WEBHOOK_SECRET` | Sent in the `X-Partner-Auth` webhook header |
+   | `PREDOC_FACESHEET_CONFIG_ID` | Optional. Facesheet config for HIE requests. Empty = first config of the account |
 
 `.env` is git-ignored. Never commit credentials.
 
@@ -68,6 +69,10 @@ predoc-api/
 Things to know:
 
 - **No manual login.** Tokens last 5 minutes. `collection.bru` fetches a new one before any request when needed.
+- **Facesheet config filled in.** HIE bodies send `"facesheetConfigIds": ["{{facesheetConfigId}}"]`. Before the first HIE request, `collection.bru` sets that variable, once per session:
+  - from `PREDOC_FACESHEET_CONFIG_ID`, if set
+  - otherwise from the first config returned by `GET /v1/requests/facesheet-configs`, logged in the console
+  - sending `v1/requests/List of Facesheet configs available` sets it the same way
 - **IDs chain automatically.** Create requests store `patientId`, `requestId`, `retrievalId`, `recordUploadId` and `configurationId` as runtime variables. The next requests use them.
 - **Docs live in each request.** Open the **Docs** tab for the field descriptions and an example response.
 - **Run a whole flow.** Right-click a `demo/` folder → **Run**.
@@ -154,6 +159,7 @@ Choices made on top of the docs:
 
 - **Juniper's phone number is a placeholder.** The docs give her none, but `phoneNumber` is required (10 digits). The requests send `5555555555`, the same placeholder the docs use for other patients. If the sandbox rejects it, ask Predoc.
 - **Duplicates allowed.** Requests send `allowDuplicatePatient: true`. Without it, v2 rejects a second patient with the same demographics, so the demo could not be replayed.
+- **Facesheet config on HIE requests.** The sandbox rejects HIE requests without one: `'facesheetConfigId(s)' must not be empty for the HIE retrieval method`. The test patients page doesn't mention this. See the Bruno app notes above.
 - **No deprecated field.** `doNotKnowPreviousProvider` is deprecated. Requests send `previousProviders: []` instead.
 - **Reason for request:** `reasonForRequest: 2` (information gathering). We have no upcoming appointment to declare.
 
@@ -170,6 +176,7 @@ What it does:
 
 - Accepts any credentials. Every other call needs the bearer token it issued.
 - Rejects a record request missing a required field, or with a `phoneNumber` that isn't 10 digits. These rules come from the documented `POST /v2/requests` schema.
+- Rejects an HIE request without a facesheet config, with the sandbox's exact error. It accepts only its own config id, `00000000-0000-4000-8000-00000000fac5`.
 - Moves statuses forward over time:
   - record requests: `OPEN` → `IN_PROGRESS` → `COMPLETED`
   - retrievals: `Processing` → `Completed`

@@ -14,8 +14,30 @@ headers {
   Accept: application/json
 }
 
+script:post-response {
+  const [firstConfig] = res.body.facesheetConfigs ?? [];
+  const configuredId = bru.getProcessEnv("PREDOC_FACESHEET_CONFIG_ID");
+  if (configuredId) {
+    console.log(`PREDOC_FACESHEET_CONFIG_ID is set: keeping ${configuredId}`);
+    bru.setVar("facesheetConfigId", configuredId);
+  } else if (firstConfig) {
+    console.log(`Using facesheet config "${firstConfig.facesheetName}" (${firstConfig.facesheetId})`);
+    bru.setVar("facesheetConfigId", firstConfig.facesheetId);
+  }
+}
+
+tests {
+  test("returns at least one facesheet config", () => {
+    expect(res.status).to.equal(200);
+    expect(res.body.facesheetConfigs).to.be.an("array").that.is.not.empty;
+  });
+}
+
 docs {
   Returns the available facesheet configurations. Pass a configuration ID when creating a patient request to generate the corresponding facesheet.
+
+  - Sets the `facesheetConfigId` runtime variable to the first config. HIE request bodies use it.
+  - `PREDOC_FACESHEET_CONFIG_ID` in `.env` wins over the response.
 
   ### Example response 200 OK
 
