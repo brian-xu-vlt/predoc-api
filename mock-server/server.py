@@ -107,12 +107,15 @@ class Handler(BaseHTTPRequestHandler):
                 errors.append("phoneNumber must be 10 digits")
             if errors:
                 return self.send_json(400, {"statusCode": 400, "message": errors})
-            has_facesheet_config = body.get("facesheetConfigId") or any(body.get("facesheetConfigIds") or [])
-            if body.get("sendHieRequest") and not has_facesheet_config:
+            facesheet_config_ids = [body.get("facesheetConfigId"), *(body.get("facesheetConfigIds") or [])]
+            facesheet_config_ids = [config_id for config_id in facesheet_config_ids if config_id]
+            if body.get("sendHieRequest") and not facesheet_config_ids:
                 return self.send_json(
                     400,
                     {"statusCode": 400, "message": "'facesheetConfigId(s)' must not be empty for the HIE retrieval method"},
                 )
+            if any(config_id != MOCK_FACESHEET_CONFIG_ID for config_id in facesheet_config_ids):
+                return self.send_json(400, {"statusCode": 400, "message": f"Unknown facesheet config: {facesheet_config_ids}"})
             patient_id, request_id = str(uuid.uuid4()), str(uuid.uuid4())
             retrieval_ids = [str(uuid.uuid4()) for _ in body.get("previousProviders", [])]
             now = time.time()
