@@ -23,6 +23,27 @@ script:pre-request {
     bru.setVar("bearerToken", response.data.access_token);
     bru.setVar("bearerTokenExpiresAt", Date.now() + 4 * 60 * 1000);
   }
+
+  const isHieRequest = req.getBody()?.sendHieRequest === true;
+
+  if (isHieRequest && !bru.getVar("facesheetConfigId")) {
+    const configuredId = bru.getProcessEnv("PREDOC_FACESHEET_CONFIG_ID");
+    if (configuredId) {
+      bru.setVar("facesheetConfigId", configuredId);
+    } else {
+      const response = await bru.sendRequest({
+        method: "GET",
+        url: `${bru.getEnvVar("baseUrl")}/v1/requests/facesheet-configs`,
+        headers: { Authorization: `Bearer ${bru.getVar("bearerToken")}` },
+      });
+      const [firstConfig] = response.data.facesheetConfigs ?? [];
+      if (!firstConfig) {
+        throw new Error("No facesheet config available: HIE requests need one. Ask Predoc to set one up.");
+      }
+      console.log(`Using facesheet config "${firstConfig.facesheetName}" (${firstConfig.facesheetId})`);
+      bru.setVar("facesheetConfigId", firstConfig.facesheetId);
+    }
+  }
 }
 
 docs {
@@ -30,6 +51,7 @@ docs {
 
   - Tokens last 5 minutes. The pre-request script above fetches a new one before it expires.
   - Credentials come from `.env` (`PREDOC_CLIENT_ID`, `PREDOC_SECRET_KEY`).
+  - HIE requests need a facesheet config. Before the first HIE request, the script sets `facesheetConfigId` from `PREDOC_FACESHEET_CONFIG_ID`, or else from the first entry of `GET /v1/requests/facesheet-configs`.
   - IDs created by a request (`patientId`, `requestId`, `retrievalId`, `recordUploadId`, `configurationId`) are stored as runtime variables and reused by the next requests.
   - Sandbox test patients: https://docs.predoc.ai/reference/sandbox-test-patients
 }

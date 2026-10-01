@@ -12,6 +12,7 @@ PORT = int(os.environ.get("MOCK_PORT", "4010"))
 STEP_SECONDS = float(os.environ.get("MOCK_STEP_SECONDS", "3"))
 EXAMPLES = json.loads((Path(__file__).parent / "examples.json").read_text())
 
+MOCK_FACESHEET_CONFIG_ID = "00000000-0000-4000-8000-00000000fac5"
 REQUIRED_REQUEST_FIELDS = [
     "releaseToOrgName",
     "releaseToProviderName",
@@ -105,7 +106,13 @@ class Handler(BaseHTTPRequestHandler):
             if not re.fullmatch(r"\d{10}", str(body.get("phoneNumber", ""))):
                 errors.append("phoneNumber must be 10 digits")
             if errors:
-                return self.send_json(400, {"message": errors})
+                return self.send_json(400, {"statusCode": 400, "message": errors})
+            has_facesheet_config = body.get("facesheetConfigId") or any(body.get("facesheetConfigIds") or [])
+            if body.get("sendHieRequest") and not has_facesheet_config:
+                return self.send_json(
+                    400,
+                    {"statusCode": 400, "message": "'facesheetConfigId(s)' must not be empty for the HIE retrieval method"},
+                )
             patient_id, request_id = str(uuid.uuid4()), str(uuid.uuid4())
             retrieval_ids = [str(uuid.uuid4()) for _ in body.get("previousProviders", [])]
             now = time.time()
@@ -198,6 +205,12 @@ class Handler(BaseHTTPRequestHandler):
                 return self.send_json(404, {"message": "Upload not found"})
             _, example = example_for("GET", path)
             return self.send_json(200, {**example, "recordUploadId": match.group(1), "status": stage(created_at, UPLOAD_STAGES)})
+
+        if path == "/api/v1/requests/facesheet-configs" and method == "GET":
+            return self.send_json(
+                200,
+                {"facesheetConfigs": [{"facesheetId": MOCK_FACESHEET_CONFIG_ID, "facesheetName": "Mock clinical facesheet"}]},
+            )
 
         if path == "/api/v1/events":
             if method == "POST":
