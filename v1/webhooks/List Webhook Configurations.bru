@@ -1,0 +1,62 @@
+meta {
+  name: List Webhook Configurations
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/v1/events
+  body: none
+  auth: inherit
+}
+
+headers {
+  Accept: application/json
+}
+
+docs {
+  Returns all webhook configurations associated with the authenticated credential.
+
+  ### Example response 200 OK
+
+  ```json
+  [
+    {
+      "configurationId": "c6e31ce5-3607-a400-e8f9-d02ae3837662",
+      "eventType": "ANONYMOUS_RECORD_UPLOAD_ERROR",
+      "serviceName": "Anonymous Uploads",
+      "url": "https://hook.example.com/webhook/analysis",
+      "notificationEmail": "test@example.com",
+      "isActive": true,
+      "customHeaders": [
+        {
+          "key": "X-Partner-Auth",
+          "value": "secret-token"
+        },
+        {
+          "key": "X-Partner-Auth",
+          "value": "secret-token"
+        }
+      ]
+    },
+    {
+      "configurationId": "e656e884-19b8-f68a-5642-ec6c55f9ebcf",
+      "eventType": "ANONYMOUS_RECORD_UPLOAD_ERROR",
+      "serviceName": "Anonymous Uploads",
+      "url": "https://hook.example.com/webhook/analysis",
+      "notificationEmail": "test@example.com",
+      "isActive": true,
+      "customHeaders": [
+        {
+          "key": "X-Partner-Auth",
+          "value": "secret-token"
+        },
+        {
+          "key": "X-Partner-Auth",
+          "value": "secret-token"
+        }
+      ]
+    }
+  ]
+  ```
+}

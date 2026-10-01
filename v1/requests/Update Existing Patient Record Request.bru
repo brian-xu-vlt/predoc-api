@@ -1,0 +1,113 @@
+meta {
+  name: Update Existing Patient Record Request
+  type: http
+  seq: 2
+}
+
+patch {
+  url: {{baseUrl}}/v1/requests/:requestId
+  body: json
+  auth: inherit
+}
+
+params:path {
+  requestId: {{requestId}}
+}
+
+headers {
+  Accept: application/json
+}
+
+body:json {
+  {
+    "releaseToOrgName": "ABC Hospital",
+    "releaseToProviderName": "Dr. Jane Doe",
+    "previousProviders": [
+      {
+        "orgName": "string",
+        "providerFirstName": "string",
+        "providerLastName": "string",
+        "datesOfService": {
+          "serviceStartDate": "2026-08-09",
+          "serviceEndDate": "2026-09-09"
+        },
+        "practiceName": "string",
+        "orgAddress": {
+          "addressLine1": "123 Main St",
+          "addressLine2": "Apt # 123",
+          "city": "Charlotte",
+          "stateCode": "NC",
+          "postalCode": "28105",
+          "countryCode": "USA"
+        },
+        "orgPhoneCountryCode": "+1",
+        "orgPhoneNumber": "5553643856",
+        "orgFaxNumber": "5553643856",
+        "specificMedicalRecordRequested": "oncology",
+        "id": 2933.5633191456177
+      },
+      {
+        "orgName": "string",
+        "providerFirstName": "string",
+        "providerLastName": "string",
+        "datesOfService": {
+          "serviceStartDate": "2026-08-09",
+          "serviceEndDate": "2026-09-09"
+        },
+        "practiceName": "string",
+        "orgAddress": {
+          "addressLine1": "123 Main St",
+          "addressLine2": "Apt # 123",
+          "city": "Charlotte",
+          "stateCode": "NC",
+          "postalCode": "28105",
+          "countryCode": "USA"
+        },
+        "orgPhoneCountryCode": "+1",
+        "orgPhoneNumber": "5553643856",
+        "orgFaxNumber": "5553643856",
+        "specificMedicalRecordRequested": "oncology",
+        "id": 6202.258234548339
+      }
+    ],
+    "reasonForRequest": 0,
+    "requestingProviderEmail": "jane.doe@domain.com",
+    "patientId": "7442401f-bc0e-57c9-a55d-2a20df0e0a71",
+    "doNotKnowPreviousProvider": false,
+    "futureAppointmentDate": "2026-09-17",
+    "patientAuthFile": {
+      "encodedFile": "string",
+      "fileExtension": "pdf",
+      "dataType": "image"
+    },
+    "referenceId": "1234567890",
+    "sendMedicationsRequest": true,
+    "facesheetConfigId": "string",
+    "facesheetConfigIds": [
+      "b8df8e61-f1d0-0d50-04c1-e13bf0181b11",
+      "5fa7fb75-3fe6-e294-81c7-4aa5f4f3b76d"
+    ]
+  }
+}
+
+docs {
+  Updates an existing patient record request if processing has not started. If the request can no longer be updated, the response indicates that the update was unsuccessful.
+
+  ### Fields
+
+  | Field | Description |
+  |---|---|
+  | `requestId` | Request id. |
+
+  ### Example response 200 OK
+
+  ```json
+  {
+    "message": "Request updated successfully",
+    "requestId": "9542d23b-47aa-d742-4742-fbbbe7cde90e",
+    "partnerPatientId": "b8b7c7da-a814-c731-a23e-c6950c7f42d0",
+    "status": "OPEN",
+    "referenceId": "1234567890"
+  }
+  ```
+}

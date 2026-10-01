@@ -1,0 +1,29 @@
+meta {
+  name: Get curated allergies
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{baseUrl}}/v1/patients/:patientId/curated-patient-data/allergies
+  body: none
+  auth: inherit
+}
+
+params:path {
+  patientId: {{patientId}}
+}
+
+headers {
+  Accept: application/json
+}
+
+tests {
+  test("responds 2xx", () => {
+    expect(res.status).to.be.within(200, 299);
+  });
+}
+
+docs {
+  Structured data extracted from the records.
+}

@@ -1,0 +1,48 @@
+meta {
+  name: Create Patient
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/v2/patients
+  body: json
+  auth: inherit
+}
+
+headers {
+  Accept: application/json
+}
+
+body:json {
+  {
+    "patientAddress": {
+      "addressLine1": "765 Dickinson Annex Unit 1",
+      "city": "Madison",
+      "stateCode": "WI",
+      "postalCode": "53714"
+    },
+    "patientGender": "male",
+    "firstName": "Calvin",
+    "lastName": "Hills",
+    "dateOfBirth": "1989-08-16",
+    "phoneNumber": "5557578394",
+    "allowDuplicatePatient": true
+  }
+}
+
+script:post-response {
+  bru.setVar("patientId", res.body.patientId);
+}
+
+docs {
+  Creates a new patient without a record request.
+
+  ### Example response 201 Created
+
+  ```json
+  {
+    "patientId": "2e718e55-9b6d-03db-cdd5-1a44cd9bcfd0"
+  }
+  ```
+}

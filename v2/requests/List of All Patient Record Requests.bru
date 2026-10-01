@@ -1,0 +1,123 @@
+meta {
+  name: List of All Patient Record Requests
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/v2/requests
+  body: none
+  auth: inherit
+}
+
+params:query {
+  ~offset: 8224.076751309922
+  ~limit: 8224.076751309922
+}
+
+headers {
+  Accept: application/json
+}
+
+docs {
+  Returns all patient record requests in Predoc. Returned request and reference identifiers can be used to correlate requests and retrieve the corresponding patient information.
+
+  ### Fields
+
+  | Field | Description |
+  |---|---|
+  | `offset` | Paging offset. |
+  | `limit` | Max number of records in the response. |
+
+  ### Example response 200 OK
+
+  ```json
+  {
+    "recordRequests": [
+      {
+        "patient": {
+          "firstName": "Martha",
+          "lastName": "Rangel",
+          "address": {
+            "address1": "4990 HOOVER RD",
+            "address2": "APT 227",
+            "city": "GROVE CITY",
+            "state": "OH",
+            "postalCode": "43123"
+          },
+          "dateOfBirth": "1970-03-10",
+          "genderName": "female",
+          "phoneNumber": "7175501675",
+          "primaryLanguage": "english",
+          "cumulativePatientStatus": {
+            "OPEN": 3,
+            "COMPLETED": 3,
+            "PROCESSING": 1,
+            "ACTION REQUIRED": 1,
+            "CLOSED": 2,
+            "CANCELLED": 1
+          },
+          "partnerPatientId": "0d517f66-7afd-c4db-26fc-89990f46486e",
+          "patientKey": "string",
+          "middleName": "Sara",
+          "email": "martha.rangel@domain.com"
+        },
+        "requests": [
+          {
+            "requestId": "a22e0275-1884-9a09-88ab-094431f6a9ca",
+            "referenceId": "1234567890"
+          },
+          {
+            "requestId": "093de642-5702-ca03-d20d-e1f4f0be4c32",
+            "referenceId": "1234567890"
+          }
+        ]
+      },
+      {
+        "patient": {
+          "firstName": "Martha",
+          "lastName": "Rangel",
+          "address": {
+            "address1": "4990 HOOVER RD",
+            "address2": "APT 227",
+            "city": "GROVE CITY",
+            "state": "OH",
+            "postalCode": "43123"
+          },
+          "dateOfBirth": "1970-03-10",
+          "genderName": "female",
+          "phoneNumber": "7175501675",
+          "primaryLanguage": "english",
+          "cumulativePatientStatus": {
+            "OPEN": 3,
+            "COMPLETED": 3,
+            "PROCESSING": 1,
+            "ACTION REQUIRED": 1,
+            "CLOSED": 2,
+            "CANCELLED": 1
+          },
+          "partnerPatientId": "6a503427-4a99-c64d-c332-75f66a576146",
+          "patientKey": "string",
+          "middleName": "Sara",
+          "email": "martha.rangel@domain.com"
+        },
+        "requests": [
+          {
+            "requestId": "5d66efc0-b65a-db26-3d65-80a0c16c9bf3",
+            "referenceId": "1234567890"
+          },
+          {
+            "requestId": "f2cc56d9-edfe-ef38-ba46-49da8d2302c5",
+            "referenceId": "1234567890"
+          }
+        ]
+      }
+    ],
+    "pagination": {
+      "offset": 1029.4931615101243,
+      "limit": 1791.2523673689984,
+      "total": 4377.394809207262
+    }
+  }
+  ```
+}

@@ -1,0 +1,29 @@
+meta {
+  name: Get HIE documents
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/v1/patients/:patientId/hie-docs
+  body: none
+  auth: inherit
+}
+
+params:path {
+  patientId: {{patientId}}
+}
+
+headers {
+  Accept: application/json
+}
+
+tests {
+  test("responds 2xx", () => {
+    expect(res.status).to.be.within(200, 299);
+  });
+}
+
+docs {
+  HIE documents returned for the patient.
+}

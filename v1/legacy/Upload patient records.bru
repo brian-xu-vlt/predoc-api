@@ -1,0 +1,49 @@
+meta {
+  name: Upload patient records
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/v1/records/upload
+  body: multipart-form
+  auth: inherit
+}
+
+headers {
+  Accept: application/json
+}
+
+body:multipart-form {
+  file: @file(fixtures/sample-record.pdf)
+  patientData: {"firstName": "Calvin", "lastName": "Hills", "dateOfBirth": "1989-08-16", "phoneNumber": "5557578394", "patientGender": "male", "patientAddress": {"addressLine1": "765 Dickinson Annex Unit 1", "city": "Madison", "stateCode": "WI", "postalCode": "53714"}}
+  partnerPatientId: {{patientId}}
+  ~appointmentDate: 2027-09-17
+  fileName: sample-record-{{$timestamp}}.pdf
+  ~notificationEmails: {{requestingProviderEmail}}
+}
+
+docs {
+  Upload patient records to Predoc.
+
+  ### Fields
+
+  | Field | Description |
+  |---|---|
+  | `patientData` | Patient data. |
+  | `partnerPatientId` | Partner patient ID. |
+  | `appointmentDate` | Appointment date. |
+  | `fileName` | File name. |
+  | `notificationEmails` | Email to send completion notification to. Should belong to the organization profile |
+
+  ### Example response 
+
+  ```json
+  {
+    "success": true,
+    "patientId": "string",
+    "recordUploadId": "string",
+    "message": "Error with AWS Credentials"
+  }
+  ```
+}

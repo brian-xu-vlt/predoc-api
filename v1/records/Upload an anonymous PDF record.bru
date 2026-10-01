@@ -1,0 +1,47 @@
+meta {
+  name: Upload an anonymous PDF record
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/v1/records/upload/anonymous
+  body: multipart-form
+  auth: inherit
+}
+
+headers {
+  Accept: application/json
+}
+
+body:multipart-form {
+  file: @file(fixtures/sample-record.pdf)
+  fileName: sample-record-{{$timestamp}}.pdf
+  urgent: false
+}
+
+script:post-response {
+  bru.setVar("recordUploadId", res.body.recordUploadId);
+}
+
+docs {
+  Uploads a PDF record that is not yet associated with a patient profile. Only PDF files are accepted, with a maximum file size of 300 MB.
+
+  ### Fields
+
+  | Field | Description |
+  |---|---|
+  | `file` | PDF file upload. |
+  | `fileName` | File name. fileName is matched case-insensitively for duplicate detection. Changing only letter casing, such as Report.pdf to report.pdf, is treated as the same filename and may still be rejected as a duplicate. Pipe characters (|) are removed during upload. |
+  | `urgent` | Whether the upload is urgent. |
+
+  ### Example response 
+
+  ```json
+  {
+    "recordUploadId": "string",
+    "status": "IDENTIFYING",
+    "message": "string"
+  }
+  ```
+}

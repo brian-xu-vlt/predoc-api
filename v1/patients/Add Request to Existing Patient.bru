@@ -1,0 +1,61 @@
+meta {
+  name: Add Request to Existing Patient
+  type: http
+  seq: 20
+}
+
+post {
+  url: {{baseUrl}}/v1/patients/:patientId/requests
+  body: json
+  auth: inherit
+}
+
+params:path {
+  patientId: {{patientId}}
+}
+
+headers {
+  Accept: application/json
+}
+
+body:json {
+  {
+    "releaseToOrgName": "Inato Demo Site",
+    "releaseToProviderName": "Dr. Demo Investigator",
+    "requestingProviderEmail": "{{requestingProviderEmail}}",
+    "reasonForRequest": 2,
+    "previousProviders": [],
+    "referenceId": "demo-{{$timestamp}}",
+    "sendHieRequest": true,
+    "sendMedicationsRequest": false
+  }
+}
+
+docs {
+  Creates a record-retrieval request for an existing patient. The request initially has a `Creating` status and remains editable until it progresses beyond `Open`. The response includes the request ID for use with other endpoints.
+
+  ### Fields
+
+  | Field | Description |
+  |---|---|
+  | `patientId` | Unique identifier of the patient. |
+
+  ### Example response 201 Created
+
+  ```json
+  {
+    "partnerPatientId": "458cbe68-f15c-0819-5a3f-641e24404587",
+    "requestId": "268ac18c-47d6-6b6a-a489-954e5414d786",
+    "message": "Patient created successfully",
+    "previousProviderRetrievals": [
+      {
+        "id": "11111111-1111-4111-8111-111111111111"
+      },
+      {
+        "id": "11111111-1111-4111-8111-111111111111"
+      }
+    ],
+    "referenceId": "1234567890"
+  }
+  ```
+}

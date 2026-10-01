@@ -1,0 +1,91 @@
+meta {
+  name: Get Patient Other Records
+  type: http
+  seq: 8
+}
+
+get {
+  url: {{baseUrl}}/v1/patients/:patientId/other-records
+  body: none
+  auth: inherit
+}
+
+params:path {
+  patientId: {{patientId}}
+}
+
+headers {
+  Accept: application/json
+}
+
+docs {
+  Gets a list of other records for the patient by ID. These can be downloaded via their `url` property. Partner-facing document display text fields are returned without literal `|` separators. Identifiers, URLs, statuses, dates, splice metadata, and source metadata are preserved as received.
+
+  ### Fields
+
+  | Field | Description |
+  |---|---|
+  | `patientId` | Unique identifier of the patient. |
+
+  ### Example response 200 OK
+
+  ```json
+  {
+    "partnerPatientId": "d4785cd2-8dee-b57b-dcaf-2f2ed18a342a",
+    "otherRecords": [
+      {
+        "id": "3746a7de-e7a1-535e-b90e-88024220eaa8",
+        "title": "Lab Results",
+        "date": "2008-05-07",
+        "status": "PROCESSING",
+        "comments": "The quick brown fox jumps over the lazy dog.",
+        "createdAt": "2009-12-15T14:18:08.739Z",
+        "images": [
+          {
+            "id": "7c6c79cc-f733-6270-fff0-93a42d4f4d4c",
+            "url": "https://example.com/document.pdf",
+            "createdAt": "2013-04-09T03:56:22.741Z"
+          },
+          {
+            "id": "304e10b6-2ee1-329b-88de-498d52f727af",
+            "url": "https://example.com/document.pdf",
+            "createdAt": "1999-06-01T03:31:39.073Z"
+          }
+        ],
+        "indexedRecordSpliceType": "CANVAS_SET",
+        "type": {
+          "id": "3393842e-d9dc-888b-711f-6339ebbea1ec",
+          "name": "labcorp",
+          "displayName": "Labcorp"
+        }
+      },
+      {
+        "id": "855b5bd5-f22b-4988-6357-041ae7836d11",
+        "title": "Lab Results",
+        "date": "1949-03-06",
+        "status": "PROCESSING",
+        "comments": "The quick brown fox jumps over the lazy dog.",
+        "createdAt": "1988-09-04T07:07:05.533Z",
+        "images": [
+          {
+            "id": "318743c1-1bf7-9317-add1-959ee3522d28",
+            "url": "https://example.com/document.pdf",
+            "createdAt": "1976-07-17T11:34:17.688Z"
+          },
+          {
+            "id": "d3c31343-280b-ba06-648e-f8db7b902a80",
+            "url": "https://example.com/document.pdf",
+            "createdAt": "1956-06-01T14:37:13.750Z"
+          }
+        ],
+        "indexedRecordSpliceType": "CANVAS_SET",
+        "type": {
+          "id": "40f1fb90-4602-8325-0723-95032dd38d5d",
+          "name": "labcorp",
+          "displayName": "Labcorp"
+        }
+      }
+    ]
+  }
+  ```
+}

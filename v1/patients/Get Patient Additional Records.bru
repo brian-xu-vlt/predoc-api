@@ -1,0 +1,79 @@
+meta {
+  name: Get Patient Additional Records
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseUrl}}/v1/patients/:patientId/additional-records
+  body: none
+  auth: inherit
+}
+
+params:path {
+  patientId: {{patientId}}
+}
+
+headers {
+  Accept: application/json
+}
+
+docs {
+  Gets a list of additional records for the patient by ID. These can be downloaded via their `url` property. Partner-facing document display text fields are returned without literal `|` separators. Identifiers, URLs, statuses, dates, splice metadata, and source metadata are preserved as received.
+
+  ### Fields
+
+  | Field | Description |
+  |---|---|
+  | `patientId` | Unique identifier of the patient. |
+
+  ### Example response 200 OK
+
+  ```json
+  {
+    "partnerPatientId": "898b083a-5f45-d841-96d1-5faeb577f19c",
+    "additionalRecords": [
+      {
+        "id": "1cbca87d-00fe-0332-cd18-eb92446a7121",
+        "title": "Hospital discharge summary",
+        "createdAt": "1968-01-01T17:27:56.801Z",
+        "images": [
+          {
+            "id": "42c62bf9-ae1d-0ff1-42cf-a73abb4103fb",
+            "url": "https://example.com/document.pdf",
+            "createdAt": "2000-04-19T08:57:21.134Z"
+          },
+          {
+            "id": "4e383f22-f2f4-6606-7605-31ace9a491dd",
+            "url": "https://example.com/document.pdf",
+            "createdAt": "1996-07-25T10:19:07.323Z"
+          }
+        ],
+        "indexedRecordSpliceType": "SEGMENT_SET",
+        "date": "1985-06-26",
+        "comments": "Provided by external facility"
+      },
+      {
+        "id": "ec40506a-8551-ba58-97e0-980c8b2f7311",
+        "title": "Hospital discharge summary",
+        "createdAt": "2008-12-08T23:03:19.476Z",
+        "images": [
+          {
+            "id": "38f75995-18cd-f81e-b2fd-4eebe97c9ac4",
+            "url": "https://example.com/document.pdf",
+            "createdAt": "2008-03-07T11:41:41.650Z"
+          },
+          {
+            "id": "0ec8baf3-e59b-d023-e233-334dc2933a8d",
+            "url": "https://example.com/document.pdf",
+            "createdAt": "2014-12-03T19:18:33.320Z"
+          }
+        ],
+        "indexedRecordSpliceType": "SEGMENT_SET",
+        "date": "1985-04-22",
+        "comments": "Provided by external facility"
+      }
+    ]
+  }
+  ```
+}

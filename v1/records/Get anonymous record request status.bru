@@ -1,0 +1,105 @@
+meta {
+  name: Get anonymous record request status
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/v1/records/uploads/:recordUploadId/status
+  body: none
+  auth: inherit
+}
+
+params:path {
+  recordUploadId: {{recordUploadId}}
+}
+
+headers {
+  Accept: application/json
+}
+
+docs {
+  Retrieves the processing status for an anonymous record upload request.
+
+  ### Fields
+
+  | Field | Description |
+  |---|---|
+  | `recordUploadId` | The ID of the record upload request. |
+
+  ### Example response 200 OK
+
+  ```json
+  {
+    "recordUploadId": "string",
+    "status": "IDENTIFYING",
+    "originalDocumentDownloadUrl": "http://YFGAzetDsRlGpSstxSXbzhIABeKn.tgQ,vQ2GzrY,6tNA1+fvlCe4skrUIrFgu",
+    "recipientProviders": [
+      {
+        "designations": [
+          "string",
+          "string"
+        ],
+        "firstName": "string",
+        "lastName": "string",
+        "providerFacilityType": "string",
+        "facilityName": "string",
+        "email": "string",
+        "inferredNpi": "string"
+      },
+      {
+        "designations": [
+          "string",
+          "string"
+        ],
+        "firstName": "string",
+        "lastName": "string",
+        "providerFacilityType": "string",
+        "facilityName": "string",
+        "email": "string",
+        "inferredNpi": "string"
+      }
+    ],
+    "sendingProviders": [
+      {
+        "designations": [
+          "string",
+          "string"
+        ],
+        "firstName": "string",
+        "lastName": "string",
+        "providerFacilityType": "string",
+        "facilityName": "string",
+        "email": "string",
+        "inferredNpi": "string"
+      },
+      {
+        "designations": [
+          "string",
+          "string"
+        ],
+        "firstName": "string",
+        "lastName": "string",
+        "providerFacilityType": "string",
+        "facilityName": "string",
+        "email": "string",
+        "inferredNpi": "string"
+      }
+    ],
+    "documents": [
+      {
+        "documentId": "string",
+        "documentType": "string",
+        "downloadUrl": "http://fhDGaIXkivNtcfKcMrqgInOf.soxlrOD11xguTx",
+        "indexedRecordSpliceType": "SEGMENT_SET"
+      },
+      {
+        "documentId": "string",
+        "documentType": "string",
+        "downloadUrl": "https://tZdqhlyzcFg.nrttKnQv5SeDseIHU4WXqzdHz.tfJNW",
+        "indexedRecordSpliceType": "SEGMENT_SET"
+      }
+    ]
+  }
+  ```
+}

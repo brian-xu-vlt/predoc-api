@@ -1,0 +1,3742 @@
+[
+  {
+    "name": "Get Access Token",
+    "method": "POST",
+    "path": "/api/v1/auth/token",
+    "status": 200,
+    "body": {
+      "access_token": "eyJh...od4w"
+    }
+  },
+  {
+    "name": "Document Status Request",
+    "method": "GET",
+    "path": "/api/v1/documents/:documentId",
+    "status": 200,
+    "body": {
+      "patientSummaryRequestStatus": "QUEUED",
+      "patientSummaryRequestStatusMessage": "Patient summary request submitted successfully",
+      "patientSummaryRequestId": "fa09e2e6-5a97-9433-d807-76fc35b84254",
+      "documentLink": "https://example.com/patient-summary.pdf"
+    }
+  },
+  {
+    "name": "Close Previous-Provider Retrieval",
+    "method": "POST",
+    "path": "/api/v1/retrievals/previous-providers/:retrievalId/close",
+    "status": 202,
+    "body": {
+      "retrievalId": "11111111-1111-4111-8111-111111111111",
+      "requestId": "888a121d-c0f2-52ae-75a3-94692cd122f9",
+      "accepted": true,
+      "message": "Closure request accepted. Retrieval status will update shortly."
+    }
+  },
+  {
+    "name": "Get Previous-Provider Retrieval Status",
+    "method": "GET",
+    "path": "/api/v1/retrievals/previous-providers/:retrievalId",
+    "status": 200,
+    "body": {
+      "retrievalId": "11111111-1111-4111-8111-111111111111",
+      "partnerPatientId": "352eded2-ac76-b2f0-3e5f-b413b6e33fa8",
+      "requestId": "8e8c292d-119c-08de-9bce-02d72df36bd1",
+      "status": "Processing",
+      "statusGroup": "PROCESSING",
+      "updatedAt": "1998-09-08T09:03:25.197Z",
+      "canClose": true
+    }
+  },
+  {
+    "name": "Update Webhook Configuration",
+    "method": "PATCH",
+    "path": "/api/v1/events/:configurationId",
+    "status": 200,
+    "body": null
+  },
+  {
+    "name": "Delete Webhook Configuration",
+    "method": "DELETE",
+    "path": "/api/v1/events/:configurationId",
+    "status": 200,
+    "body": null
+  },
+  {
+    "name": "List Webhook Configurations",
+    "method": "GET",
+    "path": "/api/v1/events",
+    "status": 200,
+    "body": [
+      {
+        "configurationId": "c6e31ce5-3607-a400-e8f9-d02ae3837662",
+        "eventType": "ANONYMOUS_RECORD_UPLOAD_ERROR",
+        "serviceName": "Anonymous Uploads",
+        "url": "https://hook.example.com/webhook/analysis",
+        "notificationEmail": "test@example.com",
+        "isActive": true,
+        "customHeaders": [
+          {
+            "key": "X-Partner-Auth",
+            "value": "secret-token"
+          },
+          {
+            "key": "X-Partner-Auth",
+            "value": "secret-token"
+          }
+        ]
+      },
+      {
+        "configurationId": "e656e884-19b8-f68a-5642-ec6c55f9ebcf",
+        "eventType": "ANONYMOUS_RECORD_UPLOAD_ERROR",
+        "serviceName": "Anonymous Uploads",
+        "url": "https://hook.example.com/webhook/analysis",
+        "notificationEmail": "test@example.com",
+        "isActive": true,
+        "customHeaders": [
+          {
+            "key": "X-Partner-Auth",
+            "value": "secret-token"
+          },
+          {
+            "key": "X-Partner-Auth",
+            "value": "secret-token"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Create Webhook Configuration",
+    "method": "POST",
+    "path": "/api/v1/events",
+    "status": 201,
+    "body": {
+      "configurationId": "a183bace-f245-90d7-dce3-6e2e950edaef",
+      "eventType": "ANONYMOUS_RECORD_UPLOAD_COMPLETED",
+      "serviceName": "Anonymous Uploads",
+      "customHeaders": [
+        {
+          "key": "X-Partner-Auth",
+          "value": "secret-token"
+        },
+        {
+          "key": "X-Partner-Auth",
+          "value": "secret-token"
+        }
+      ]
+    }
+  },
+  {
+    "name": "Upload an anonymous PDF record",
+    "method": "POST",
+    "path": "/api/v1/records/upload/anonymous",
+    "status": 200,
+    "body": {
+      "recordUploadId": "string",
+      "status": "IDENTIFYING",
+      "message": "string"
+    }
+  },
+  {
+    "name": "Upload patient records",
+    "method": "POST",
+    "path": "/api/v1/records/upload",
+    "status": 200,
+    "body": {
+      "success": true,
+      "patientId": "string",
+      "recordUploadId": "string",
+      "message": "Error with AWS Credentials"
+    }
+  },
+  {
+    "name": "Get anonymous record request status",
+    "method": "GET",
+    "path": "/api/v1/records/uploads/:recordUploadId/status",
+    "status": 200,
+    "body": {
+      "recordUploadId": "string",
+      "status": "IDENTIFYING",
+      "originalDocumentDownloadUrl": "http://YFGAzetDsRlGpSstxSXbzhIABeKn.tgQ,vQ2GzrY,6tNA1+fvlCe4skrUIrFgu",
+      "recipientProviders": [
+        {
+          "designations": [
+            "string",
+            "string"
+          ],
+          "firstName": "string",
+          "lastName": "string",
+          "providerFacilityType": "string",
+          "facilityName": "string",
+          "email": "string",
+          "inferredNpi": "string"
+        },
+        {
+          "designations": [
+            "string",
+            "string"
+          ],
+          "firstName": "string",
+          "lastName": "string",
+          "providerFacilityType": "string",
+          "facilityName": "string",
+          "email": "string",
+          "inferredNpi": "string"
+        }
+      ],
+      "sendingProviders": [
+        {
+          "designations": [
+            "string",
+            "string"
+          ],
+          "firstName": "string",
+          "lastName": "string",
+          "providerFacilityType": "string",
+          "facilityName": "string",
+          "email": "string",
+          "inferredNpi": "string"
+        },
+        {
+          "designations": [
+            "string",
+            "string"
+          ],
+          "firstName": "string",
+          "lastName": "string",
+          "providerFacilityType": "string",
+          "facilityName": "string",
+          "email": "string",
+          "inferredNpi": "string"
+        }
+      ],
+      "documents": [
+        {
+          "documentId": "string",
+          "documentType": "string",
+          "downloadUrl": "http://fhDGaIXkivNtcfKcMrqgInOf.soxlrOD11xguTx",
+          "indexedRecordSpliceType": "SEGMENT_SET"
+        },
+        {
+          "documentId": "string",
+          "documentType": "string",
+          "downloadUrl": "https://tZdqhlyzcFg.nrttKnQv5SeDseIHU4WXqzdHz.tfJNW",
+          "indexedRecordSpliceType": "SEGMENT_SET"
+        }
+      ]
+    }
+  },
+  {
+    "name": "List of Facesheet configs available",
+    "method": "GET",
+    "path": "/api/v1/requests/facesheet-configs",
+    "status": 200,
+    "body": {
+      "facesheetConfigs": [
+        {
+          "facesheetId": "string",
+          "facesheetName": "string"
+        },
+        {
+          "facesheetId": "string",
+          "facesheetName": "string"
+        }
+      ]
+    }
+  },
+  {
+    "name": "Update Existing Patient Record Request",
+    "method": "PATCH",
+    "path": "/api/v1/requests/:requestId",
+    "status": 200,
+    "body": {
+      "message": "Request updated successfully",
+      "requestId": "9542d23b-47aa-d742-4742-fbbbe7cde90e",
+      "partnerPatientId": "b8b7c7da-a814-c731-a23e-c6950c7f42d0",
+      "status": "OPEN",
+      "referenceId": "1234567890"
+    }
+  },
+  {
+    "name": "Create Patient with Record Request",
+    "method": "POST",
+    "path": "/api/v1/requests",
+    "status": 201,
+    "body": {
+      "partnerPatientId": "458cbe68-f15c-0819-5a3f-641e24404587",
+      "requestId": "268ac18c-47d6-6b6a-a489-954e5414d786",
+      "message": "Patient created successfully",
+      "previousProviderRetrievals": [
+        {
+          "id": "11111111-1111-4111-8111-111111111111"
+        },
+        {
+          "id": "11111111-1111-4111-8111-111111111111"
+        }
+      ],
+      "referenceId": "1234567890"
+    }
+  },
+  {
+    "name": "List of All Patient Record Requests",
+    "method": "GET",
+    "path": "/api/v1/requests",
+    "status": 200,
+    "body": {
+      "recordRequests": [
+        {
+          "patient": {
+            "firstName": "Martha",
+            "lastName": "Rangel",
+            "address": {
+              "address1": "4990 HOOVER RD",
+              "address2": "APT 227",
+              "city": "GROVE CITY",
+              "state": "OH",
+              "postalCode": "43123"
+            },
+            "dateOfBirth": "1970-03-10",
+            "genderName": "female",
+            "phoneNumber": "7175501675",
+            "primaryLanguage": "english",
+            "cumulativePatientStatus": {
+              "OPEN": 3,
+              "COMPLETED": 3,
+              "PROCESSING": 1,
+              "ACTION REQUIRED": 1,
+              "CLOSED": 2,
+              "CANCELLED": 1
+            },
+            "partnerPatientId": "7dae55f3-c6d7-e530-cdda-ad77f7affc53",
+            "patientKey": "string",
+            "middleName": "Sara",
+            "email": "martha.rangel@domain.com"
+          },
+          "requests": [
+            {
+              "requestId": "09742a04-f9e7-2b32-50a8-7c8a47b7f21b",
+              "referenceId": "1234567890"
+            },
+            {
+              "requestId": "0082e4ac-1278-0df8-8613-ad56ad236ad9",
+              "referenceId": "1234567890"
+            }
+          ]
+        },
+        {
+          "patient": {
+            "firstName": "Martha",
+            "lastName": "Rangel",
+            "address": {
+              "address1": "4990 HOOVER RD",
+              "address2": "APT 227",
+              "city": "GROVE CITY",
+              "state": "OH",
+              "postalCode": "43123"
+            },
+            "dateOfBirth": "1970-03-10",
+            "genderName": "female",
+            "phoneNumber": "7175501675",
+            "primaryLanguage": "english",
+            "cumulativePatientStatus": {
+              "OPEN": 3,
+              "COMPLETED": 3,
+              "PROCESSING": 1,
+              "ACTION REQUIRED": 1,
+              "CLOSED": 2,
+              "CANCELLED": 1
+            },
+            "partnerPatientId": "68436fb8-e42c-c6f1-8fb6-c197f7542ed3",
+            "patientKey": "string",
+            "middleName": "Sara",
+            "email": "martha.rangel@domain.com"
+          },
+          "requests": [
+            {
+              "requestId": "bb5256f1-c175-bee5-490f-2753c8e535dd",
+              "referenceId": "1234567890"
+            },
+            {
+              "requestId": "66caa704-ae5e-38a9-313d-80192bfac5e6",
+              "referenceId": "1234567890"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "name": "Get Curated Patient Data",
+    "method": "GET",
+    "path": "/api/v1/patients/:patientId/curated-patient-data/:classificationGroupType",
+    "status": 200,
+    "body": {
+      "classificationGroupType": "allergies",
+      "partnerPatientId": "11111111-1111-4111-8111-111111111111",
+      "patientKey": "patient-key-123",
+      "items": [
+        {
+          "patientId": "11111111-1111-4111-8111-111111111111",
+          "allergyId": "allergy-1",
+          "practitionerRoleId": "practitioner-role-1",
+          "allergyCodes": [
+            "91935009"
+          ],
+          "name": "Peanuts",
+          "recordedDate": "2024-01-20",
+          "onsetStartDate": "2024-01-15",
+          "onsetEndDate": null,
+          "reactionManifestation": "anaphylaxis",
+          "reactionManifestationCodes": [
+            "39579001"
+          ],
+          "sources": [
+            {
+              "source": "HIE",
+              "retrievalDate": "2026-04-01"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "name": "Search Patient Documents V1",
+    "method": "POST",
+    "path": "/api/v1/patients/:patientId/documents/search",
+    "status": 200,
+    "body": {
+      "partnerPatientId": "8584924c-a544-f9e0-907c-91a076822b6e",
+      "documents": [
+        {
+          "documentId": "1087c31a-704f-a833-b9da-851625407139",
+          "category": "procedure_notes",
+          "urls": [
+            "https://example.com/document1.jpg",
+            "https://example.com/document2.jpg"
+          ],
+          "createdDate": "2007-09-04T15:41:18.267Z",
+          "indexedRecordSpliceType": "SEGMENT_SET",
+          "documentType": "string",
+          "documentTitle": "string",
+          "labName": "string",
+          "drugName": "string",
+          "reaction": "string",
+          "vaccineTitle": "string",
+          "docDate": "1997-05-15T00:08:32.961Z"
+        },
+        {
+          "documentId": "5e71657d-b944-0a71-77a2-838940f429d7",
+          "category": "procedure_notes",
+          "urls": [
+            "https://example.com/document1.jpg",
+            "https://example.com/document2.jpg"
+          ],
+          "createdDate": "1990-04-15T00:43:02.016Z",
+          "indexedRecordSpliceType": "PRESPLICED",
+          "documentType": "string",
+          "documentTitle": "string",
+          "labName": "string",
+          "drugName": "string",
+          "reaction": "string",
+          "vaccineTitle": "string",
+          "docDate": "1975-12-19T16:30:48.756Z"
+        }
+      ]
+    }
+  },
+  {
+    "name": "Get Patient Documents",
+    "method": "GET",
+    "path": "/api/v1/patients/:patientId/documents",
+    "status": 200,
+    "body": {
+      "partnerPatientId": "5c6f9548-9b38-96d9-978d-584fdfd872f2",
+      "documents": [
+        {
+          "id": "11342568-1859-7a49-d1c4-3946b78223c6",
+          "title": "Discharge Summary",
+          "comments": "Reviewed by provider",
+          "date": "string",
+          "createdAt": "1963-01-26T04:22:24.013Z",
+          "images": [
+            {
+              "id": "d580c835-05a5-561b-30c2-010790d33a1a",
+              "url": "https://example.com/document.pdf",
+              "createdAt": "2018-10-04T10:28:59.476Z"
+            },
+            {
+              "id": "193cf72b-e130-6918-c874-9d7e82e6e00c",
+              "url": "https://example.com/document.pdf",
+              "createdAt": "1972-12-11T09:31:18.150Z"
+            }
+          ],
+          "documentType": "CONSENT AND AUTHORIZATION FORMS",
+          "indexedRecordSpliceType": "SEGMENT_SET"
+        },
+        {
+          "id": "46006878-ee53-3d93-4a26-ecaa5f2607eb",
+          "title": "Discharge Summary",
+          "comments": "Reviewed by provider",
+          "date": "string",
+          "createdAt": "1964-04-27T17:47:14.653Z",
+          "images": [
+            {
+              "id": "63492999-82d3-6c2b-7d45-e6f2a0872629",
+              "url": "https://example.com/document.pdf",
+              "createdAt": "1968-05-30T19:00:01.719Z"
+            },
+            {
+              "id": "70c53d01-1933-9aae-32aa-e9ac1b11da57",
+              "url": "https://example.com/document.pdf",
+              "createdAt": "2025-06-18T17:16:33.081Z"
+            }
+          ],
+          "documentType": "CONSENT AND AUTHORIZATION FORMS",
+          "indexedRecordSpliceType": "SEGMENT_SET"
+        }
+      ]
+    }
+  },
+  {
+    "name": "Get Patient Additional Records",
+    "method": "GET",
+    "path": "/api/v1/patients/:patientId/additional-records",
+    "status": 200,
+    "body": {
+      "partnerPatientId": "898b083a-5f45-d841-96d1-5faeb577f19c",
+      "additionalRecords": [
+        {
+          "id": "1cbca87d-00fe-0332-cd18-eb92446a7121",
+          "title": "Hospital discharge summary",
+          "createdAt": "1968-01-01T17:27:56.801Z",
+          "images": [
+            {
+              "id": "42c62bf9-ae1d-0ff1-42cf-a73abb4103fb",
+              "url": "https://example.com/document.pdf",
+              "createdAt": "2000-04-19T08:57:21.134Z"
+            },
+            {
+              "id": "4e383f22-f2f4-6606-7605-31ace9a491dd",
+              "url": "https://example.com/document.pdf",
+              "createdAt": "1996-07-25T10:19:07.323Z"
+            }
+          ],
+          "indexedRecordSpliceType": "SEGMENT_SET",
+          "date": "1985-06-26",
+          "comments": "Provided by external facility"
+        },
+        {
+          "id": "ec40506a-8551-ba58-97e0-980c8b2f7311",
+          "title": "Hospital discharge summary",
+          "createdAt": "2008-12-08T23:03:19.476Z",
+          "images": [
+            {
+              "id": "38f75995-18cd-f81e-b2fd-4eebe97c9ac4",
+              "url": "https://example.com/document.pdf",
+              "createdAt": "2008-03-07T11:41:41.650Z"
+            },
+            {
+              "id": "0ec8baf3-e59b-d023-e233-334dc2933a8d",
+              "url": "https://example.com/document.pdf",
+              "createdAt": "2014-12-03T19:18:33.320Z"
+            }
+          ],
+          "indexedRecordSpliceType": "SEGMENT_SET",
+          "date": "1985-04-22",
+          "comments": "Provided by external facility"
+        }
+      ]
+    }
+  },
+  {
+    "name": "Get Patient Drug Allergies",
+    "method": "GET",
+    "path": "/api/v1/patients/:patientId/drug-allergies",
+    "status": 200,
+    "body": {
+      "partnerPatientId": "e44fae03-fc2a-e4a8-f903-bb2e4e496cda",
+      "drugAllergies": [
+        {
+          "id": "3713c26b-2434-7159-209b-c33153751682",
+          "alternateName": "Accutane",
+          "reaction": "Rash",
+          "comments": "The quick brown fox jumps over the lazy dog.",
+          "createdAt": "2005-08-19T05:06:07.009Z",
+          "images": [
+            {
+              "id": "3977de9c-6505-719e-7340-71c9f50b25bf",
+              "url": "https://example.com/document.pdf",
+              "createdAt": "1984-10-18T15:06:06.994Z"
+            },
+            {
+              "id": "522a3116-b790-bb93-905f-cb5c87ba4b95",
+              "url": "https://example.com/document.pdf",
+              "createdAt": "2022-10-27T15:07:02.322Z"
+            }
+          ],
+          "indexedRecordSpliceType": "SEGMENT_SET",
+          "drugName": "Isotretinoin"
+        },
+        {
+          "id": "9890b887-727d-2520-27f6-643064b21e7a",
+          "alternateName": "Accutane",
+          "reaction": "Rash",
+          "comments": "The quick brown fox jumps over the lazy dog.",
+          "createdAt": "1972-07-25T02:19:46.838Z",
+          "images": [
+            {
+              "id": "73c8d33b-5653-25b5-e26e-7c341f7c0232",
+              "url": "https://example.com/document.pdf",
+              "createdAt": "1970-12-08T19:42:35.478Z"
+            },
+            {
+              "id": "13c3b796-858c-c88a-4a49-d58fbb03ecf6",
+              "url": "https://example.com/document.pdf",
+              "createdAt": "1968-08-04T15:20:50.227Z"
+            }
+          ],
+          "indexedRecordSpliceType": "CANVAS_SET",
+          "drugName": "Isotretinoin"
+        }
+      ]
+    }
+  },
+  {
+    "name": "Get Patient Imaging Results",
+    "method": "GET",
+    "path": "/api/v1/patients/:patientId/imaging-results",
+    "status": 200,
+    "body": {
+      "partnerPatientId": "d5f82952-a9fb-21d4-2626-6733483d3c91",
+      "imagingResults": [
+        {
+          "id": "edfad404-a302-8ac1-65a8-d260bbb8408a",
+          "title": "X-Ray Results",
+          "date": "2012-06-28",
+          "comments": "No acute findings.",
+          "createdAt": "1964-04-17T12:07:31.072Z",
+          "images": [
+            {
+              "id": "a3ad4174-bece-ef6b-87af-95df7792b639",
+              "url": "https://example.com/document.pdf",
+              "createdAt": "1993-08-29T16:53:17.915Z"
+            },
+            {
+              "id": "8cecfff9-38fe-e002-dd53-a542079760ba",
+              "url": "https://example.com/document.pdf",
+              "createdAt": "1967-10-13T03:23:50.180Z"
+            }
+          ],
+          "indexedRecordSpliceType": "PRESPLICED",
+          "type": {
+            "id": "754ee44a-cd91-917f-dbc3-73c6ba166f77",
+            "name": "xray",
+            "displayName": "X-Ray"
+          },
+          "bodyPart": {
+            "id": "84cbd41d-ceff-8585-af40-86e53af8688d",
+            "name": "cervicothoracic",
+            "displayName": "Cervicothoracic"
+          },
+          "alternateBodyPartName": "clavicle"
+        },
+        {
+          "id": "8dcef93f-4efb-4880-770b-5aa0a2842794",
+          "title": "X-Ray Results",
+          "date": "1995-10-25",
+          "comments": "No acute findings.",
+          "createdAt": "1962-11-07T15:46:24.266Z",
+          "images": [
+            {
+              "id": "f6269e70-84ad-0617-26b9-d08a5436ff61",
+              "url": "https://example.com/document.pdf",
+              "createdAt": "2010-02-03T08:00:12.871Z"
+            },
+            {
+              "id": "24865f2f-1f96-4758-5fdb-0d402759c4bc",
+              "url": "https://example.com/document.pdf",
+              "createdAt": "1973-03-14T17:21:42.477Z"
+            }
+          ],
+          "indexedRecordSpliceType": "SEGMENT_SET",
+          "type": {
+            "id": "3bedcc22-38cc-6b16-340f-0169b87c42fa",
+            "name": "xray",
+            "displayName": "X-Ray"
+          },
+          "bodyPart": {
+            "id": "037856a9-9558-dbf7-00b1-75930d7889c0",
+            "name": "cervicothoracic",
+            "displayName": "Cervicothoracic"
+          },
+          "alternateBodyPartName": "clavicle"
+        }
+      ]
+    }
+  },
+  {
+    "name": "Get Patient Lab Tests",
+    "method": "GET",
+    "path": "/api/v1/patients/:patientId/lab-tests",
+    "status": 200,
+    "body": {
+      "partnerPatientId": "64577bc4-a005-7a03-b737-59e95ff09b07",
+      "labTests": [
+        {
+          "id": "81eb0d02-9f5e-7368-b910-8429885195e6",
+          "type": "Lakeview Labs",
+          "title": "Bloodwork Panel",
+          "date": "1974-08-04",
+          "status": "PROCESSED",
+          "createdAt": "2008-06-12T12:04:12.343Z",
+          "images": [
+            {
+              "id": "7c9a63b5-a9d6-b7cf-a03c-3fb662ad2325",
+              "url": "https://example.com/document.pdf",
+              "createdAt": "2014-04-17T19:49:16.332Z"
+            },
+            {
+              "id": "5e2b4051-d2ff-3afb-0acb-e45d356569da",
+              "url": "https://example.com/document.pdf",
+              "createdAt": "1954-06-23T04:36:25.160Z"
+            }
+          ],
+          "results": [
+            {
+              "id": "fe089739-6c8e-5a75-9f90-07aa8871251c",
+              "labTestId": "67c31b3c-d798-3e97-ea4d-849afe89f18b",
+              "chemistryName": "CBC",
+              "value": "CBC Results",
+              "isTrendable": false,
+              "createdAt": "1979-06-22T02:34:59.548Z",
+              "specialty": {
+                "id": "cd7f2294-becf-ab69-65a0-a47b3c8ca157",
+                "name": "hematologyOncology",
+                "displayName": "Hematology/Oncology"
+              },
+              "normalRange": "10 mg/dL"
+            },
+            {
+              "id": "3a79daf0-8d83-e05b-5197-c329b18732a9",
+              "labTestId": "14f2010b-9c60-925f-6b39-53222a6dfdb1",
+              "chemistryName": "CBC",
+              "value": "CBC Results",
+              "isTrendable": true,
+              "createdAt": "2003-12-26T17:45:30.348Z",
+              "specialty": {
+                "id": "c22ff16e-875e-1e3b-a7d9-df1708f186d2",
+                "name": "hematologyOncology",
+                "displayName": "Hematology/Oncology"
+              },
+              "normalRange": "10 mg/dL"
+            }
+          ]
+        },
+        {
+          "id": "5b3593af-a6c6-fb7d-e09e-0157d9450683",
+          "type": "Lakeview Labs",
+          "title": "Bloodwork Panel",
+          "date": "1949-09-02",
+          "status": "PROCESSED",
+          "createdAt": "1988-08-11T08:05:28.496Z",
+          "images": [
+            {
+              "id": "30f1c5cb-3c4c-1a31-a0ac-5a2d1ba5561d",
+              "url": "https://example.com/document.pdf",
+              "createdAt": "2024-12-28T02:45:40.213Z"
+            },
+            {
+              "id": "af744983-2ec7-6695-8372-01f4feb16dfa",
+              "url": "https://example.com/document.pdf",
+              "createdAt": "1969-11-15T05:33:45.794Z"
+            }
+          ],
+          "results": [
+            {
+              "id": "aca93a03-da48-92c2-337e-a9bbc4a0b65a",
+              "labTestId": "92394e9c-4390-0b29-a925-2633ffa431c4",
+              "chemistryName": "CBC",
+              "value": "CBC Results",
+              "isTrendable": false,
+              "createdAt": "1994-02-11T02:06:48.981Z",
+              "specialty": {
+                "id": "53b3fe65-013c-0ac2-42ad-e59ac9389c94",
+                "name": "hematologyOncology",
+                "displayName": "Hematology/Oncology"
+              },
+              "normalRange": "10 mg/dL"
+            },
+            {
+              "id": "ba19467b-ad59-fe4f-5faa-8d739be4371c",
+              "labTestId": "7843439f-0ee3-590c-a3ce-03deb3bf3265",
+              "chemistryName": "CBC",
+              "value": "CBC Results",
+              "isTrendable": false,
+              "createdAt": "1983-05-28T20:39:42.253Z",
+              "specialty": {
+                "id": "ae0e1c40-4eec-575d-bacb-2509648e7a03",
+                "name": "hematologyOncology",
+                "displayName": "Hematology/Oncology"
+              },
+              "normalRange": "10 mg/dL"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "name": "Get Patient Other Records",
+    "method": "GET",
+    "path": "/api/v1/patients/:patientId/other-records",
+    "status": 200,
+    "body": {
+      "partnerPatientId": "d4785cd2-8dee-b57b-dcaf-2f2ed18a342a",
+      "otherRecords": [
+        {
+          "id": "3746a7de-e7a1-535e-b90e-88024220eaa8",
+          "title": "Lab Results",
+          "date": "2008-05-07",
+          "status": "PROCESSING",
+          "comments": "The quick brown fox jumps over the lazy dog.",
+          "createdAt": "2009-12-15T14:18:08.739Z",
+          "images": [
+            {
+              "id": "7c6c79cc-f733-6270-fff0-93a42d4f4d4c",
+              "url": "https://example.com/document.pdf",
+              "createdAt": "2013-04-09T03:56:22.741Z"
+            },
+            {
+              "id": "304e10b6-2ee1-329b-88de-498d52f727af",
+              "url": "https://example.com/document.pdf",
+              "createdAt": "1999-06-01T03:31:39.073Z"
+            }
+          ],
+          "indexedRecordSpliceType": "CANVAS_SET",
+          "type": {
+            "id": "3393842e-d9dc-888b-711f-6339ebbea1ec",
+            "name": "labcorp",
+            "displayName": "Labcorp"
+          }
+        },
+        {
+          "id": "855b5bd5-f22b-4988-6357-041ae7836d11",
+          "title": "Lab Results",
+          "date": "1949-03-06",
+          "status": "PROCESSING",
+          "comments": "The quick brown fox jumps over the lazy dog.",
+          "createdAt": "1988-09-04T07:07:05.533Z",
+          "images": [
+            {
+              "id": "318743c1-1bf7-9317-add1-959ee3522d28",
+              "url": "https://example.com/document.pdf",
+              "createdAt": "1976-07-17T11:34:17.688Z"
+            },
+            {
+              "id": "d3c31343-280b-ba06-648e-f8db7b902a80",
+              "url": "https://example.com/document.pdf",
+              "createdAt": "1956-06-01T14:37:13.750Z"
+            }
+          ],
+          "indexedRecordSpliceType": "CANVAS_SET",
+          "type": {
+            "id": "40f1fb90-4602-8325-0723-95032dd38d5d",
+            "name": "labcorp",
+            "displayName": "Labcorp"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "name": "Get Patient Procedure Notes",
+    "method": "GET",
+    "path": "/api/v1/patients/:patientId/procedure-notes",
+    "status": 200,
+    "body": {
+      "partnerPatientId": "b709a16d-44d0-584f-2bc3-82a0d857da87",
+      "procedureNotes": [
+        {
+          "id": "d2eacc1c-fe46-152e-4641-4cadb8168cd9",
+          "title": "Surgery Note",
+          "proceduralist": "Dr. John Doe",
+          "date": "1951-10-27",
+          "comments": "The quick brown fox jumps over the lazy dog.",
+          "createdAt": "1969-11-18T03:42:49.499Z",
+          "images": [
+            {
+              "id": "45e991d1-514e-92ca-918b-d414c0346dce",
+              "url": "https://example.com/document.pdf",
+              "createdAt": "2010-08-09T10:17:30.975Z"
+            },
+            {
+              "id": "967dd17a-b11f-4fb6-bc73-d0f5c9d4a0e0",
+              "url": "https://example.com/document.pdf",
+              "createdAt": "1985-11-23T14:53:20.637Z"
+            }
+          ],
+          "indexedRecordSpliceType": "CANVAS_SET"
+        },
+        {
+          "id": "ba89a8fe-b422-fd65-b85f-1fd6a958091a",
+          "title": "Surgery Note",
+          "proceduralist": "Dr. John Doe",
+          "date": "1977-12-29",
+          "comments": "The quick brown fox jumps over the lazy dog.",
+          "createdAt": "1969-02-06T18:15:58.037Z",
+          "images": [
+            {
+              "id": "f0563808-801d-6251-a026-df9c025701f7",
+              "url": "https://example.com/document.pdf",
+              "createdAt": "2002-05-06T03:12:33.110Z"
+            },
+            {
+              "id": "5ee2d3cd-d8fc-3368-1a59-39c5ec0117ef",
+              "url": "https://example.com/document.pdf",
+              "createdAt": "2015-12-02T17:22:45.131Z"
+            }
+          ],
+          "indexedRecordSpliceType": "CANVAS_SET"
+        }
+      ]
+    }
+  },
+  {
+    "name": "Get Patient Provider Facility Notes",
+    "method": "GET",
+    "path": "/api/v1/patients/:patientId/provider-notes",
+    "status": 200,
+    "body": {
+      "partnerPatientId": "4ddac7f2-78bc-2218-abc8-9c764ff66971",
+      "providerFacilityNotes": [
+        {
+          "id": "bad378bf-ebaf-6913-1525-1e93394135ac",
+          "providerName": "Lakeview Clinic",
+          "date": "2020-02-10",
+          "comments": "Follow up in six months.",
+          "createdAt": "2000-05-04T02:02:07.183Z",
+          "images": [
+            {
+              "id": "50f82952-c27c-c75f-443f-8a3c63c0abc3",
+              "url": "https://example.com/document.pdf",
+              "createdAt": "1970-10-03T20:04:36.394Z"
+            },
+            {
+              "id": "0fa33906-20b3-da1a-1324-9595e98b87d6",
+              "url": "https://example.com/document.pdf",
+              "createdAt": "1995-09-23T04:18:50.028Z"
+            }
+          ],
+          "indexedRecordSpliceType": "SEGMENT_SET",
+          "providerType": {
+            "id": "b48a6ba2-9a1d-31dd-3e08-7293c904b4fd",
+            "name": "internalMedicine",
+            "displayName": "Internal Medicine"
+          },
+          "alternateProviderTypeName": "nonClinicalProvider"
+        },
+        {
+          "id": "c2d96996-2ad9-eb1a-473d-879f83f9c247",
+          "providerName": "Lakeview Clinic",
+          "date": "1960-10-13",
+          "comments": "Follow up in six months.",
+          "createdAt": "1995-11-24T17:15:24.000Z",
+          "images": [
+            {
+              "id": "58d0a801-d902-20f1-d937-382d46f740af",
+              "url": "https://example.com/document.pdf",
+              "createdAt": "2021-08-05T05:11:17.098Z"
+            },
+            {
+              "id": "bda306e7-9866-648d-01bd-01ae1f21766c",
+              "url": "https://example.com/document.pdf",
+              "createdAt": "2023-04-16T00:27:56.737Z"
+            }
+          ],
+          "indexedRecordSpliceType": "PRESPLICED",
+          "providerType": {
+            "id": "72c2debd-4bac-53bc-938f-a4b4d8e849b5",
+            "name": "internalMedicine",
+            "displayName": "Internal Medicine"
+          },
+          "alternateProviderTypeName": "nonClinicalProvider"
+        }
+      ]
+    }
+  },
+  {
+    "name": "Get Patient Vaccine & Immunization Records",
+    "method": "GET",
+    "path": "/api/v1/patients/:patientId/vaccine-records",
+    "status": 200,
+    "body": {
+      "partnerPatientId": "302376f1-956b-371a-87dd-33dca74848f6",
+      "vaccineRecords": [
+        {
+          "id": "2e885d1c-69cb-62d8-8d31-9abb7a680647",
+          "date": "1988-01-18",
+          "comments": "The quick brown fox jumps over the lazy dog.",
+          "createdAt": "2018-09-23T21:00:30.117Z",
+          "images": [
+            {
+              "id": "8758dc41-c4c5-1a70-823b-16323dbec274",
+              "url": "https://example.com/document.pdf",
+              "createdAt": "1975-11-12T05:19:51.846Z"
+            },
+            {
+              "id": "5cf5b382-93a5-7c20-b811-c70fe1035f0a",
+              "url": "https://example.com/document.pdf",
+              "createdAt": "2008-12-03T03:08:06.953Z"
+            }
+          ],
+          "indexedRecordSpliceType": "CANVAS_SET",
+          "type": {
+            "id": "74b32fa4-3631-b7b1-7221-b8acf2cbac3e",
+            "name": "adacelTdapVaccine",
+            "displayName": "Adacel (Tdap) Vaccine"
+          },
+          "alternateName": "someOtherVaccine"
+        },
+        {
+          "id": "596f1f93-f1a9-9147-0402-9ef161a453d4",
+          "date": "1972-05-16",
+          "comments": "The quick brown fox jumps over the lazy dog.",
+          "createdAt": "1959-05-16T08:41:03.096Z",
+          "images": [
+            {
+              "id": "a5ab902d-bd9a-c16f-1649-6741d6e2a723",
+              "url": "https://example.com/document.pdf",
+              "createdAt": "1950-01-13T09:55:03.369Z"
+            },
+            {
+              "id": "84e49884-2d5e-23f9-0394-c69484c65d49",
+              "url": "https://example.com/document.pdf",
+              "createdAt": "1955-12-02T18:53:07.501Z"
+            }
+          ],
+          "indexedRecordSpliceType": "CANVAS_SET",
+          "type": {
+            "id": "1613c522-103d-c45b-610a-a13e361a514a",
+            "name": "adacelTdapVaccine",
+            "displayName": "Adacel (Tdap) Vaccine"
+          },
+          "alternateName": "someOtherVaccine"
+        }
+      ]
+    }
+  },
+  {
+    "name": "Get Patient Vaccines & Immunization Documents",
+    "method": "GET",
+    "path": "/api/v1/patients/:patientId/vaccine-documents",
+    "status": 200,
+    "body": {
+      "partnerPatientId": "118613f3-41b4-a347-c90c-ad176bdca3f0",
+      "vaccineDocuments": [
+        {
+          "id": "b2e7efc5-b975-f3bc-d37f-3c369fa5afd7",
+          "createdAt": "2019-03-29T13:32:53.200Z",
+          "images": [
+            {
+              "id": "2c7bcdd4-4532-9f32-906b-1dee1147af36",
+              "url": "https://example.com/document.pdf",
+              "createdAt": "1965-08-26T05:01:56.665Z"
+            },
+            {
+              "id": "503a0a9d-8745-82fd-f4fc-968396af50fc",
+              "url": "https://example.com/document.pdf",
+              "createdAt": "1969-07-12T10:58:11.301Z"
+            }
+          ],
+          "indexedRecordSpliceType": "CANVAS_SET",
+          "vaccines": [
+            {
+              "id": "28a23ba7-a966-c75f-9d01-7454cc6dd39a",
+              "date": "1971-11-08",
+              "comments": "The quick brown fox jumps over the lazy dog.",
+              "type": {
+                "id": "df04ea75-5094-28e1-b73e-5cf6c94ba305",
+                "name": "adacelTdapVaccine",
+                "displayName": "Adacel (Tdap) Vaccine"
+              },
+              "alternateName": "someOtherVaccine"
+            },
+            {
+              "id": "ffa76b95-d3fa-a759-b1d1-10319decaac4",
+              "date": "1958-11-12",
+              "comments": "The quick brown fox jumps over the lazy dog.",
+              "type": {
+                "id": "c7c3ff51-c403-6cec-36c5-b0dde66b2811",
+                "name": "adacelTdapVaccine",
+                "displayName": "Adacel (Tdap) Vaccine"
+              },
+              "alternateName": "someOtherVaccine"
+            }
+          ]
+        },
+        {
+          "id": "cee42155-07bf-dbc5-84f7-f002004a3170",
+          "createdAt": "1969-11-17T22:19:30.150Z",
+          "images": [
+            {
+              "id": "86918e87-4c48-c6d5-419d-a564d50490f2",
+              "url": "https://example.com/document.pdf",
+              "createdAt": "1958-02-10T02:24:00.976Z"
+            },
+            {
+              "id": "186fcc69-a2d4-039b-513c-128f974c9677",
+              "url": "https://example.com/document.pdf",
+              "createdAt": "2010-07-16T15:09:23.437Z"
+            }
+          ],
+          "indexedRecordSpliceType": "CANVAS_SET",
+          "vaccines": [
+            {
+              "id": "6469d966-133e-8ae6-c9d8-3fa5c8803a8c",
+              "date": "1948-07-08",
+              "comments": "The quick brown fox jumps over the lazy dog.",
+              "type": {
+                "id": "3df69666-f981-e89e-7d06-e00d8db078e8",
+                "name": "adacelTdapVaccine",
+                "displayName": "Adacel (Tdap) Vaccine"
+              },
+              "alternateName": "someOtherVaccine"
+            },
+            {
+              "id": "aa4e0d4d-ee29-ad1b-af1d-951c930613b1",
+              "date": "1967-05-26",
+              "comments": "The quick brown fox jumps over the lazy dog.",
+              "type": {
+                "id": "f6e28a4e-11c7-9bf3-21e4-a0516e9fa964",
+                "name": "adacelTdapVaccine",
+                "displayName": "Adacel (Tdap) Vaccine"
+              },
+              "alternateName": "someOtherVaccine"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "name": "Get Patient Facesheet Output",
+    "method": "GET",
+    "path": "/api/v1/patients/:patientId/facesheets/requests/:facesheetRequestId/output",
+    "status": 200,
+    "body": {
+      "partnerPatientId": "04ec7133-9266-74ad-bdbf-aafff09114c4",
+      "facesheet": {
+        "requestId": "string",
+        "questions": [
+          {
+            "references": [
+              {
+                "sources": [
+                  {
+                    "source": "string",
+                    "retrievalDate": "1949-10-22T05:48:56.272Z",
+                    "curatedDataId": "string",
+                    "classificationGroupType": "encounters",
+                    "downloadUrl": "string"
+                  },
+                  {
+                    "source": "string",
+                    "retrievalDate": "2004-07-21T12:35:23.401Z",
+                    "curatedDataId": "string",
+                    "classificationGroupType": "family-history",
+                    "downloadUrl": "string"
+                  }
+                ]
+              },
+              {
+                "sources": [
+                  {
+                    "source": "string",
+                    "retrievalDate": "2015-10-17T22:16:17.336Z",
+                    "curatedDataId": "string",
+                    "classificationGroupType": "labs",
+                    "downloadUrl": "string"
+                  },
+                  {
+                    "source": "string",
+                    "retrievalDate": "1974-07-30T09:07:12.331Z",
+                    "curatedDataId": "string",
+                    "classificationGroupType": "provider-facility-notes",
+                    "downloadUrl": "string"
+                  }
+                ]
+              }
+            ],
+            "children": [
+              {
+                "references": [
+                  {
+                    "sources": [
+                      {
+                        "source": "string",
+                        "retrievalDate": "1962-01-12T11:10:03.226Z",
+                        "curatedDataId": "string",
+                        "classificationGroupType": "procedure-notes",
+                        "downloadUrl": "string"
+                      },
+                      {
+                        "source": "string",
+                        "retrievalDate": "2009-04-28T14:18:31.341Z",
+                        "curatedDataId": "string",
+                        "classificationGroupType": "medications",
+                        "downloadUrl": "string"
+                      }
+                    ]
+                  },
+                  {
+                    "sources": [
+                      {
+                        "source": "string",
+                        "retrievalDate": "2013-10-13T14:26:25.038Z",
+                        "curatedDataId": "string",
+                        "classificationGroupType": "providers",
+                        "downloadUrl": "string"
+                      },
+                      {
+                        "source": "string",
+                        "retrievalDate": "1965-02-07T15:51:36.892Z",
+                        "curatedDataId": "string",
+                        "classificationGroupType": "allergies",
+                        "downloadUrl": "string"
+                      }
+                    ]
+                  }
+                ],
+                "question": "string",
+                "answer": "string",
+                "rationale": "string"
+              },
+              {
+                "references": [
+                  {
+                    "sources": [
+                      {
+                        "source": "string",
+                        "retrievalDate": "2026-05-28T19:00:46.633Z",
+                        "curatedDataId": "string",
+                        "classificationGroupType": "other",
+                        "downloadUrl": "string"
+                      },
+                      {
+                        "source": "string",
+                        "retrievalDate": "1998-05-17T15:32:37.754Z",
+                        "curatedDataId": "string",
+                        "classificationGroupType": "medications",
+                        "downloadUrl": "string"
+                      }
+                    ]
+                  },
+                  {
+                    "sources": [
+                      {
+                        "source": "string",
+                        "retrievalDate": "2010-04-06T08:22:37.712Z",
+                        "curatedDataId": "string",
+                        "classificationGroupType": "family-history",
+                        "downloadUrl": "string"
+                      },
+                      {
+                        "source": "string",
+                        "retrievalDate": "1996-02-10T14:12:19.860Z",
+                        "curatedDataId": "string",
+                        "classificationGroupType": "allergies",
+                        "downloadUrl": "string"
+                      }
+                    ]
+                  }
+                ],
+                "question": "string",
+                "answer": "string",
+                "rationale": "string"
+              }
+            ],
+            "question": "string",
+            "answer": "string",
+            "rationale": "string"
+          },
+          {
+            "references": [
+              {
+                "sources": [
+                  {
+                    "source": "string",
+                    "retrievalDate": "2003-03-31T03:16:44.554Z",
+                    "curatedDataId": "string",
+                    "classificationGroupType": "labs",
+                    "downloadUrl": "string"
+                  },
+                  {
+                    "source": "string",
+                    "retrievalDate": "1983-09-11T13:35:50.645Z",
+                    "curatedDataId": "string",
+                    "classificationGroupType": "social-history",
+                    "downloadUrl": "string"
+                  }
+                ]
+              },
+              {
+                "sources": [
+                  {
+                    "source": "string",
+                    "retrievalDate": "1976-09-04T00:14:06.455Z",
+                    "curatedDataId": "string",
+                    "classificationGroupType": "provider-facility-notes",
+                    "downloadUrl": "string"
+                  },
+                  {
+                    "source": "string",
+                    "retrievalDate": "1996-08-28T08:21:40.477Z",
+                    "curatedDataId": "string",
+                    "classificationGroupType": "vaccinations",
+                    "downloadUrl": "string"
+                  }
+                ]
+              }
+            ],
+            "children": [
+              {
+                "references": [
+                  {
+                    "sources": [
+                      {
+                        "source": "string",
+                        "retrievalDate": "1950-09-05T06:25:22.279Z",
+                        "curatedDataId": "string",
+                        "classificationGroupType": "procedures",
+                        "downloadUrl": "string"
+                      },
+                      {
+                        "source": "string",
+                        "retrievalDate": "1980-09-15T02:21:14.452Z",
+                        "curatedDataId": "string",
+                        "classificationGroupType": "providers",
+                        "downloadUrl": "string"
+                      }
+                    ]
+                  },
+                  {
+                    "sources": [
+                      {
+                        "source": "string",
+                        "retrievalDate": "1994-09-21T18:05:19.264Z",
+                        "curatedDataId": "string",
+                        "classificationGroupType": "pathology-results",
+                        "downloadUrl": "string"
+                      },
+                      {
+                        "source": "string",
+                        "retrievalDate": "1977-10-14T09:52:38.653Z",
+                        "curatedDataId": "string",
+                        "classificationGroupType": "procedures",
+                        "downloadUrl": "string"
+                      }
+                    ]
+                  }
+                ],
+                "question": "string",
+                "answer": "string",
+                "rationale": "string"
+              },
+              {
+                "references": [
+                  {
+                    "sources": [
+                      {
+                        "source": "string",
+                        "retrievalDate": "2003-11-27T03:00:45.797Z",
+                        "curatedDataId": "string",
+                        "classificationGroupType": "imaging-notes",
+                        "downloadUrl": "string"
+                      },
+                      {
+                        "source": "string",
+                        "retrievalDate": "1956-02-08T06:26:35.116Z",
+                        "curatedDataId": "string",
+                        "classificationGroupType": "labs",
+                        "downloadUrl": "string"
+                      }
+                    ]
+                  },
+                  {
+                    "sources": [
+                      {
+                        "source": "string",
+                        "retrievalDate": "1957-08-04T09:17:44.012Z",
+                        "curatedDataId": "string",
+                        "classificationGroupType": "labs",
+                        "downloadUrl": "string"
+                      },
+                      {
+                        "source": "string",
+                        "retrievalDate": "2019-05-30T10:04:58.133Z",
+                        "curatedDataId": "string",
+                        "classificationGroupType": "medications",
+                        "downloadUrl": "string"
+                      }
+                    ]
+                  }
+                ],
+                "question": "string",
+                "answer": "string",
+                "rationale": "string"
+              }
+            ],
+            "question": "string",
+            "answer": "string",
+            "rationale": "string"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "Get Patient Facesheets",
+    "method": "GET",
+    "path": "/api/v1/patients/:patientId/facesheets",
+    "status": 200,
+    "body": {
+      "partnerPatientId": "6ed9a868-6558-263a-49c8-8fe8f8083434",
+      "facesheets": [
+        {
+          "id": "d5715c1a-667c-75a6-37d8-85e2fb14587a",
+          "name": "string",
+          "date": "1959-02-01",
+          "title": "Patient Facesheet",
+          "createdAt": "1960-09-22T06:57:09.257Z",
+          "images": [
+            {
+              "id": "dd3d4f4e-8eff-56f3-6b8a-698e72ac950d",
+              "url": "https://example.com/document.pdf",
+              "createdAt": "2021-03-26T06:09:14.798Z"
+            },
+            {
+              "id": "709020e0-4968-ddbb-c2a9-1dfcfbf1f34b",
+              "url": "https://example.com/document.pdf",
+              "createdAt": "1960-11-26T09:05:41.946Z"
+            }
+          ],
+          "requestId": "51b8c754-06d7-5125-d2b6-ec1a9934eeae"
+        },
+        {
+          "id": "a0ef2f5c-c454-440a-b540-724155048775",
+          "name": "string",
+          "date": "1970-02-07",
+          "title": "Patient Facesheet",
+          "createdAt": "1951-10-01T09:30:32.845Z",
+          "images": [
+            {
+              "id": "f6b78b38-8ed7-8fa4-4bb2-785c1f763008",
+              "url": "https://example.com/document.pdf",
+              "createdAt": "1990-12-11T19:24:23.506Z"
+            },
+            {
+              "id": "2e4c4833-12cf-083c-404d-3fd28edb3a9f",
+              "url": "https://example.com/document.pdf",
+              "createdAt": "2017-08-23T11:07:05.320Z"
+            }
+          ],
+          "requestId": "fac78e95-ecc7-b019-ebe4-fc1b3457dc62"
+        }
+      ]
+    }
+  },
+  {
+    "name": "Get Patient HIE documents",
+    "method": "GET",
+    "path": "/api/v1/patients/:patientId/hie-docs",
+    "status": 200,
+    "body": {
+      "partnerPatientId": "a15ee663-f259-7580-edce-940d3fb9e19f",
+      "hieDocs": [
+        {
+          "id": "de35a03e-80cd-c57c-b7e8-c06fed3cf270",
+          "createdAt": "1976-12-25T23:35:14.208Z",
+          "title": "string",
+          "image": {
+            "id": "0ec40b57-e077-1f86-83f9-5e75fa7c6870",
+            "url": "https://example.com/document.pdf",
+            "createdAt": "2025-04-08T01:05:44.883Z"
+          },
+          "images": [
+            {
+              "id": "934133ad-e40b-9abe-a19c-63a3538b4daf",
+              "url": "https://example.com/document.pdf",
+              "createdAt": "2008-01-26T22:07:47.797Z"
+            },
+            {
+              "id": "0f3d7fce-cf9c-804a-ae79-9a995ac74dfc",
+              "url": "https://example.com/document.pdf",
+              "createdAt": "1988-12-04T04:19:22.141Z"
+            }
+          ]
+        },
+        {
+          "id": "f052b74d-1b53-29ad-af13-7f6615438d0a",
+          "createdAt": "2012-06-02T11:00:09.191Z",
+          "title": "string",
+          "image": {
+            "id": "478de5fc-02b6-abe0-4c3c-f7f03f377c7e",
+            "url": "https://example.com/document.pdf",
+            "createdAt": "1953-09-17T12:45:49.963Z"
+          },
+          "images": [
+            {
+              "id": "0bb7adc0-60b6-6942-198c-d7e78e090619",
+              "url": "https://example.com/document.pdf",
+              "createdAt": "1973-05-22T23:05:15.044Z"
+            },
+            {
+              "id": "4fe07343-aa12-559a-463c-19da07585ebd",
+              "url": "https://example.com/document.pdf",
+              "createdAt": "2007-11-04T17:18:23.076Z"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "name": "Get Patient Medications",
+    "method": "GET",
+    "path": "/api/v1/patients/:patientId/medications",
+    "status": 200,
+    "body": {
+      "partnerPatientId": "fd120ef7-6b01-e4bf-4b4f-fcc70764c9fe",
+      "medications": [
+        {
+          "medicationId": "string",
+          "medicationTitle": "string",
+          "prescriberFirstName": "string",
+          "prescriberLastName": "string",
+          "prescriberPracticeName": "string",
+          "prescriberNpi": "string",
+          "lastFillDate": "1970-12-13T01:33:17.363Z",
+          "sources": [
+            {
+              "qualifier": "string",
+              "description": "string"
+            },
+            {
+              "qualifier": "string",
+              "description": "string"
+            }
+          ],
+          "createdAt": "1962-01-10T14:44:34.789Z",
+          "dosageValue": "string",
+          "dosageFormRaw": "string",
+          "dosageForm": "string",
+          "dosageUnitRaw": "string",
+          "dosageUnit": "string",
+          "diagnosis": "string",
+          "status": "string",
+          "writtenDate": "1998-01-17T14:45:46.577Z",
+          "quantityValue": "string",
+          "quantityUnitRaw": "string",
+          "quantityUnit": "string",
+          "daysSupply": 7119.460572698983,
+          "refillsRemaining": 8221.067721780713,
+          "substitutions": 484.0821628510028,
+          "prescriberOrderNumber": "string",
+          "priorAuthNumber": "string",
+          "diagnosisQualifier": "string"
+        },
+        {
+          "medicationId": "string",
+          "medicationTitle": "string",
+          "prescriberFirstName": "string",
+          "prescriberLastName": "string",
+          "prescriberPracticeName": "string",
+          "prescriberNpi": "string",
+          "lastFillDate": "2016-05-01T22:10:20.171Z",
+          "sources": [
+            {
+              "qualifier": "string",
+              "description": "string"
+            },
+            {
+              "qualifier": "string",
+              "description": "string"
+            }
+          ],
+          "createdAt": "1947-11-06T22:41:22.635Z",
+          "dosageValue": "string",
+          "dosageFormRaw": "string",
+          "dosageForm": "string",
+          "dosageUnitRaw": "string",
+          "dosageUnit": "string",
+          "diagnosis": "string",
+          "status": "string",
+          "writtenDate": "1951-11-07T19:51:51.973Z",
+          "quantityValue": "string",
+          "quantityUnitRaw": "string",
+          "quantityUnit": "string",
+          "daysSupply": 3310.2603960310284,
+          "refillsRemaining": 5758.412641629447,
+          "substitutions": 7337.934392793586,
+          "prescriberOrderNumber": "string",
+          "priorAuthNumber": "string",
+          "diagnosisQualifier": "string"
+        }
+      ]
+    }
+  },
+  {
+    "name": "Available Patient Lab Results",
+    "method": "GET",
+    "path": "/api/v1/patients/:patientId/lab-results/available",
+    "status": 200,
+    "body": {
+      "patientId": "16a20971-7771-5b5a-5a5a-075b18896114",
+      "availableChemistries": [
+        "ALPHA-1-GLOBULIN",
+        "ALPHA-2-GLOBULIN"
+      ]
+    }
+  },
+  {
+    "name": "Patient Lab Results",
+    "method": "GET",
+    "path": "/api/v1/patients/:patientId/lab-results",
+    "status": 200,
+    "body": {
+      "partnerPatientId": "3a42d54c-beb9-14a7-771f-1a3fc1cf431b",
+      "labResults": [
+        {
+          "resultId": "9b2f9cf4-291d-4860-bc12-6102305efac5",
+          "resultName": "ALPHA-1-GLOBULIN",
+          "resultValue": "0.3",
+          "normalRange": "1\u20133",
+          "memrRetrievedDate": "2025-01-30 20:00:03",
+          "resultDateOfStudy": "2024-01-01",
+          "resultStudyName": "COMPREHENSIVE METABOLIC PANEL",
+          "resultDocumentType": "Labcorp"
+        },
+        {
+          "resultId": "9b2f9cf4-291d-4860-bc12-6102305efac5",
+          "resultName": "ALPHA-1-GLOBULIN",
+          "resultValue": "0.3",
+          "normalRange": "1\u20133",
+          "memrRetrievedDate": "2025-01-30 20:00:03",
+          "resultDateOfStudy": "2024-01-01",
+          "resultStudyName": "COMPREHENSIVE METABOLIC PANEL",
+          "resultDocumentType": "Labcorp"
+        }
+      ]
+    }
+  },
+  {
+    "name": "Patient Requests",
+    "method": "GET",
+    "path": "/api/v1/patients/:patientId/requests",
+    "status": 200,
+    "body": {
+      "partnerPatientId": "83e23a30-1536-d175-2ef3-e178b9113a84",
+      "crrRequests": [
+        {
+          "crrId": "21718228-8293-49b7-c61c-a6d2c8a86158",
+          "createdAt": "2024-01-06T15:00:40.156Z",
+          "creatorFirstName": "John",
+          "creatorLastName": "Doe",
+          "updatedAt": "2009-12-01T11:02:34.024Z",
+          "requestReason": "Information Gathering",
+          "cumulativeRequestStatus": {
+            "OPEN": 1,
+            "IN_PROGRESS": 2,
+            "COMPLETED": 3
+          },
+          "requestedProviders": [
+            {
+              "id": 12345,
+              "currentOrganizationName": "Lakeview Medical Center",
+              "providerName": "Jane Doe",
+              "practiceName": "Lakeview Medical Center",
+              "officeStreetAddress1": "1234 Main St",
+              "officeStreetAddress2": "Apt 1",
+              "officeCity": "Lakeview",
+              "officeState": "CA",
+              "officeZip": "94901",
+              "officePhoneNumber": "1234567890",
+              "serviceStartDate": "2018-01-05T07:13:29.681Z",
+              "serviceEndDate": "1995-06-11T16:42:40.486Z",
+              "medicalRecordType": "imaging",
+              "status": "OPEN",
+              "completeMedicalRecord": true,
+              "retrievalId": "41a524b2-c6fb-8a9c-4a3a-f4fdced1cc38"
+            },
+            {
+              "id": 12345,
+              "currentOrganizationName": "Lakeview Medical Center",
+              "providerName": "Jane Doe",
+              "practiceName": "Lakeview Medical Center",
+              "officeStreetAddress1": "1234 Main St",
+              "officeStreetAddress2": "Apt 1",
+              "officeCity": "Lakeview",
+              "officeState": "CA",
+              "officeZip": "94901",
+              "officePhoneNumber": "1234567890",
+              "serviceStartDate": "2008-11-22T04:17:51.490Z",
+              "serviceEndDate": "1953-03-07T07:27:10.414Z",
+              "medicalRecordType": "imaging",
+              "status": "OPEN",
+              "completeMedicalRecord": true,
+              "retrievalId": "92867078-f9a8-db16-6ccf-b73e3d19bc29"
+            }
+          ],
+          "appointmentDate": "2005-01-20T12:51:41.040Z",
+          "requestingProviderName": "Dr. Jane Doe",
+          "referenceId": "1234567890",
+          "hieRequests": [
+            {
+              "id": "string",
+              "status": "HIE_data_available",
+              "submittedAt": "2006-12-01T20:21:29.310Z",
+              "alternativeZipCodes": [
+                "string",
+                "string"
+              ]
+            },
+            {
+              "id": "string",
+              "status": "HIE_data_available",
+              "submittedAt": "1997-12-07T17:26:41.915Z",
+              "alternativeZipCodes": [
+                "string",
+                "string"
+              ]
+            }
+          ],
+          "medicationsRequests": [
+            {
+              "id": "string",
+              "status": "HIE_data_available",
+              "submittedAt": "2018-08-15T00:05:09.255Z",
+              "alternativeZipCodes": [
+                "string",
+                "string"
+              ]
+            },
+            {
+              "id": "string",
+              "status": "HIE_data_available",
+              "submittedAt": "2016-10-19T11:14:09.371Z",
+              "alternativeZipCodes": [
+                "string",
+                "string"
+              ]
+            }
+          ],
+          "facesheetRequests": [
+            {
+              "id": "string",
+              "status": "FS_PROCESSING",
+              "name": "Facesheet-Request",
+              "submittedAt": "1955-05-22T04:55:47.624Z"
+            },
+            {
+              "id": "string",
+              "status": "FS_PROCESSING",
+              "name": "Facesheet-Request",
+              "submittedAt": "1965-09-07T18:11:30.039Z"
+            }
+          ]
+        },
+        {
+          "crrId": "7c77a44d-05f1-b688-22e2-5cbe83de306b",
+          "createdAt": "1964-07-06T15:49:24.793Z",
+          "creatorFirstName": "John",
+          "creatorLastName": "Doe",
+          "updatedAt": "1951-09-30T10:59:31.479Z",
+          "requestReason": "Information Gathering",
+          "cumulativeRequestStatus": {
+            "OPEN": 1,
+            "IN_PROGRESS": 2,
+            "COMPLETED": 3
+          },
+          "requestedProviders": [
+            {
+              "id": 12345,
+              "currentOrganizationName": "Lakeview Medical Center",
+              "providerName": "Jane Doe",
+              "practiceName": "Lakeview Medical Center",
+              "officeStreetAddress1": "1234 Main St",
+              "officeStreetAddress2": "Apt 1",
+              "officeCity": "Lakeview",
+              "officeState": "CA",
+              "officeZip": "94901",
+              "officePhoneNumber": "1234567890",
+              "serviceStartDate": "1961-02-21T10:30:24.257Z",
+              "serviceEndDate": "1996-07-30T00:14:19.117Z",
+              "medicalRecordType": "imaging",
+              "status": "OPEN",
+              "completeMedicalRecord": true,
+              "retrievalId": "a784f31e-b82f-a291-c6ae-1119f658144a"
+            },
+            {
+              "id": 12345,
+              "currentOrganizationName": "Lakeview Medical Center",
+              "providerName": "Jane Doe",
+              "practiceName": "Lakeview Medical Center",
+              "officeStreetAddress1": "1234 Main St",
+              "officeStreetAddress2": "Apt 1",
+              "officeCity": "Lakeview",
+              "officeState": "CA",
+              "officeZip": "94901",
+              "officePhoneNumber": "1234567890",
+              "serviceStartDate": "1987-05-04T00:27:20.832Z",
+              "serviceEndDate": "1978-01-15T00:39:14.780Z",
+              "medicalRecordType": "imaging",
+              "status": "OPEN",
+              "completeMedicalRecord": true,
+              "retrievalId": "b8fb05c8-552e-c0a4-b931-f33219449fa8"
+            }
+          ],
+          "appointmentDate": "1995-11-26T04:45:43.288Z",
+          "requestingProviderName": "Dr. Jane Doe",
+          "referenceId": "1234567890",
+          "hieRequests": [
+            {
+              "id": "string",
+              "status": "HIE_data_available",
+              "submittedAt": "2005-04-25T21:40:53.581Z",
+              "alternativeZipCodes": [
+                "string",
+                "string"
+              ]
+            },
+            {
+              "id": "string",
+              "status": "HIE_data_available",
+              "submittedAt": "2025-07-12T13:08:01.493Z",
+              "alternativeZipCodes": [
+                "string",
+                "string"
+              ]
+            }
+          ],
+          "medicationsRequests": [
+            {
+              "id": "string",
+              "status": "HIE_data_available",
+              "submittedAt": "1992-12-09T19:23:50.859Z",
+              "alternativeZipCodes": [
+                "string",
+                "string"
+              ]
+            },
+            {
+              "id": "string",
+              "status": "HIE_data_available",
+              "submittedAt": "1995-07-07T20:56:05.861Z",
+              "alternativeZipCodes": [
+                "string",
+                "string"
+              ]
+            }
+          ],
+          "facesheetRequests": [
+            {
+              "id": "string",
+              "status": "FS_PROCESSING",
+              "name": "Facesheet-Request",
+              "submittedAt": "2023-08-09T00:23:30.944Z"
+            },
+            {
+              "id": "string",
+              "status": "FS_PROCESSING",
+              "name": "Facesheet-Request",
+              "submittedAt": "2003-01-19T14:14:36.707Z"
+            }
+          ]
+        }
+      ],
+      "standaloneFacesheetRequests": [
+        {
+          "crrId": "45c45d41-fb5f-d337-74c6-974eb66a5bdf",
+          "createdAt": "1963-04-10T06:00:28.229Z",
+          "creatorFirstName": "John",
+          "creatorLastName": "Doe",
+          "updatedAt": "1961-06-30T00:36:03.115Z",
+          "requestReason": "Information Gathering",
+          "cumulativeRequestStatus": {
+            "OPEN": 1,
+            "IN_PROGRESS": 2,
+            "COMPLETED": 3
+          },
+          "requestedProviders": [
+            {
+              "id": 12345,
+              "currentOrganizationName": "Lakeview Medical Center",
+              "providerName": "Jane Doe",
+              "practiceName": "Lakeview Medical Center",
+              "officeStreetAddress1": "1234 Main St",
+              "officeStreetAddress2": "Apt 1",
+              "officeCity": "Lakeview",
+              "officeState": "CA",
+              "officeZip": "94901",
+              "officePhoneNumber": "1234567890",
+              "serviceStartDate": "1965-05-19T04:03:55.001Z",
+              "serviceEndDate": "1958-10-25T07:39:22.109Z",
+              "medicalRecordType": "imaging",
+              "status": "OPEN",
+              "completeMedicalRecord": true,
+              "retrievalId": "ab1221ee-301e-b5a1-7dd7-58969b00e53b"
+            },
+            {
+              "id": 12345,
+              "currentOrganizationName": "Lakeview Medical Center",
+              "providerName": "Jane Doe",
+              "practiceName": "Lakeview Medical Center",
+              "officeStreetAddress1": "1234 Main St",
+              "officeStreetAddress2": "Apt 1",
+              "officeCity": "Lakeview",
+              "officeState": "CA",
+              "officeZip": "94901",
+              "officePhoneNumber": "1234567890",
+              "serviceStartDate": "2012-12-14T07:51:43.759Z",
+              "serviceEndDate": "1953-09-27T14:42:55.670Z",
+              "medicalRecordType": "imaging",
+              "status": "OPEN",
+              "completeMedicalRecord": true,
+              "retrievalId": "ac3afb5c-bbd8-f872-8d24-94e83ac6fd00"
+            }
+          ],
+          "appointmentDate": "1990-08-11T16:17:52.829Z",
+          "requestingProviderName": "Dr. Jane Doe",
+          "referenceId": "1234567890",
+          "hieRequests": [
+            {
+              "id": "string",
+              "status": "HIE_data_available",
+              "submittedAt": "1985-04-12T13:12:05.795Z",
+              "alternativeZipCodes": [
+                "string",
+                "string"
+              ]
+            },
+            {
+              "id": "string",
+              "status": "HIE_data_available",
+              "submittedAt": "1969-05-29T02:02:47.610Z",
+              "alternativeZipCodes": [
+                "string",
+                "string"
+              ]
+            }
+          ],
+          "medicationsRequests": [
+            {
+              "id": "string",
+              "status": "HIE_data_available",
+              "submittedAt": "1951-08-20T13:39:56.884Z",
+              "alternativeZipCodes": [
+                "string",
+                "string"
+              ]
+            },
+            {
+              "id": "string",
+              "status": "HIE_data_available",
+              "submittedAt": "2024-01-05T10:00:00.632Z",
+              "alternativeZipCodes": [
+                "string",
+                "string"
+              ]
+            }
+          ],
+          "facesheetRequests": [
+            {
+              "id": "string",
+              "status": "FS_PROCESSING",
+              "name": "Facesheet-Request",
+              "submittedAt": "2011-03-01T17:48:50.758Z"
+            },
+            {
+              "id": "string",
+              "status": "FS_PROCESSING",
+              "name": "Facesheet-Request",
+              "submittedAt": "1947-04-02T05:21:16.807Z"
+            }
+          ]
+        },
+        {
+          "crrId": "ce0fbda5-c134-8d54-886c-e4b649c82760",
+          "createdAt": "2016-02-23T19:57:34.758Z",
+          "creatorFirstName": "John",
+          "creatorLastName": "Doe",
+          "updatedAt": "1952-04-23T10:14:21.169Z",
+          "requestReason": "Information Gathering",
+          "cumulativeRequestStatus": {
+            "OPEN": 1,
+            "IN_PROGRESS": 2,
+            "COMPLETED": 3
+          },
+          "requestedProviders": [
+            {
+              "id": 12345,
+              "currentOrganizationName": "Lakeview Medical Center",
+              "providerName": "Jane Doe",
+              "practiceName": "Lakeview Medical Center",
+              "officeStreetAddress1": "1234 Main St",
+              "officeStreetAddress2": "Apt 1",
+              "officeCity": "Lakeview",
+              "officeState": "CA",
+              "officeZip": "94901",
+              "officePhoneNumber": "1234567890",
+              "serviceStartDate": "1999-09-08T00:04:36.819Z",
+              "serviceEndDate": "1952-07-27T07:48:59.076Z",
+              "medicalRecordType": "imaging",
+              "status": "OPEN",
+              "completeMedicalRecord": true,
+              "retrievalId": "3448ab9c-ceef-5d5f-879e-e16a1273a4a0"
+            },
+            {
+              "id": 12345,
+              "currentOrganizationName": "Lakeview Medical Center",
+              "providerName": "Jane Doe",
+              "practiceName": "Lakeview Medical Center",
+              "officeStreetAddress1": "1234 Main St",
+              "officeStreetAddress2": "Apt 1",
+              "officeCity": "Lakeview",
+              "officeState": "CA",
+              "officeZip": "94901",
+              "officePhoneNumber": "1234567890",
+              "serviceStartDate": "1997-02-01T02:05:32.505Z",
+              "serviceEndDate": "2007-12-23T22:10:30.579Z",
+              "medicalRecordType": "imaging",
+              "status": "OPEN",
+              "completeMedicalRecord": true,
+              "retrievalId": "2e0fcc96-5978-10b7-b696-10c012180e7e"
+            }
+          ],
+          "appointmentDate": "2017-01-22T13:52:26.796Z",
+          "requestingProviderName": "Dr. Jane Doe",
+          "referenceId": "1234567890",
+          "hieRequests": [
+            {
+              "id": "string",
+              "status": "HIE_data_available",
+              "submittedAt": "1968-11-08T19:11:21.996Z",
+              "alternativeZipCodes": [
+                "string",
+                "string"
+              ]
+            },
+            {
+              "id": "string",
+              "status": "HIE_data_available",
+              "submittedAt": "2021-09-13T19:07:08.460Z",
+              "alternativeZipCodes": [
+                "string",
+                "string"
+              ]
+            }
+          ],
+          "medicationsRequests": [
+            {
+              "id": "string",
+              "status": "HIE_data_available",
+              "submittedAt": "2003-06-15T15:25:23.083Z",
+              "alternativeZipCodes": [
+                "string",
+                "string"
+              ]
+            },
+            {
+              "id": "string",
+              "status": "HIE_data_available",
+              "submittedAt": "2005-05-21T05:03:08.053Z",
+              "alternativeZipCodes": [
+                "string",
+                "string"
+              ]
+            }
+          ],
+          "facesheetRequests": [
+            {
+              "id": "string",
+              "status": "FS_PROCESSING",
+              "name": "Facesheet-Request",
+              "submittedAt": "1981-04-16T18:03:16.654Z"
+            },
+            {
+              "id": "string",
+              "status": "FS_PROCESSING",
+              "name": "Facesheet-Request",
+              "submittedAt": "1983-06-27T22:30:58.149Z"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "name": "Add Request to Existing Patient",
+    "method": "POST",
+    "path": "/api/v1/patients/:patientId/requests",
+    "status": 201,
+    "body": {
+      "partnerPatientId": "458cbe68-f15c-0819-5a3f-641e24404587",
+      "requestId": "268ac18c-47d6-6b6a-a489-954e5414d786",
+      "message": "Patient created successfully",
+      "previousProviderRetrievals": [
+        {
+          "id": "11111111-1111-4111-8111-111111111111"
+        },
+        {
+          "id": "11111111-1111-4111-8111-111111111111"
+        }
+      ],
+      "referenceId": "1234567890"
+    }
+  },
+  {
+    "name": "Request Patient Clinical Summary",
+    "method": "POST",
+    "path": "/api/v1/patients/:patientId/summary",
+    "status": 201,
+    "body": {
+      "patientSummaryRequestStatus": "QUEUED",
+      "patientSummaryRequestStatusMessage": "Patient summary request submitted successfully",
+      "patientSummaryRequestId": "fa09e2e6-5a97-9433-d807-76fc35b84254",
+      "documentLink": "https://example.com/patient-summary.pdf"
+    }
+  },
+  {
+    "name": "Get Patient Information",
+    "method": "GET",
+    "path": "/api/v1/patients/:patientId",
+    "status": 200,
+    "body": {
+      "partnerPatientId": "81061103-0380-3c0a-01ba-061e3229ec03",
+      "patientKey": "PAPI-123456789012",
+      "firstName": "Martha",
+      "middleName": "Sara",
+      "lastName": "Rangel",
+      "genderName": "female",
+      "dateOfBirth": "1970-03-10",
+      "phoneNumber": "7175501675",
+      "addressLine1": "4990 HOOVER RD",
+      "addressLine2": "APT 227",
+      "city": "GROVE CITY",
+      "state": "OH",
+      "postalCode": "43123",
+      "primaryLanguage": "english"
+    }
+  },
+  {
+    "name": "Update Patient Information",
+    "method": "PATCH",
+    "path": "/api/v1/patients/:patientId",
+    "status": 200,
+    "body": {
+      "patientId": "189c10a2-c982-e277-a5f2-e71bfac0aa38",
+      "result": "UPDATED",
+      "message": "Patient information updated successfully"
+    }
+  },
+  {
+    "name": "Search Patients by Information",
+    "method": "GET",
+    "path": "/api/v1/patients",
+    "status": 200,
+    "body": [
+      {
+        "partnerPatientId": "bb46cabf-e703-81fc-2655-d5117fe186d2",
+        "patientKey": "PAPI-123456789012",
+        "firstName": "Martha",
+        "middleName": "Sara",
+        "lastName": "Rangel",
+        "genderName": "female",
+        "dateOfBirth": "1970-03-10",
+        "phoneNumber": "7175501675",
+        "addressLine1": "4990 HOOVER RD",
+        "addressLine2": "APT 227",
+        "city": "GROVE CITY",
+        "state": "OH",
+        "postalCode": "43123",
+        "primaryLanguage": "english"
+      },
+      {
+        "partnerPatientId": "49dbb5b3-ad7c-65ff-6e23-b53475af72bb",
+        "patientKey": "PAPI-123456789012",
+        "firstName": "Martha",
+        "middleName": "Sara",
+        "lastName": "Rangel",
+        "genderName": "female",
+        "dateOfBirth": "1970-03-10",
+        "phoneNumber": "7175501675",
+        "addressLine1": "4990 HOOVER RD",
+        "addressLine2": "APT 227",
+        "city": "GROVE CITY",
+        "state": "OH",
+        "postalCode": "43123",
+        "primaryLanguage": "english"
+      }
+    ]
+  },
+  {
+    "name": "Search Patient Documents",
+    "method": "POST",
+    "path": "/api/v2/patients/:patientId/documents/search",
+    "status": 200,
+    "body": {
+      "partnerPatientId": "a3bd0708-5d2d-fa6f-5767-a161e03bfffe",
+      "documents": [
+        {
+          "drugAllergies": [
+            {
+              "id": "b50cf5c6-1a11-1d2f-ffd9-014fbed19fd8",
+              "alternateName": "Accutane",
+              "reaction": "Rash",
+              "comments": "The quick brown fox jumps over the lazy dog.",
+              "createdAt": "1987-09-03T23:19:34.223Z",
+              "images": [
+                {
+                  "id": "fb3b1416-ea63-e1f1-d44c-1b606c68727a",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1979-11-05T18:12:25.184Z"
+                },
+                {
+                  "id": "ed2fd460-482c-2ea8-ab34-8a3fe55fefa2",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1956-07-18T01:29:10.227Z"
+                }
+              ],
+              "indexedRecordSpliceType": "SEGMENT_SET",
+              "drugName": "Isotretinoin"
+            },
+            {
+              "id": "8a9e477b-8564-ce14-30a1-5d7b4c7828ad",
+              "alternateName": "Accutane",
+              "reaction": "Rash",
+              "comments": "The quick brown fox jumps over the lazy dog.",
+              "createdAt": "1987-11-06T14:11:00.870Z",
+              "images": [
+                {
+                  "id": "273c67a3-39ac-b5e4-2e66-ab29bdf641e9",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "2008-01-21T22:20:00.307Z"
+                },
+                {
+                  "id": "48db0e56-7478-2e63-f05a-8bd0d1f68deb",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1953-12-10T08:48:03.863Z"
+                }
+              ],
+              "indexedRecordSpliceType": "SEGMENT_SET",
+              "drugName": "Isotretinoin"
+            }
+          ],
+          "documents": [
+            {
+              "id": "965cd686-5b95-b943-7007-c3f7bab1505a",
+              "title": "Discharge Summary",
+              "comments": "Reviewed by provider",
+              "date": "string",
+              "createdAt": "1997-06-10T03:53:05.762Z",
+              "images": [
+                {
+                  "id": "727e631a-3abf-22f4-1753-688dce77262f",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1988-09-15T15:26:48.104Z"
+                },
+                {
+                  "id": "61352341-0865-9592-50ab-53165711159b",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "2008-02-23T13:15:34.448Z"
+                }
+              ],
+              "documentType": "CONSENT AND AUTHORIZATION FORMS",
+              "indexedRecordSpliceType": "PRESPLICED"
+            },
+            {
+              "id": "4fcfca75-8df8-9b3b-01e6-a5149cb0fdbd",
+              "title": "Discharge Summary",
+              "comments": "Reviewed by provider",
+              "date": "string",
+              "createdAt": "2021-09-14T23:02:59.167Z",
+              "images": [
+                {
+                  "id": "7c960d27-b905-8aa7-f2a7-3a4d6db8e11c",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "2007-06-17T10:52:26.183Z"
+                },
+                {
+                  "id": "b15e9142-41f6-1091-8de9-e54d4b041d25",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1954-09-03T12:38:28.876Z"
+                }
+              ],
+              "documentType": "CONSENT AND AUTHORIZATION FORMS",
+              "indexedRecordSpliceType": "CANVAS_SET"
+            }
+          ],
+          "imagingResults": [
+            {
+              "id": "f38ca95f-6c37-03f0-e16e-be65dd1b3812",
+              "title": "X-Ray Results",
+              "date": "1953-09-29",
+              "comments": "No acute findings.",
+              "createdAt": "2025-05-18T08:40:32.917Z",
+              "images": [
+                {
+                  "id": "202f8636-4e14-f388-ac89-acfd14c9d241",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "2025-10-01T05:10:09.749Z"
+                },
+                {
+                  "id": "6c09cb87-9bf1-2457-c4e8-5c05f485dc9e",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1964-10-30T22:28:07.688Z"
+                }
+              ],
+              "indexedRecordSpliceType": "SEGMENT_SET",
+              "type": {
+                "id": "ae4c251c-2bb4-82d7-eb90-10f588f929de",
+                "name": "xray",
+                "displayName": "X-Ray"
+              },
+              "bodyPart": {
+                "id": "a0f4f3bd-91d2-1453-d6c9-bad3ba6f0bef",
+                "name": "cervicothoracic",
+                "displayName": "Cervicothoracic"
+              },
+              "alternateBodyPartName": "clavicle"
+            },
+            {
+              "id": "d72fc1bc-9e98-9e37-1223-e9d3209279ec",
+              "title": "X-Ray Results",
+              "date": "2005-01-25",
+              "comments": "No acute findings.",
+              "createdAt": "1949-10-27T12:20:52.629Z",
+              "images": [
+                {
+                  "id": "2eba1ad2-ab34-9a47-a424-ef528312563b",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1966-10-03T04:27:31.018Z"
+                },
+                {
+                  "id": "b58afd95-734d-fda4-7dc7-9ea97c5d8df7",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "2000-09-09T15:55:09.207Z"
+                }
+              ],
+              "indexedRecordSpliceType": "CANVAS_SET",
+              "type": {
+                "id": "66f195bf-4da3-67c0-0ece-3c353c552bca",
+                "name": "xray",
+                "displayName": "X-Ray"
+              },
+              "bodyPart": {
+                "id": "d6a5f9a9-f937-9ddf-71d4-614c94f4b72e",
+                "name": "cervicothoracic",
+                "displayName": "Cervicothoracic"
+              },
+              "alternateBodyPartName": "clavicle"
+            }
+          ],
+          "labTests": [
+            {
+              "id": "e5429771-bd1e-b3bc-c46a-7c10cae14645",
+              "type": "Lakeview Labs",
+              "title": "Bloodwork Panel",
+              "date": "1955-03-24",
+              "status": "PROCESSED",
+              "createdAt": "1954-02-22T18:59:23.029Z",
+              "images": [
+                {
+                  "id": "04eb522e-4208-9f5e-15c1-8d2b99599532",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "2025-04-01T02:18:48.000Z"
+                },
+                {
+                  "id": "d50b1bc0-56a6-bb69-3307-f286d342d6e0",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1984-08-26T01:28:48.952Z"
+                }
+              ],
+              "results": [
+                {
+                  "id": "33d9fb52-42cb-1e6f-5848-b40bae6d4702",
+                  "labTestId": "8e99592f-c376-1960-ffc8-0d75422fae3d",
+                  "chemistryName": "CBC",
+                  "value": "CBC Results",
+                  "isTrendable": false,
+                  "createdAt": "2023-01-26T23:03:10.254Z",
+                  "specialty": {
+                    "id": "b71a2ac0-4b2c-c0b0-38a3-4c400cd47973",
+                    "name": "hematologyOncology",
+                    "displayName": "Hematology/Oncology"
+                  },
+                  "normalRange": "10 mg/dL"
+                },
+                {
+                  "id": "a3f56b8f-65ea-41c1-50e4-c455d8554d7c",
+                  "labTestId": "ef5731b9-2a3a-8b0c-26da-3839f365cf48",
+                  "chemistryName": "CBC",
+                  "value": "CBC Results",
+                  "isTrendable": false,
+                  "createdAt": "1991-10-25T05:42:40.663Z",
+                  "specialty": {
+                    "id": "1f689fce-b31c-6dbd-80dd-80469689d97a",
+                    "name": "hematologyOncology",
+                    "displayName": "Hematology/Oncology"
+                  },
+                  "normalRange": "10 mg/dL"
+                }
+              ]
+            },
+            {
+              "id": "eff04def-1dfc-12c0-bc4a-25a0bc871625",
+              "type": "Lakeview Labs",
+              "title": "Bloodwork Panel",
+              "date": "1977-10-02",
+              "status": "PROCESSED",
+              "createdAt": "1975-11-13T20:34:35.437Z",
+              "images": [
+                {
+                  "id": "bf17823a-cf65-7ed7-1a1c-34ef9dc1f83a",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1961-12-17T17:34:15.007Z"
+                },
+                {
+                  "id": "321e6e57-0980-677d-f989-45047a0d56c2",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "2018-05-31T05:42:30.425Z"
+                }
+              ],
+              "results": [
+                {
+                  "id": "5e1bbb39-2a73-3344-c96f-f4d115e08786",
+                  "labTestId": "b48b03f3-7dd8-120e-c153-146b7eb06d76",
+                  "chemistryName": "CBC",
+                  "value": "CBC Results",
+                  "isTrendable": false,
+                  "createdAt": "2000-07-11T01:05:29.538Z",
+                  "specialty": {
+                    "id": "16bfedff-c17d-b365-49c9-4c74b7264c19",
+                    "name": "hematologyOncology",
+                    "displayName": "Hematology/Oncology"
+                  },
+                  "normalRange": "10 mg/dL"
+                },
+                {
+                  "id": "0b1e5094-a157-a61d-91cc-471f88bfb219",
+                  "labTestId": "604190b2-ea2b-0509-010f-4c6984b054bb",
+                  "chemistryName": "CBC",
+                  "value": "CBC Results",
+                  "isTrendable": false,
+                  "createdAt": "1966-04-17T15:40:35.913Z",
+                  "specialty": {
+                    "id": "981e6e5a-ff0a-2216-2d74-903285650b14",
+                    "name": "hematologyOncology",
+                    "displayName": "Hematology/Oncology"
+                  },
+                  "normalRange": "10 mg/dL"
+                }
+              ]
+            }
+          ],
+          "otherRecords": [
+            {
+              "id": "cee188d1-ef98-1690-89b3-70edd7ad0cf9",
+              "title": "Lab Results",
+              "date": "1994-12-26",
+              "status": "PROCESSING",
+              "comments": "The quick brown fox jumps over the lazy dog.",
+              "createdAt": "1978-05-31T07:12:38.296Z",
+              "images": [
+                {
+                  "id": "14396e49-0d1a-f7a7-8d54-701fd6cfb62a",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1994-06-19T01:34:12.042Z"
+                },
+                {
+                  "id": "fd899c65-3a23-64be-153b-33f603a3b190",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1992-11-05T14:50:55.887Z"
+                }
+              ],
+              "indexedRecordSpliceType": "PRESPLICED",
+              "type": {
+                "id": "d4512d5c-2006-2fb4-29b4-7bb52f2e4dd2",
+                "name": "labcorp",
+                "displayName": "Labcorp"
+              }
+            },
+            {
+              "id": "681b088a-4f49-c5c3-03cc-9c67a3f98778",
+              "title": "Lab Results",
+              "date": "2009-03-20",
+              "status": "PROCESSING",
+              "comments": "The quick brown fox jumps over the lazy dog.",
+              "createdAt": "2018-10-04T04:07:56.278Z",
+              "images": [
+                {
+                  "id": "c470c8bc-d558-c8e6-15a0-236e3b4ca547",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1996-02-29T07:49:12.628Z"
+                },
+                {
+                  "id": "9e535e7e-f852-4f7c-c94a-b900ad23c759",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1987-01-06T12:37:09.339Z"
+                }
+              ],
+              "indexedRecordSpliceType": "SEGMENT_SET",
+              "type": {
+                "id": "1d8ba23d-7118-4bd6-d65b-5f0195395ced",
+                "name": "labcorp",
+                "displayName": "Labcorp"
+              }
+            }
+          ],
+          "procedureNotes": [
+            {
+              "id": "6b670248-6333-d223-7ce3-35b23602f0a1",
+              "title": "Surgery Note",
+              "proceduralist": "Dr. John Doe",
+              "date": "1958-08-18",
+              "comments": "The quick brown fox jumps over the lazy dog.",
+              "createdAt": "2025-04-04T16:08:59.306Z",
+              "images": [
+                {
+                  "id": "b3f2688b-2b14-fb67-5e0f-780554b48c49",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1956-03-31T03:37:55.755Z"
+                },
+                {
+                  "id": "05fe6005-7578-4970-9e81-ca614934f385",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1989-05-17T05:12:44.183Z"
+                }
+              ],
+              "indexedRecordSpliceType": "CANVAS_SET"
+            },
+            {
+              "id": "d21962ab-b07d-2b87-bc6f-7c18053b0bab",
+              "title": "Surgery Note",
+              "proceduralist": "Dr. John Doe",
+              "date": "1983-08-19",
+              "comments": "The quick brown fox jumps over the lazy dog.",
+              "createdAt": "1970-04-05T19:57:07.296Z",
+              "images": [
+                {
+                  "id": "52736ecc-6e50-030d-cf27-914bdf801103",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "2022-07-05T20:25:02.156Z"
+                },
+                {
+                  "id": "9e5cff8b-4e80-e66d-21ce-b9e033ca6af3",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1957-02-15T09:45:26.208Z"
+                }
+              ],
+              "indexedRecordSpliceType": "CANVAS_SET"
+            }
+          ],
+          "providerFacilityNotes": [
+            {
+              "id": "95caeefe-e633-0b59-1064-39c5a3535825",
+              "providerName": "Lakeview Clinic",
+              "date": "1999-08-16",
+              "comments": "Follow up in six months.",
+              "createdAt": "1989-04-18T21:04:31.131Z",
+              "images": [
+                {
+                  "id": "a626124c-fb6a-3fc7-f176-de2ef276fb5e",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1978-10-13T20:00:19.015Z"
+                },
+                {
+                  "id": "3a77d055-68d0-771d-a838-147f467f4dd3",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "2009-07-03T02:34:29.291Z"
+                }
+              ],
+              "indexedRecordSpliceType": "PRESPLICED",
+              "providerType": {
+                "id": "70f380a4-be87-1db0-b713-340f12de8619",
+                "name": "internalMedicine",
+                "displayName": "Internal Medicine"
+              },
+              "alternateProviderTypeName": "nonClinicalProvider"
+            },
+            {
+              "id": "dc47cac2-b0b4-865f-8c80-d18abb538098",
+              "providerName": "Lakeview Clinic",
+              "date": "2020-04-17",
+              "comments": "Follow up in six months.",
+              "createdAt": "1961-01-11T10:26:18.992Z",
+              "images": [
+                {
+                  "id": "dfb4d6e7-3be8-757f-3340-72905fd13b19",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1973-12-26T12:21:51.751Z"
+                },
+                {
+                  "id": "6e98aaa5-629a-ceec-93a4-b491fb5f593a",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1963-07-09T20:08:52.709Z"
+                }
+              ],
+              "indexedRecordSpliceType": "CANVAS_SET",
+              "providerType": {
+                "id": "29933aff-0c96-24e2-6a62-b0ef2c8fee87",
+                "name": "internalMedicine",
+                "displayName": "Internal Medicine"
+              },
+              "alternateProviderTypeName": "nonClinicalProvider"
+            }
+          ],
+          "vaccineRecords": [
+            {
+              "id": "95cd2122-60de-a776-dce3-c8f26f50425a",
+              "date": "2014-12-28",
+              "comments": "The quick brown fox jumps over the lazy dog.",
+              "createdAt": "1975-02-01T11:06:55.847Z",
+              "images": [
+                {
+                  "id": "94c427b3-c89d-1ab4-2352-543d8a733ec3",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1985-04-08T08:40:36.571Z"
+                },
+                {
+                  "id": "5cccee3b-f438-bffb-ae32-9c82a586155e",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1959-06-27T15:09:04.205Z"
+                }
+              ],
+              "indexedRecordSpliceType": "PRESPLICED",
+              "type": {
+                "id": "112a0f2b-b88f-c253-4b8f-e8dd9cf6d524",
+                "name": "adacelTdapVaccine",
+                "displayName": "Adacel (Tdap) Vaccine"
+              },
+              "alternateName": "someOtherVaccine"
+            },
+            {
+              "id": "745b25c2-0893-3bab-4eeb-df3cb9a48429",
+              "date": "1949-01-06",
+              "comments": "The quick brown fox jumps over the lazy dog.",
+              "createdAt": "1956-03-03T18:12:51.106Z",
+              "images": [
+                {
+                  "id": "50198a82-7f44-5203-7c13-a51382a5542f",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "2005-06-10T18:54:31.764Z"
+                },
+                {
+                  "id": "eebc2e29-70cb-8a5b-f4f2-6fdca89d45ad",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "2019-09-03T10:28:17.565Z"
+                }
+              ],
+              "indexedRecordSpliceType": "CANVAS_SET",
+              "type": {
+                "id": "e0e5cb63-0f3c-b435-cd88-a2e81261ff1f",
+                "name": "adacelTdapVaccine",
+                "displayName": "Adacel (Tdap) Vaccine"
+              },
+              "alternateName": "someOtherVaccine"
+            }
+          ],
+          "vaccineDocuments": [
+            {
+              "id": "70b0c265-373c-1dc8-0c0f-d69f286d0d32",
+              "createdAt": "2025-03-20T04:12:44.287Z",
+              "images": [
+                {
+                  "id": "1e6ab196-9ad6-28c6-4885-3e5d14ac5fd2",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1972-05-05T06:55:18.722Z"
+                },
+                {
+                  "id": "a755ecc4-c655-1a98-e516-00fdc84f8a9b",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "2024-07-08T22:17:50.266Z"
+                }
+              ],
+              "indexedRecordSpliceType": "CANVAS_SET",
+              "vaccines": [
+                {
+                  "id": "86350c04-9914-b14c-73c0-2562b5853589",
+                  "date": "1981-02-26",
+                  "comments": "The quick brown fox jumps over the lazy dog.",
+                  "type": {
+                    "id": "1474c689-81d6-2e41-04b6-e2980ab0afbb",
+                    "name": "adacelTdapVaccine",
+                    "displayName": "Adacel (Tdap) Vaccine"
+                  },
+                  "alternateName": "someOtherVaccine"
+                },
+                {
+                  "id": "77360a7f-e504-80f8-ad9a-c41a9ceb6798",
+                  "date": "1999-01-26",
+                  "comments": "The quick brown fox jumps over the lazy dog.",
+                  "type": {
+                    "id": "c1814418-f265-d766-3f09-e4bd12894b61",
+                    "name": "adacelTdapVaccine",
+                    "displayName": "Adacel (Tdap) Vaccine"
+                  },
+                  "alternateName": "someOtherVaccine"
+                }
+              ]
+            },
+            {
+              "id": "0bff9ad3-e5e8-e7df-4e50-023d29e7e5f8",
+              "createdAt": "2000-10-29T16:59:49.699Z",
+              "images": [
+                {
+                  "id": "fbcb4838-3ee8-0f97-37bf-77498f122f1f",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1993-03-16T09:36:28.137Z"
+                },
+                {
+                  "id": "f55e3090-d016-64a0-1387-27d2ad70003f",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1960-07-24T19:21:00.698Z"
+                }
+              ],
+              "indexedRecordSpliceType": "PRESPLICED",
+              "vaccines": [
+                {
+                  "id": "84596fc2-4c73-32ff-3e86-3d6d542ba5c7",
+                  "date": "2018-05-23",
+                  "comments": "The quick brown fox jumps over the lazy dog.",
+                  "type": {
+                    "id": "11b70fd6-7736-effb-463f-be85a7fc3e3e",
+                    "name": "adacelTdapVaccine",
+                    "displayName": "Adacel (Tdap) Vaccine"
+                  },
+                  "alternateName": "someOtherVaccine"
+                },
+                {
+                  "id": "51c3695c-3ab2-b2e6-bc72-74ad33809881",
+                  "date": "2005-03-05",
+                  "comments": "The quick brown fox jumps over the lazy dog.",
+                  "type": {
+                    "id": "60864988-a9e6-e8ec-5bc4-c842d25a8e19",
+                    "name": "adacelTdapVaccine",
+                    "displayName": "Adacel (Tdap) Vaccine"
+                  },
+                  "alternateName": "someOtherVaccine"
+                }
+              ]
+            }
+          ],
+          "facesheets": [
+            {
+              "id": "ddcc5542-6c95-c666-ade2-1b5f14483426",
+              "name": "string",
+              "date": "1949-06-15",
+              "title": "Patient Facesheet",
+              "createdAt": "1970-04-09T22:36:04.870Z",
+              "images": [
+                {
+                  "id": "d1a597a2-0a0b-48d6-b001-5fe9bba61283",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1964-07-09T22:14:05.682Z"
+                },
+                {
+                  "id": "9f13e0b6-ac96-04dc-7fd7-70cc159be65f",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1995-02-05T05:48:30.166Z"
+                }
+              ],
+              "requestId": "0fb1fb15-34d3-c4b1-56df-0fea119510ee"
+            },
+            {
+              "id": "e857fe0e-23d6-06e3-d3ee-acde69a9be90",
+              "name": "string",
+              "date": "1992-03-12",
+              "title": "Patient Facesheet",
+              "createdAt": "1986-12-31T08:26:40.482Z",
+              "images": [
+                {
+                  "id": "bd6900cb-b138-a722-63ee-2acc88066da5",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1998-06-08T05:15:32.209Z"
+                },
+                {
+                  "id": "b5721d22-a694-6f15-1993-4b0af6e40d13",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "2001-01-29T08:54:11.204Z"
+                }
+              ],
+              "requestId": "3c1b4623-4b1e-8cf4-f9fd-6a7f94419fbe"
+            }
+          ],
+          "hieDocs": [
+            {
+              "id": "4d6f10e3-eb9c-8857-50e7-94f9cd59d8f7",
+              "createdAt": "1999-04-19T13:20:05.814Z",
+              "title": "string",
+              "image": {
+                "id": "3d774104-2882-568a-9c3d-80ccd33cf91b",
+                "url": "https://example.com/document.pdf",
+                "createdAt": "1980-12-01T10:22:37.098Z"
+              },
+              "images": [
+                {
+                  "id": "f9afc4bc-00f6-887e-7826-ce48770514d2",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1998-03-18T09:55:04.586Z"
+                },
+                {
+                  "id": "934c0fc7-02f3-b20a-f9ea-1a8cc397a1a8",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "2009-01-29T07:16:09.459Z"
+                }
+              ]
+            },
+            {
+              "id": "ff0c6600-6978-e1b0-4053-cdc81985a86d",
+              "createdAt": "1975-09-24T02:53:13.774Z",
+              "title": "string",
+              "image": {
+                "id": "987fbacd-ce31-5263-c6e9-b8c993f06509",
+                "url": "https://example.com/document.pdf",
+                "createdAt": "1956-08-31T18:21:03.090Z"
+              },
+              "images": [
+                {
+                  "id": "4dbea972-b4a6-ae98-c7ed-8f46ad90dd19",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1953-03-06T03:48:21.901Z"
+                },
+                {
+                  "id": "a0fbe4c7-1d67-12ee-73f5-2d7d088615db",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1967-07-04T12:43:32.715Z"
+                }
+              ]
+            }
+          ],
+          "medications": [
+            {
+              "medicationId": "string",
+              "medicationTitle": "string",
+              "prescriberFirstName": "string",
+              "prescriberLastName": "string",
+              "prescriberPracticeName": "string",
+              "prescriberNpi": "string",
+              "lastFillDate": "1988-02-25T01:39:34.565Z",
+              "sources": [
+                {
+                  "qualifier": "string",
+                  "description": "string"
+                },
+                {
+                  "qualifier": "string",
+                  "description": "string"
+                }
+              ],
+              "createdAt": "1959-03-13T11:41:32.042Z",
+              "dosageValue": "string",
+              "dosageFormRaw": "string",
+              "dosageForm": "string",
+              "dosageUnitRaw": "string",
+              "dosageUnit": "string",
+              "diagnosis": "string",
+              "status": "string",
+              "writtenDate": "1973-03-13T13:52:41.614Z",
+              "quantityValue": "string",
+              "quantityUnitRaw": "string",
+              "quantityUnit": "string",
+              "daysSupply": 8169.042483130546,
+              "refillsRemaining": 7167.903372230202,
+              "substitutions": 2291.9758594827113,
+              "prescriberOrderNumber": "string",
+              "priorAuthNumber": "string",
+              "diagnosisQualifier": "string"
+            },
+            {
+              "medicationId": "string",
+              "medicationTitle": "string",
+              "prescriberFirstName": "string",
+              "prescriberLastName": "string",
+              "prescriberPracticeName": "string",
+              "prescriberNpi": "string",
+              "lastFillDate": "2014-12-10T02:48:29.785Z",
+              "sources": [
+                {
+                  "qualifier": "string",
+                  "description": "string"
+                },
+                {
+                  "qualifier": "string",
+                  "description": "string"
+                }
+              ],
+              "createdAt": "2002-05-21T17:45:10.063Z",
+              "dosageValue": "string",
+              "dosageFormRaw": "string",
+              "dosageForm": "string",
+              "dosageUnitRaw": "string",
+              "dosageUnit": "string",
+              "diagnosis": "string",
+              "status": "string",
+              "writtenDate": "1956-11-11T18:43:07.614Z",
+              "quantityValue": "string",
+              "quantityUnitRaw": "string",
+              "quantityUnit": "string",
+              "daysSupply": 4763.518130741669,
+              "refillsRemaining": 6616.394630616409,
+              "substitutions": 2556.0690042045176,
+              "prescriberOrderNumber": "string",
+              "priorAuthNumber": "string",
+              "diagnosisQualifier": "string"
+            }
+          ]
+        },
+        {
+          "drugAllergies": [
+            {
+              "id": "5fd84b46-48f4-704a-c505-9953ed2df2fe",
+              "alternateName": "Accutane",
+              "reaction": "Rash",
+              "comments": "The quick brown fox jumps over the lazy dog.",
+              "createdAt": "2026-09-01T16:03:58.140Z",
+              "images": [
+                {
+                  "id": "664615c1-552b-59cb-3273-ea8f70d2defa",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1970-10-03T06:28:05.278Z"
+                },
+                {
+                  "id": "88d3fd79-07da-f06b-9573-abd13e6f17bf",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1993-09-05T21:13:09.028Z"
+                }
+              ],
+              "indexedRecordSpliceType": "CANVAS_SET",
+              "drugName": "Isotretinoin"
+            },
+            {
+              "id": "5b1cee3d-c64d-ccef-2ba4-8c6dfaeaaaae",
+              "alternateName": "Accutane",
+              "reaction": "Rash",
+              "comments": "The quick brown fox jumps over the lazy dog.",
+              "createdAt": "2024-10-24T22:18:37.131Z",
+              "images": [
+                {
+                  "id": "b4db56cd-ad49-6f07-4956-08f42e255124",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "2015-09-28T12:32:43.955Z"
+                },
+                {
+                  "id": "ba74f465-1a80-dbab-300f-642926c14953",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1987-04-25T09:56:06.435Z"
+                }
+              ],
+              "indexedRecordSpliceType": "SEGMENT_SET",
+              "drugName": "Isotretinoin"
+            }
+          ],
+          "documents": [
+            {
+              "id": "061d1752-7056-fcee-d224-f230fa3f6970",
+              "title": "Discharge Summary",
+              "comments": "Reviewed by provider",
+              "date": "string",
+              "createdAt": "1973-10-20T23:14:44.245Z",
+              "images": [
+                {
+                  "id": "6ec61576-55d9-51f7-18c0-5f377606236a",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1982-06-18T02:34:29.756Z"
+                },
+                {
+                  "id": "04dc93fc-8152-5b21-78f5-84d6ea30accf",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1964-10-06T16:42:24.313Z"
+                }
+              ],
+              "documentType": "CONSENT AND AUTHORIZATION FORMS",
+              "indexedRecordSpliceType": "SEGMENT_SET"
+            },
+            {
+              "id": "c55d0b72-d975-667e-c889-ba1d7dc7c137",
+              "title": "Discharge Summary",
+              "comments": "Reviewed by provider",
+              "date": "string",
+              "createdAt": "1989-10-20T21:39:34.423Z",
+              "images": [
+                {
+                  "id": "4a2d893f-fd24-1e60-177e-7b2950d1db94",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1980-08-20T20:58:36.547Z"
+                },
+                {
+                  "id": "1d8c48a5-9ee4-a3cf-21e9-140dc67e5eb1",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1963-10-21T03:27:58.129Z"
+                }
+              ],
+              "documentType": "CONSENT AND AUTHORIZATION FORMS",
+              "indexedRecordSpliceType": "CANVAS_SET"
+            }
+          ],
+          "imagingResults": [
+            {
+              "id": "8ec67fdc-9e79-3a9d-783e-5f62119168eb",
+              "title": "X-Ray Results",
+              "date": "2002-12-13",
+              "comments": "No acute findings.",
+              "createdAt": "1959-07-09T22:46:53.894Z",
+              "images": [
+                {
+                  "id": "c6d46abc-8ff1-356f-8658-0a3528018b44",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "2014-05-30T06:02:00.295Z"
+                },
+                {
+                  "id": "b2d07ee0-d4d2-c4c0-ef12-d27e2b660754",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1975-09-27T09:18:15.000Z"
+                }
+              ],
+              "indexedRecordSpliceType": "SEGMENT_SET",
+              "type": {
+                "id": "fd12ad30-2601-55b9-8070-b86bf8864a7c",
+                "name": "xray",
+                "displayName": "X-Ray"
+              },
+              "bodyPart": {
+                "id": "1467941b-a5d7-aae8-cbee-a95401caed94",
+                "name": "cervicothoracic",
+                "displayName": "Cervicothoracic"
+              },
+              "alternateBodyPartName": "clavicle"
+            },
+            {
+              "id": "4e9a4bfc-0af1-01cd-ecfa-e8747ab1fbb1",
+              "title": "X-Ray Results",
+              "date": "1959-05-02",
+              "comments": "No acute findings.",
+              "createdAt": "1982-11-08T22:43:31.403Z",
+              "images": [
+                {
+                  "id": "2f593f46-c549-954a-c10b-43818e7455d1",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1955-11-19T00:25:28.353Z"
+                },
+                {
+                  "id": "6f81d13c-ee02-c8c3-6c2c-8986a9c5ad33",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1988-07-08T18:58:02.783Z"
+                }
+              ],
+              "indexedRecordSpliceType": "SEGMENT_SET",
+              "type": {
+                "id": "3e4d8e1e-d97b-b306-ebb3-e9765a612dbb",
+                "name": "xray",
+                "displayName": "X-Ray"
+              },
+              "bodyPart": {
+                "id": "a1964753-eb28-ac1f-35b4-0f80b0a038f3",
+                "name": "cervicothoracic",
+                "displayName": "Cervicothoracic"
+              },
+              "alternateBodyPartName": "clavicle"
+            }
+          ],
+          "labTests": [
+            {
+              "id": "a52d2223-03ef-7a54-392c-8864688bc712",
+              "type": "Lakeview Labs",
+              "title": "Bloodwork Panel",
+              "date": "1960-11-24",
+              "status": "PROCESSED",
+              "createdAt": "1973-05-06T11:52:39.622Z",
+              "images": [
+                {
+                  "id": "89abc106-4319-e236-358b-2cd96145c1c2",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1952-11-20T23:20:02.938Z"
+                },
+                {
+                  "id": "d5ec506f-a17a-543a-7210-067aa580f96a",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1953-04-02T21:54:21.839Z"
+                }
+              ],
+              "results": [
+                {
+                  "id": "13aadecf-1abb-0cfc-a746-0b8cf4c78972",
+                  "labTestId": "c94cd274-3f0b-676d-685d-7f33ab2c7a38",
+                  "chemistryName": "CBC",
+                  "value": "CBC Results",
+                  "isTrendable": false,
+                  "createdAt": "1960-02-28T23:14:15.583Z",
+                  "specialty": {
+                    "id": "8575d5d3-5e3e-16dd-4f54-29096e809273",
+                    "name": "hematologyOncology",
+                    "displayName": "Hematology/Oncology"
+                  },
+                  "normalRange": "10 mg/dL"
+                },
+                {
+                  "id": "7eeadc55-eef6-38c4-f9c1-444b06892720",
+                  "labTestId": "2eb3cc1c-ba0c-85f3-307a-33d6268d5336",
+                  "chemistryName": "CBC",
+                  "value": "CBC Results",
+                  "isTrendable": false,
+                  "createdAt": "1964-10-04T21:14:06.407Z",
+                  "specialty": {
+                    "id": "01c27091-bae4-811d-d789-86bdd4fd5e01",
+                    "name": "hematologyOncology",
+                    "displayName": "Hematology/Oncology"
+                  },
+                  "normalRange": "10 mg/dL"
+                }
+              ]
+            },
+            {
+              "id": "545068b7-7c38-1870-6052-7714b5e12639",
+              "type": "Lakeview Labs",
+              "title": "Bloodwork Panel",
+              "date": "1990-07-25",
+              "status": "PROCESSED",
+              "createdAt": "2005-01-21T20:06:52.945Z",
+              "images": [
+                {
+                  "id": "944b89e5-5562-2984-3941-b8ff0d7a273f",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "2006-01-27T14:27:55.871Z"
+                },
+                {
+                  "id": "0ec1cd4e-7f14-5020-1758-623f76f1f495",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1983-07-05T06:58:21.776Z"
+                }
+              ],
+              "results": [
+                {
+                  "id": "228f5441-b3a2-5a1c-83d6-dc122cccf294",
+                  "labTestId": "8d672a72-b450-2eac-7408-63e94e85bf22",
+                  "chemistryName": "CBC",
+                  "value": "CBC Results",
+                  "isTrendable": false,
+                  "createdAt": "1977-07-02T04:40:53.347Z",
+                  "specialty": {
+                    "id": "a37023be-50af-081d-197c-6b53a6255e40",
+                    "name": "hematologyOncology",
+                    "displayName": "Hematology/Oncology"
+                  },
+                  "normalRange": "10 mg/dL"
+                },
+                {
+                  "id": "4a1f2f1e-7dc7-45b9-e3c6-274dc35d2b8a",
+                  "labTestId": "14975852-f604-3030-be9d-803812a4ad57",
+                  "chemistryName": "CBC",
+                  "value": "CBC Results",
+                  "isTrendable": true,
+                  "createdAt": "1979-11-20T10:54:38.423Z",
+                  "specialty": {
+                    "id": "14319366-cd1b-f2ae-0e4b-d61656094e8e",
+                    "name": "hematologyOncology",
+                    "displayName": "Hematology/Oncology"
+                  },
+                  "normalRange": "10 mg/dL"
+                }
+              ]
+            }
+          ],
+          "otherRecords": [
+            {
+              "id": "9e6344a8-7d91-0f65-053f-502682a47b84",
+              "title": "Lab Results",
+              "date": "2013-07-05",
+              "status": "PROCESSING",
+              "comments": "The quick brown fox jumps over the lazy dog.",
+              "createdAt": "1972-06-09T22:25:13.629Z",
+              "images": [
+                {
+                  "id": "0ae5454f-89fc-031d-1d66-c525f210f7c3",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1991-02-25T04:15:42.450Z"
+                },
+                {
+                  "id": "2f2c5189-fbe2-22d0-5aeb-e63b602ee90a",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "2007-06-03T03:44:43.129Z"
+                }
+              ],
+              "indexedRecordSpliceType": "PRESPLICED",
+              "type": {
+                "id": "89a24a45-9c90-255b-1cd5-5a96c6a6433b",
+                "name": "labcorp",
+                "displayName": "Labcorp"
+              }
+            },
+            {
+              "id": "f1c17d80-fcf9-cf56-de66-49a75f15703c",
+              "title": "Lab Results",
+              "date": "2023-07-02",
+              "status": "PROCESSING",
+              "comments": "The quick brown fox jumps over the lazy dog.",
+              "createdAt": "1948-02-09T14:00:14.417Z",
+              "images": [
+                {
+                  "id": "55ce33bd-da37-1a0e-72c5-713961c89e8e",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "2010-08-23T23:50:59.597Z"
+                },
+                {
+                  "id": "795b2469-dfd1-de71-9ab4-2c604cf7ff2f",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "2005-05-03T07:24:54.943Z"
+                }
+              ],
+              "indexedRecordSpliceType": "CANVAS_SET",
+              "type": {
+                "id": "66e8e454-9d46-1c82-8eca-ed0258029c99",
+                "name": "labcorp",
+                "displayName": "Labcorp"
+              }
+            }
+          ],
+          "procedureNotes": [
+            {
+              "id": "3032eb08-5a56-fe2e-004e-9bc3026727db",
+              "title": "Surgery Note",
+              "proceduralist": "Dr. John Doe",
+              "date": "2019-01-16",
+              "comments": "The quick brown fox jumps over the lazy dog.",
+              "createdAt": "2005-09-22T12:24:17.066Z",
+              "images": [
+                {
+                  "id": "98807e76-597f-2355-e6e1-d3bc429f25fd",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1977-05-06T04:09:11.190Z"
+                },
+                {
+                  "id": "e960eed6-ca65-5417-7116-867f0bb25252",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "2019-12-04T22:59:31.504Z"
+                }
+              ],
+              "indexedRecordSpliceType": "PRESPLICED"
+            },
+            {
+              "id": "06c856e9-fa2a-486e-df49-3a8918f11a87",
+              "title": "Surgery Note",
+              "proceduralist": "Dr. John Doe",
+              "date": "1956-11-03",
+              "comments": "The quick brown fox jumps over the lazy dog.",
+              "createdAt": "2021-01-19T13:16:37.673Z",
+              "images": [
+                {
+                  "id": "859e60d3-cda1-61af-7aad-52050f1e4e78",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1951-05-29T19:16:54.747Z"
+                },
+                {
+                  "id": "4e80fe62-6b62-0be5-7bd2-11689172f07a",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1974-03-17T21:06:36.185Z"
+                }
+              ],
+              "indexedRecordSpliceType": "CANVAS_SET"
+            }
+          ],
+          "providerFacilityNotes": [
+            {
+              "id": "f38629d5-8952-7041-2b1c-ef179c9630f7",
+              "providerName": "Lakeview Clinic",
+              "date": "1967-12-30",
+              "comments": "Follow up in six months.",
+              "createdAt": "1974-11-09T11:02:43.204Z",
+              "images": [
+                {
+                  "id": "40a07452-5e04-9e24-33de-7da86279de74",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1977-10-30T09:58:46.224Z"
+                },
+                {
+                  "id": "509c1603-c99b-e52f-4e21-bd97b56be387",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1974-01-11T02:03:33.377Z"
+                }
+              ],
+              "indexedRecordSpliceType": "SEGMENT_SET",
+              "providerType": {
+                "id": "0468fefc-f788-e418-93fd-fb3665e9f702",
+                "name": "internalMedicine",
+                "displayName": "Internal Medicine"
+              },
+              "alternateProviderTypeName": "nonClinicalProvider"
+            },
+            {
+              "id": "aa6a0612-39ed-a61b-948c-4ac7fabc6a6f",
+              "providerName": "Lakeview Clinic",
+              "date": "1960-04-26",
+              "comments": "Follow up in six months.",
+              "createdAt": "1970-01-23T23:00:14.326Z",
+              "images": [
+                {
+                  "id": "1b2115f4-e695-fa70-94c0-810067f468e8",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1989-10-08T06:05:24.677Z"
+                },
+                {
+                  "id": "6496027b-954f-7bdc-7e33-1be2d118f135",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1952-03-16T09:41:48.901Z"
+                }
+              ],
+              "indexedRecordSpliceType": "SEGMENT_SET",
+              "providerType": {
+                "id": "4a389438-e70c-0bdc-4502-661813993220",
+                "name": "internalMedicine",
+                "displayName": "Internal Medicine"
+              },
+              "alternateProviderTypeName": "nonClinicalProvider"
+            }
+          ],
+          "vaccineRecords": [
+            {
+              "id": "40a6e686-f880-08d0-443e-2c0e132abfec",
+              "date": "2013-08-11",
+              "comments": "The quick brown fox jumps over the lazy dog.",
+              "createdAt": "1958-05-29T02:47:16.598Z",
+              "images": [
+                {
+                  "id": "2316d68d-537d-8060-bcab-b5b4a355dc8d",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "2022-01-29T20:45:33.854Z"
+                },
+                {
+                  "id": "434d049d-18be-1535-94ca-8fda1b72f1da",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1967-01-31T02:40:56.041Z"
+                }
+              ],
+              "indexedRecordSpliceType": "PRESPLICED",
+              "type": {
+                "id": "33cbe18c-9e27-c8a8-f9ee-8356e3274bec",
+                "name": "adacelTdapVaccine",
+                "displayName": "Adacel (Tdap) Vaccine"
+              },
+              "alternateName": "someOtherVaccine"
+            },
+            {
+              "id": "6ba0b379-3c83-073c-baf5-643b4228116d",
+              "date": "2002-04-29",
+              "comments": "The quick brown fox jumps over the lazy dog.",
+              "createdAt": "1994-06-23T21:40:21.500Z",
+              "images": [
+                {
+                  "id": "891e19da-7260-e077-8726-440e2237b6cc",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "2000-08-31T14:04:25.240Z"
+                },
+                {
+                  "id": "49ed697a-2ee3-ac9f-c13f-8ac36727a665",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1950-11-15T14:48:59.560Z"
+                }
+              ],
+              "indexedRecordSpliceType": "CANVAS_SET",
+              "type": {
+                "id": "dbef0aeb-153c-fc5b-c623-4ad15f5ea0cc",
+                "name": "adacelTdapVaccine",
+                "displayName": "Adacel (Tdap) Vaccine"
+              },
+              "alternateName": "someOtherVaccine"
+            }
+          ],
+          "vaccineDocuments": [
+            {
+              "id": "48b22a43-60ab-4615-ddb9-792fe818cd5a",
+              "createdAt": "2007-07-11T08:32:28.911Z",
+              "images": [
+                {
+                  "id": "d2d62b90-fab0-544d-9ea4-3c0128793516",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1981-06-17T04:39:50.751Z"
+                },
+                {
+                  "id": "2c5e50be-6c6e-9e7c-aee3-db0c7499c769",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1966-02-09T19:41:24.911Z"
+                }
+              ],
+              "indexedRecordSpliceType": "CANVAS_SET",
+              "vaccines": [
+                {
+                  "id": "1d5e830a-d999-b9a3-9913-bad65e137934",
+                  "date": "2004-04-05",
+                  "comments": "The quick brown fox jumps over the lazy dog.",
+                  "type": {
+                    "id": "52c62ff3-63ec-b982-0526-fd9a26396eb4",
+                    "name": "adacelTdapVaccine",
+                    "displayName": "Adacel (Tdap) Vaccine"
+                  },
+                  "alternateName": "someOtherVaccine"
+                },
+                {
+                  "id": "3cf40a8f-67a4-b449-8236-b8e81362270a",
+                  "date": "1957-09-17",
+                  "comments": "The quick brown fox jumps over the lazy dog.",
+                  "type": {
+                    "id": "387c274f-9180-7739-e565-66cc6be65b6e",
+                    "name": "adacelTdapVaccine",
+                    "displayName": "Adacel (Tdap) Vaccine"
+                  },
+                  "alternateName": "someOtherVaccine"
+                }
+              ]
+            },
+            {
+              "id": "9bfb31dd-f671-000d-e1cb-fffcdd3cad04",
+              "createdAt": "2011-05-19T07:59:18.433Z",
+              "images": [
+                {
+                  "id": "d41db588-e7cb-c993-76ae-061702a381d0",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "2019-12-29T08:49:26.113Z"
+                },
+                {
+                  "id": "743e5c56-9ed0-ba3b-4ea4-4694ed567158",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1969-06-16T23:04:29.353Z"
+                }
+              ],
+              "indexedRecordSpliceType": "CANVAS_SET",
+              "vaccines": [
+                {
+                  "id": "64511a68-456c-be1d-274f-6d981d8d424e",
+                  "date": "1954-08-08",
+                  "comments": "The quick brown fox jumps over the lazy dog.",
+                  "type": {
+                    "id": "b0544fd5-5804-71db-941f-5f788fc5c1ba",
+                    "name": "adacelTdapVaccine",
+                    "displayName": "Adacel (Tdap) Vaccine"
+                  },
+                  "alternateName": "someOtherVaccine"
+                },
+                {
+                  "id": "9cd53395-c65c-b933-cb29-b218bdc04b89",
+                  "date": "2007-08-19",
+                  "comments": "The quick brown fox jumps over the lazy dog.",
+                  "type": {
+                    "id": "b12bb6b0-7aaa-4d9b-fdce-eff6ff0527fd",
+                    "name": "adacelTdapVaccine",
+                    "displayName": "Adacel (Tdap) Vaccine"
+                  },
+                  "alternateName": "someOtherVaccine"
+                }
+              ]
+            }
+          ],
+          "facesheets": [
+            {
+              "id": "9f2ff3e0-b263-0098-bc49-74b9d871e5b8",
+              "name": "string",
+              "date": "1950-10-03",
+              "title": "Patient Facesheet",
+              "createdAt": "1972-08-20T04:28:21.988Z",
+              "images": [
+                {
+                  "id": "6a77220b-ee5e-c318-1d58-509561ce2442",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "2004-02-22T03:33:54.499Z"
+                },
+                {
+                  "id": "7d110c6c-0f1e-4223-fd05-c3efb27d96ad",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1949-12-03T13:21:51.372Z"
+                }
+              ],
+              "requestId": "06140cb5-9d73-8306-6e1e-7923d6c91203"
+            },
+            {
+              "id": "9ca32c6a-586f-ee9f-692f-eed5df81ad72",
+              "name": "string",
+              "date": "1951-12-09",
+              "title": "Patient Facesheet",
+              "createdAt": "1977-04-28T02:59:39.692Z",
+              "images": [
+                {
+                  "id": "b5f1ef8c-3860-44b1-f22f-c49539fa56ad",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1999-05-22T03:03:30.730Z"
+                },
+                {
+                  "id": "e5020e44-ca57-b8db-849b-69b6ef144b31",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1980-01-20T15:24:19.451Z"
+                }
+              ],
+              "requestId": "d177a75d-73af-a7ab-bffc-39934b7b40af"
+            }
+          ],
+          "hieDocs": [
+            {
+              "id": "e30fac08-dcd1-13e3-1cee-394d6d30e73b",
+              "createdAt": "1985-01-10T03:25:53.077Z",
+              "title": "string",
+              "image": {
+                "id": "b982ffcb-369b-4de4-0c13-4bf5041b5997",
+                "url": "https://example.com/document.pdf",
+                "createdAt": "2010-07-26T01:07:53.057Z"
+              },
+              "images": [
+                {
+                  "id": "8e3e06f6-5cfb-aed8-71a3-2f344632fdc7",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1978-06-29T05:56:06.948Z"
+                },
+                {
+                  "id": "dc0d7031-5f94-96ed-e4f7-153e9b7e55b9",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1953-06-26T07:20:44.247Z"
+                }
+              ]
+            },
+            {
+              "id": "2381b058-f577-c5f9-c64b-cc569215b179",
+              "createdAt": "1995-07-20T23:42:05.049Z",
+              "title": "string",
+              "image": {
+                "id": "fda9cdd8-26da-f9b7-2373-c7d844bb4f3a",
+                "url": "https://example.com/document.pdf",
+                "createdAt": "2022-05-14T21:20:01.375Z"
+              },
+              "images": [
+                {
+                  "id": "7e33266e-c200-a2ea-c562-51f50aa4b6a6",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1980-08-04T18:17:37.066Z"
+                },
+                {
+                  "id": "0cc9b2dd-920c-3fd8-e5ee-9067c76cc90a",
+                  "url": "https://example.com/document.pdf",
+                  "createdAt": "1969-03-30T21:33:47.111Z"
+                }
+              ]
+            }
+          ],
+          "medications": [
+            {
+              "medicationId": "string",
+              "medicationTitle": "string",
+              "prescriberFirstName": "string",
+              "prescriberLastName": "string",
+              "prescriberPracticeName": "string",
+              "prescriberNpi": "string",
+              "lastFillDate": "2010-12-15T21:16:33.544Z",
+              "sources": [
+                {
+                  "qualifier": "string",
+                  "description": "string"
+                },
+                {
+                  "qualifier": "string",
+                  "description": "string"
+                }
+              ],
+              "createdAt": "2001-02-08T12:14:07.496Z",
+              "dosageValue": "string",
+              "dosageFormRaw": "string",
+              "dosageForm": "string",
+              "dosageUnitRaw": "string",
+              "dosageUnit": "string",
+              "diagnosis": "string",
+              "status": "string",
+              "writtenDate": "2005-12-05T17:57:41.793Z",
+              "quantityValue": "string",
+              "quantityUnitRaw": "string",
+              "quantityUnit": "string",
+              "daysSupply": 9696.403628451855,
+              "refillsRemaining": 536.3253416120051,
+              "substitutions": 5181.1065049749395,
+              "prescriberOrderNumber": "string",
+              "priorAuthNumber": "string",
+              "diagnosisQualifier": "string"
+            },
+            {
+              "medicationId": "string",
+              "medicationTitle": "string",
+              "prescriberFirstName": "string",
+              "prescriberLastName": "string",
+              "prescriberPracticeName": "string",
+              "prescriberNpi": "string",
+              "lastFillDate": "2010-08-03T07:52:45.397Z",
+              "sources": [
+                {
+                  "qualifier": "string",
+                  "description": "string"
+                },
+                {
+                  "qualifier": "string",
+                  "description": "string"
+                }
+              ],
+              "createdAt": "1990-02-27T08:37:26.980Z",
+              "dosageValue": "string",
+              "dosageFormRaw": "string",
+              "dosageForm": "string",
+              "dosageUnitRaw": "string",
+              "dosageUnit": "string",
+              "diagnosis": "string",
+              "status": "string",
+              "writtenDate": "1987-06-27T13:27:08.597Z",
+              "quantityValue": "string",
+              "quantityUnitRaw": "string",
+              "quantityUnit": "string",
+              "daysSupply": 8317.983228458981,
+              "refillsRemaining": 1771.8148391865584,
+              "substitutions": 6779.095026448918,
+              "prescriberOrderNumber": "string",
+              "priorAuthNumber": "string",
+              "diagnosisQualifier": "string"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "name": "Create Patient",
+    "method": "POST",
+    "path": "/api/v2/patients",
+    "status": 201,
+    "body": {
+      "patientId": "2e718e55-9b6d-03db-cdd5-1a44cd9bcfd0"
+    }
+  },
+  {
+    "name": "Create Patient with Record Request V2",
+    "method": "POST",
+    "path": "/api/v2/requests",
+    "status": 201,
+    "body": {
+      "partnerPatientId": "458cbe68-f15c-0819-5a3f-641e24404587",
+      "requestId": "268ac18c-47d6-6b6a-a489-954e5414d786",
+      "message": "Patient created successfully",
+      "previousProviderRetrievals": [
+        {
+          "id": "11111111-1111-4111-8111-111111111111"
+        },
+        {
+          "id": "11111111-1111-4111-8111-111111111111"
+        }
+      ],
+      "referenceId": "1234567890"
+    }
+  },
+  {
+    "name": "List of All Patient Record Requests",
+    "method": "GET",
+    "path": "/api/v2/requests",
+    "status": 200,
+    "body": {
+      "recordRequests": [
+        {
+          "patient": {
+            "firstName": "Martha",
+            "lastName": "Rangel",
+            "address": {
+              "address1": "4990 HOOVER RD",
+              "address2": "APT 227",
+              "city": "GROVE CITY",
+              "state": "OH",
+              "postalCode": "43123"
+            },
+            "dateOfBirth": "1970-03-10",
+            "genderName": "female",
+            "phoneNumber": "7175501675",
+            "primaryLanguage": "english",
+            "cumulativePatientStatus": {
+              "OPEN": 3,
+              "COMPLETED": 3,
+              "PROCESSING": 1,
+              "ACTION REQUIRED": 1,
+              "CLOSED": 2,
+              "CANCELLED": 1
+            },
+            "partnerPatientId": "0d517f66-7afd-c4db-26fc-89990f46486e",
+            "patientKey": "string",
+            "middleName": "Sara",
+            "email": "martha.rangel@domain.com"
+          },
+          "requests": [
+            {
+              "requestId": "a22e0275-1884-9a09-88ab-094431f6a9ca",
+              "referenceId": "1234567890"
+            },
+            {
+              "requestId": "093de642-5702-ca03-d20d-e1f4f0be4c32",
+              "referenceId": "1234567890"
+            }
+          ]
+        },
+        {
+          "patient": {
+            "firstName": "Martha",
+            "lastName": "Rangel",
+            "address": {
+              "address1": "4990 HOOVER RD",
+              "address2": "APT 227",
+              "city": "GROVE CITY",
+              "state": "OH",
+              "postalCode": "43123"
+            },
+            "dateOfBirth": "1970-03-10",
+            "genderName": "female",
+            "phoneNumber": "7175501675",
+            "primaryLanguage": "english",
+            "cumulativePatientStatus": {
+              "OPEN": 3,
+              "COMPLETED": 3,
+              "PROCESSING": 1,
+              "ACTION REQUIRED": 1,
+              "CLOSED": 2,
+              "CANCELLED": 1
+            },
+            "partnerPatientId": "6a503427-4a99-c64d-c332-75f66a576146",
+            "patientKey": "string",
+            "middleName": "Sara",
+            "email": "martha.rangel@domain.com"
+          },
+          "requests": [
+            {
+              "requestId": "5d66efc0-b65a-db26-3d65-80a0c16c9bf3",
+              "referenceId": "1234567890"
+            },
+            {
+              "requestId": "f2cc56d9-edfe-ef38-ba46-49da8d2302c5",
+              "referenceId": "1234567890"
+            }
+          ]
+        }
+      ],
+      "pagination": {
+        "offset": 1029.4931615101243,
+        "limit": 1791.2523673689984,
+        "total": 4377.394809207262
+      }
+    }
+  },
+  {
+    "name": "Upload patient records",
+    "method": "POST",
+    "path": "/api/v2/records/upload",
+    "status": 200,
+    "body": {
+      "patientId": "4b959c95-fe67-b3a6-0ae6-3ec6e4322a05",
+      "recordUploadId": "5aceaf1e-3488-35ef-8dbd-5a17650e207e"
+    }
+  }
+]

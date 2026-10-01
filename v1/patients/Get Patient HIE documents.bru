@@ -1,0 +1,83 @@
+meta {
+  name: Get Patient HIE documents
+  type: http
+  seq: 15
+}
+
+get {
+  url: {{baseUrl}}/v1/patients/:patientId/hie-docs
+  body: none
+  auth: inherit
+}
+
+params:path {
+  patientId: {{patientId}}
+}
+
+headers {
+  Accept: application/json
+}
+
+docs {
+  Gets a list of HIE documents for the patient by ID. These can be downloaded via their `url` property. Partner-facing document display text fields are returned without literal `|` separators. Identifiers, URLs, statuses, dates, splice metadata, and source metadata are preserved as received.
+
+  ### Fields
+
+  | Field | Description |
+  |---|---|
+  | `patientId` | Unique identifier of the patient. |
+
+  ### Example response 200 OK
+
+  ```json
+  {
+    "partnerPatientId": "a15ee663-f259-7580-edce-940d3fb9e19f",
+    "hieDocs": [
+      {
+        "id": "de35a03e-80cd-c57c-b7e8-c06fed3cf270",
+        "createdAt": "1976-12-25T23:35:14.208Z",
+        "title": "string",
+        "image": {
+          "id": "0ec40b57-e077-1f86-83f9-5e75fa7c6870",
+          "url": "https://example.com/document.pdf",
+          "createdAt": "2025-04-08T01:05:44.883Z"
+        },
+        "images": [
+          {
+            "id": "934133ad-e40b-9abe-a19c-63a3538b4daf",
+            "url": "https://example.com/document.pdf",
+            "createdAt": "2008-01-26T22:07:47.797Z"
+          },
+          {
+            "id": "0f3d7fce-cf9c-804a-ae79-9a995ac74dfc",
+            "url": "https://example.com/document.pdf",
+            "createdAt": "1988-12-04T04:19:22.141Z"
+          }
+        ]
+      },
+      {
+        "id": "f052b74d-1b53-29ad-af13-7f6615438d0a",
+        "createdAt": "2012-06-02T11:00:09.191Z",
+        "title": "string",
+        "image": {
+          "id": "478de5fc-02b6-abe0-4c3c-f7f03f377c7e",
+          "url": "https://example.com/document.pdf",
+          "createdAt": "1953-09-17T12:45:49.963Z"
+        },
+        "images": [
+          {
+            "id": "0bb7adc0-60b6-6942-198c-d7e78e090619",
+            "url": "https://example.com/document.pdf",
+            "createdAt": "1973-05-22T23:05:15.044Z"
+          },
+          {
+            "id": "4fe07343-aa12-559a-463c-19da07585ebd",
+            "url": "https://example.com/document.pdf",
+            "createdAt": "2007-11-04T17:18:23.076Z"
+          }
+        ]
+      }
+    ]
+  }
+  ```
+}

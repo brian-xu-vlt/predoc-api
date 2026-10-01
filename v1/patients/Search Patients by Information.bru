@@ -1,0 +1,78 @@
+meta {
+  name: Search Patients by Information
+  type: http
+  seq: 24
+}
+
+get {
+  url: {{baseUrl}}/v1/patients
+  body: none
+  auth: inherit
+}
+
+params:query {
+  ~patientKey: PAPI-123456789012
+  firstName: Calvin
+  lastName: Hills
+  phoneNumber: 5557578394
+  dateOfBirth: 1989-08-16
+}
+
+headers {
+  Accept: application/json
+}
+
+docs {
+  > **Deprecated:** Supplying search criteria in the request body will be removed in a future release. Use query parameters instead.
+
+  Searches for patients using the supplied demographic criteria. Returned patient IDs can be used with `GET /patients/{patientId}` to retrieve complete patient information. If no patient matches, the response contains an empty patient ID and an explanatory message.
+
+  ### Fields
+
+  | Field | Description |
+  |---|---|
+  | `patientKey` | Patient Key. |
+  | `firstName` | First name of the patient. |
+  | `lastName` | Last name of the patient. |
+  | `phoneNumber` | Phone number of the patient, digits only. |
+  | `dateOfBirth` | Date of birth of the patient, in `YYYY-MM-DD` format. |
+
+  ### Example response 200 OK
+
+  ```json
+  [
+    {
+      "partnerPatientId": "bb46cabf-e703-81fc-2655-d5117fe186d2",
+      "patientKey": "PAPI-123456789012",
+      "firstName": "Martha",
+      "middleName": "Sara",
+      "lastName": "Rangel",
+      "genderName": "female",
+      "dateOfBirth": "1970-03-10",
+      "phoneNumber": "7175501675",
+      "addressLine1": "4990 HOOVER RD",
+      "addressLine2": "APT 227",
+      "city": "GROVE CITY",
+      "state": "OH",
+      "postalCode": "43123",
+      "primaryLanguage": "english"
+    },
+    {
+      "partnerPatientId": "49dbb5b3-ad7c-65ff-6e23-b53475af72bb",
+      "patientKey": "PAPI-123456789012",
+      "firstName": "Martha",
+      "middleName": "Sara",
+      "lastName": "Rangel",
+      "genderName": "female",
+      "dateOfBirth": "1970-03-10",
+      "phoneNumber": "7175501675",
+      "addressLine1": "4990 HOOVER RD",
+      "addressLine2": "APT 227",
+      "city": "GROVE CITY",
+      "state": "OH",
+      "postalCode": "43123",
+      "primaryLanguage": "english"
+    }
+  ]
+  ```
+}

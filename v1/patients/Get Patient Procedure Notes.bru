@@ -1,0 +1,81 @@
+meta {
+  name: Get Patient Procedure Notes
+  type: http
+  seq: 9
+}
+
+get {
+  url: {{baseUrl}}/v1/patients/:patientId/procedure-notes
+  body: none
+  auth: inherit
+}
+
+params:path {
+  patientId: {{patientId}}
+}
+
+headers {
+  Accept: application/json
+}
+
+docs {
+  Gets a list of procedure notes for the patient by ID. These can be downloaded via their `url` property. Partner-facing document display text fields are returned without literal `|` separators. Identifiers, URLs, statuses, dates, splice metadata, and source metadata are preserved as received.
+
+  ### Fields
+
+  | Field | Description |
+  |---|---|
+  | `patientId` | Unique identifier of the patient. |
+
+  ### Example response 200 OK
+
+  ```json
+  {
+    "partnerPatientId": "b709a16d-44d0-584f-2bc3-82a0d857da87",
+    "procedureNotes": [
+      {
+        "id": "d2eacc1c-fe46-152e-4641-4cadb8168cd9",
+        "title": "Surgery Note",
+        "proceduralist": "Dr. John Doe",
+        "date": "1951-10-27",
+        "comments": "The quick brown fox jumps over the lazy dog.",
+        "createdAt": "1969-11-18T03:42:49.499Z",
+        "images": [
+          {
+            "id": "45e991d1-514e-92ca-918b-d414c0346dce",
+            "url": "https://example.com/document.pdf",
+            "createdAt": "2010-08-09T10:17:30.975Z"
+          },
+          {
+            "id": "967dd17a-b11f-4fb6-bc73-d0f5c9d4a0e0",
+            "url": "https://example.com/document.pdf",
+            "createdAt": "1985-11-23T14:53:20.637Z"
+          }
+        ],
+        "indexedRecordSpliceType": "CANVAS_SET"
+      },
+      {
+        "id": "ba89a8fe-b422-fd65-b85f-1fd6a958091a",
+        "title": "Surgery Note",
+        "proceduralist": "Dr. John Doe",
+        "date": "1977-12-29",
+        "comments": "The quick brown fox jumps over the lazy dog.",
+        "createdAt": "1969-02-06T18:15:58.037Z",
+        "images": [
+          {
+            "id": "f0563808-801d-6251-a026-df9c025701f7",
+            "url": "https://example.com/document.pdf",
+            "createdAt": "2002-05-06T03:12:33.110Z"
+          },
+          {
+            "id": "5ee2d3cd-d8fc-3368-1a59-39c5ec0117ef",
+            "url": "https://example.com/document.pdf",
+            "createdAt": "2015-12-02T17:22:45.131Z"
+          }
+        ],
+        "indexedRecordSpliceType": "CANVAS_SET"
+      }
+    ]
+  }
+  ```
+}

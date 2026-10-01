@@ -1,0 +1,50 @@
+meta {
+  name: Get Patient Information
+  type: http
+  seq: 22
+}
+
+get {
+  url: {{baseUrl}}/v1/patients/:patientId
+  body: none
+  auth: inherit
+}
+
+params:path {
+  patientId: {{patientId}}
+}
+
+headers {
+  Accept: application/json
+}
+
+docs {
+  Gets the full information for the specified patient. If no patient is found with the corresponding ID, a 404 error will be returned.
+
+  ### Fields
+
+  | Field | Description |
+  |---|---|
+  | `patientId` | Unique identifier of the patient. |
+
+  ### Example response 200 OK
+
+  ```json
+  {
+    "partnerPatientId": "81061103-0380-3c0a-01ba-061e3229ec03",
+    "patientKey": "PAPI-123456789012",
+    "firstName": "Martha",
+    "middleName": "Sara",
+    "lastName": "Rangel",
+    "genderName": "female",
+    "dateOfBirth": "1970-03-10",
+    "phoneNumber": "7175501675",
+    "addressLine1": "4990 HOOVER RD",
+    "addressLine2": "APT 227",
+    "city": "GROVE CITY",
+    "state": "OH",
+    "postalCode": "43123",
+    "primaryLanguage": "english"
+  }
+  ```
+}

@@ -1,0 +1,25 @@
+meta {
+  name: Delete Webhook Configuration
+  type: http
+  seq: 2
+}
+
+delete {
+  url: {{baseUrl}}/v1/events/:configurationId
+  body: none
+  auth: inherit
+}
+
+params:path {
+  configurationId: {{configurationId}}
+}
+
+docs {
+  Deletes the specified webhook configuration for the authenticated credential.
+
+  ### Example response 200 OK
+
+  ```json
+
+  ```
+}

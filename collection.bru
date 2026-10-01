@@ -1,0 +1,35 @@
+auth {
+  mode: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+script:pre-request {
+  const isTokenRequest = req.getUrl().includes("/v1/auth/token");
+  const expiresAt = bru.getVar("bearerTokenExpiresAt") ?? 0;
+
+  if (!isTokenRequest && Date.now() > expiresAt) {
+    const response = await bru.sendRequest({
+      method: "POST",
+      url: `${bru.getEnvVar("baseUrl")}/v1/auth/token`,
+      headers: { "Content-Type": "application/json" },
+      data: {
+        client_id: bru.getProcessEnv("PREDOC_CLIENT_ID"),
+        secret_key: bru.getProcessEnv("PREDOC_SECRET_KEY"),
+      },
+    });
+    bru.setVar("bearerToken", response.data.access_token);
+    bru.setVar("bearerTokenExpiresAt", Date.now() + 4 * 60 * 1000);
+  }
+}
+
+docs {
+  # Predoc Partner API
+
+  - Tokens last 5 minutes. The pre-request script above fetches a new one before it expires.
+  - Credentials come from `.env` (`PREDOC_CLIENT_ID`, `PREDOC_SECRET_KEY`).
+  - IDs created by a request (`patientId`, `requestId`, `retrievalId`, `recordUploadId`, `configurationId`) are stored as runtime variables and reused by the next requests.
+  - Sandbox test patients: https://docs.predoc.ai/reference/sandbox-test-patients
+}

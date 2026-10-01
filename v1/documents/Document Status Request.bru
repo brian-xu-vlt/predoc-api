@@ -1,0 +1,42 @@
+meta {
+  name: Document Status Request
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/v1/documents/:documentId
+  body: none
+  auth: inherit
+}
+
+params:path {
+  documentId: {{documentId}}
+}
+
+headers {
+  Accept: application/json
+}
+
+docs {
+  Returns the status of a clinical-summary document request. Use the `patientSummaryRequestId` returned when requesting a patient clinical summary as the `documentId` path parameter.
+
+  Possible statuses are `QUEUEING`, `QUEUED`, `GENERATING`, `ERROR`, and `READY`.
+
+  ### Fields
+
+  | Field | Description |
+  |---|---|
+  | `documentId` | Document id. |
+
+  ### Example response 200 OK
+
+  ```json
+  {
+    "patientSummaryRequestStatus": "QUEUED",
+    "patientSummaryRequestStatusMessage": "Patient summary request submitted successfully",
+    "patientSummaryRequestId": "fa09e2e6-5a97-9433-d807-76fc35b84254",
+    "documentLink": "https://example.com/patient-summary.pdf"
+  }
+  ```
+}

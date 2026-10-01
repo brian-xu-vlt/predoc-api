@@ -1,0 +1,121 @@
+meta {
+  name: Get Patient Vaccines & Immunization Documents
+  type: http
+  seq: 12
+}
+
+get {
+  url: {{baseUrl}}/v1/patients/:patientId/vaccine-documents
+  body: none
+  auth: inherit
+}
+
+params:path {
+  patientId: {{patientId}}
+}
+
+headers {
+  Accept: application/json
+}
+
+docs {
+  Gets a list of vaccine and immunization documents for the patient by ID. These can be downloaded via their `url` property. Partner-facing document display text fields are returned without literal `|` separators. Identifiers, URLs, statuses, dates, splice metadata, and source metadata are preserved as received.
+
+  ### Fields
+
+  | Field | Description |
+  |---|---|
+  | `patientId` | Unique identifier of the patient. |
+
+  ### Example response 200 OK
+
+  ```json
+  {
+    "partnerPatientId": "118613f3-41b4-a347-c90c-ad176bdca3f0",
+    "vaccineDocuments": [
+      {
+        "id": "b2e7efc5-b975-f3bc-d37f-3c369fa5afd7",
+        "createdAt": "2019-03-29T13:32:53.200Z",
+        "images": [
+          {
+            "id": "2c7bcdd4-4532-9f32-906b-1dee1147af36",
+            "url": "https://example.com/document.pdf",
+            "createdAt": "1965-08-26T05:01:56.665Z"
+          },
+          {
+            "id": "503a0a9d-8745-82fd-f4fc-968396af50fc",
+            "url": "https://example.com/document.pdf",
+            "createdAt": "1969-07-12T10:58:11.301Z"
+          }
+        ],
+        "indexedRecordSpliceType": "CANVAS_SET",
+        "vaccines": [
+          {
+            "id": "28a23ba7-a966-c75f-9d01-7454cc6dd39a",
+            "date": "1971-11-08",
+            "comments": "The quick brown fox jumps over the lazy dog.",
+            "type": {
+              "id": "df04ea75-5094-28e1-b73e-5cf6c94ba305",
+              "name": "adacelTdapVaccine",
+              "displayName": "Adacel (Tdap) Vaccine"
+            },
+            "alternateName": "someOtherVaccine"
+          },
+          {
+            "id": "ffa76b95-d3fa-a759-b1d1-10319decaac4",
+            "date": "1958-11-12",
+            "comments": "The quick brown fox jumps over the lazy dog.",
+            "type": {
+              "id": "c7c3ff51-c403-6cec-36c5-b0dde66b2811",
+              "name": "adacelTdapVaccine",
+              "displayName": "Adacel (Tdap) Vaccine"
+            },
+            "alternateName": "someOtherVaccine"
+          }
+        ]
+      },
+      {
+        "id": "cee42155-07bf-dbc5-84f7-f002004a3170",
+        "createdAt": "1969-11-17T22:19:30.150Z",
+        "images": [
+          {
+            "id": "86918e87-4c48-c6d5-419d-a564d50490f2",
+            "url": "https://example.com/document.pdf",
+            "createdAt": "1958-02-10T02:24:00.976Z"
+          },
+          {
+            "id": "186fcc69-a2d4-039b-513c-128f974c9677",
+            "url": "https://example.com/document.pdf",
+            "createdAt": "2010-07-16T15:09:23.437Z"
+          }
+        ],
+        "indexedRecordSpliceType": "CANVAS_SET",
+        "vaccines": [
+          {
+            "id": "6469d966-133e-8ae6-c9d8-3fa5c8803a8c",
+            "date": "1948-07-08",
+            "comments": "The quick brown fox jumps over the lazy dog.",
+            "type": {
+              "id": "3df69666-f981-e89e-7d06-e00d8db078e8",
+              "name": "adacelTdapVaccine",
+              "displayName": "Adacel (Tdap) Vaccine"
+            },
+            "alternateName": "someOtherVaccine"
+          },
+          {
+            "id": "aa4e0d4d-ee29-ad1b-af1d-951c930613b1",
+            "date": "1967-05-26",
+            "comments": "The quick brown fox jumps over the lazy dog.",
+            "type": {
+              "id": "f6e28a4e-11c7-9bf3-21e4-a0516e9fa964",
+              "name": "adacelTdapVaccine",
+              "displayName": "Adacel (Tdap) Vaccine"
+            },
+            "alternateName": "someOtherVaccine"
+          }
+        ]
+      }
+    ]
+  }
+  ```
+}

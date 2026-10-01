@@ -1,0 +1,106 @@
+meta {
+  name: List of All Patient Record Requests
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseUrl}}/v1/requests
+  body: none
+  auth: inherit
+}
+
+headers {
+  Accept: application/json
+}
+
+docs {
+  Returns all patient record requests in Predoc. Returned request and reference identifiers can be used to correlate requests and retrieve the corresponding patient information.
+
+  ### Example response 200 OK
+
+  ```json
+  {
+    "recordRequests": [
+      {
+        "patient": {
+          "firstName": "Martha",
+          "lastName": "Rangel",
+          "address": {
+            "address1": "4990 HOOVER RD",
+            "address2": "APT 227",
+            "city": "GROVE CITY",
+            "state": "OH",
+            "postalCode": "43123"
+          },
+          "dateOfBirth": "1970-03-10",
+          "genderName": "female",
+          "phoneNumber": "7175501675",
+          "primaryLanguage": "english",
+          "cumulativePatientStatus": {
+            "OPEN": 3,
+            "COMPLETED": 3,
+            "PROCESSING": 1,
+            "ACTION REQUIRED": 1,
+            "CLOSED": 2,
+            "CANCELLED": 1
+          },
+          "partnerPatientId": "7dae55f3-c6d7-e530-cdda-ad77f7affc53",
+          "patientKey": "string",
+          "middleName": "Sara",
+          "email": "martha.rangel@domain.com"
+        },
+        "requests": [
+          {
+            "requestId": "09742a04-f9e7-2b32-50a8-7c8a47b7f21b",
+            "referenceId": "1234567890"
+          },
+          {
+            "requestId": "0082e4ac-1278-0df8-8613-ad56ad236ad9",
+            "referenceId": "1234567890"
+          }
+        ]
+      },
+      {
+        "patient": {
+          "firstName": "Martha",
+          "lastName": "Rangel",
+          "address": {
+            "address1": "4990 HOOVER RD",
+            "address2": "APT 227",
+            "city": "GROVE CITY",
+            "state": "OH",
+            "postalCode": "43123"
+          },
+          "dateOfBirth": "1970-03-10",
+          "genderName": "female",
+          "phoneNumber": "7175501675",
+          "primaryLanguage": "english",
+          "cumulativePatientStatus": {
+            "OPEN": 3,
+            "COMPLETED": 3,
+            "PROCESSING": 1,
+            "ACTION REQUIRED": 1,
+            "CLOSED": 2,
+            "CANCELLED": 1
+          },
+          "partnerPatientId": "68436fb8-e42c-c6f1-8fb6-c197f7542ed3",
+          "patientKey": "string",
+          "middleName": "Sara",
+          "email": "martha.rangel@domain.com"
+        },
+        "requests": [
+          {
+            "requestId": "bb5256f1-c175-bee5-490f-2753c8e535dd",
+            "referenceId": "1234567890"
+          },
+          {
+            "requestId": "66caa704-ae5e-38a9-313d-80192bfac5e6",
+            "referenceId": "1234567890"
+          }
+        ]
+      }
+    ]
+  }
+  ```
+}

@@ -1,0 +1,36 @@
+meta {
+  name: List of Facesheet configs available
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/v1/requests/facesheet-configs
+  body: none
+  auth: inherit
+}
+
+headers {
+  Accept: application/json
+}
+
+docs {
+  Returns the available facesheet configurations. Pass a configuration ID when creating a patient request to generate the corresponding facesheet.
+
+  ### Example response 200 OK
+
+  ```json
+  {
+    "facesheetConfigs": [
+      {
+        "facesheetId": "string",
+        "facesheetName": "string"
+      },
+      {
+        "facesheetId": "string",
+        "facesheetName": "string"
+      }
+    ]
+  }
+  ```
+}

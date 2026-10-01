@@ -1,0 +1,58 @@
+meta {
+  name: Create Webhook Configuration
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}/v1/events
+  body: json
+  auth: inherit
+}
+
+headers {
+  Accept: application/json
+}
+
+body:json {
+  {
+    "eventType": "REQUEST_COMPLETE",
+    "serviceName": "Analysis Ingestion",
+    "notificationEmail": "{{requestingProviderEmail}}",
+    "webhookUri": "{{webhookUri}}",
+    "customHeaders": [
+      {
+        "key": "X-Partner-Auth",
+        "value": "{{process.env.PREDOC_WEBHOOK_SECRET}}"
+      }
+    ]
+  }
+}
+
+script:post-response {
+  bru.setVar("configurationId", res.body.configurationId);
+}
+
+docs {
+  Creates a webhook configuration for the authenticated credential.
+
+  ### Example response 201 Created
+
+  ```json
+  {
+    "configurationId": "a183bace-f245-90d7-dce3-6e2e950edaef",
+    "eventType": "ANONYMOUS_RECORD_UPLOAD_COMPLETED",
+    "serviceName": "Anonymous Uploads",
+    "customHeaders": [
+      {
+        "key": "X-Partner-Auth",
+        "value": "secret-token"
+      },
+      {
+        "key": "X-Partner-Auth",
+        "value": "secret-token"
+      }
+    ]
+  }
+  ```
+}

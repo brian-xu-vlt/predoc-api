@@ -1,0 +1,62 @@
+meta {
+  name: Update Patient Information
+  type: http
+  seq: 23
+}
+
+patch {
+  url: {{baseUrl}}/v1/patients/:patientId
+  body: json
+  auth: inherit
+}
+
+params:path {
+  patientId: {{patientId}}
+}
+
+headers {
+  Accept: application/json
+}
+
+body:json {
+  {
+    "firstName": "Martha",
+    "lastName": "Rangel",
+    "dateOfBirth": "1970-03-10",
+    "patientGender": "other",
+    "phoneNumber": "7175501675",
+    "patientAddress": {
+      "postalCode": "43123",
+      "addressLine1": "4990 HOOVER RD",
+      "addressLine2": "APT 227",
+      "city": "GROVE CITY",
+      "stateCode": "OH",
+      "countryCode": "USA"
+    },
+    "middleName": "Sara",
+    "middleInitial": "S",
+    "phoneCountryCode": "+1",
+    "email": "martha.rangel@domain.com",
+    "primaryLanguage": "english"
+  }
+}
+
+docs {
+  Updates patient information while the patient is in an `Open` status. If any request for the patient has progressed beyond `Open`, the patient information is locked and cannot be updated. When an update is not allowed, the standard response object explains why.
+
+  ### Fields
+
+  | Field | Description |
+  |---|---|
+  | `patientId` | Unique identifier of the patient. |
+
+  ### Example response 200 OK
+
+  ```json
+  {
+    "patientId": "189c10a2-c982-e277-a5f2-e71bfac0aa38",
+    "result": "UPDATED",
+    "message": "Patient information updated successfully"
+  }
+  ```
+}

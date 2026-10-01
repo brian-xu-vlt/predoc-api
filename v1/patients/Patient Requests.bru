@@ -1,0 +1,473 @@
+meta {
+  name: Patient Requests
+  type: http
+  seq: 19
+}
+
+get {
+  url: {{baseUrl}}/v1/patients/:patientId/requests
+  body: none
+  auth: inherit
+}
+
+params:path {
+  patientId: {{patientId}}
+}
+
+headers {
+  Accept: application/json
+}
+
+docs {
+  Returns all requests for the patient, regardless of status, so the organization can track each request’s progress.
+
+  ### Fields
+
+  | Field | Description |
+  |---|---|
+  | `patientId` | Unique identifier of the patient. |
+
+  ### Example response 200 OK
+
+  ```json
+  {
+    "partnerPatientId": "83e23a30-1536-d175-2ef3-e178b9113a84",
+    "crrRequests": [
+      {
+        "crrId": "21718228-8293-49b7-c61c-a6d2c8a86158",
+        "createdAt": "2024-01-06T15:00:40.156Z",
+        "creatorFirstName": "John",
+        "creatorLastName": "Doe",
+        "updatedAt": "2009-12-01T11:02:34.024Z",
+        "requestReason": "Information Gathering",
+        "cumulativeRequestStatus": {
+          "OPEN": 1,
+          "IN_PROGRESS": 2,
+          "COMPLETED": 3
+        },
+        "requestedProviders": [
+          {
+            "id": 12345,
+            "currentOrganizationName": "Lakeview Medical Center",
+            "providerName": "Jane Doe",
+            "practiceName": "Lakeview Medical Center",
+            "officeStreetAddress1": "1234 Main St",
+            "officeStreetAddress2": "Apt 1",
+            "officeCity": "Lakeview",
+            "officeState": "CA",
+            "officeZip": "94901",
+            "officePhoneNumber": "1234567890",
+            "serviceStartDate": "2018-01-05T07:13:29.681Z",
+            "serviceEndDate": "1995-06-11T16:42:40.486Z",
+            "medicalRecordType": "imaging",
+            "status": "OPEN",
+            "completeMedicalRecord": true,
+            "retrievalId": "41a524b2-c6fb-8a9c-4a3a-f4fdced1cc38"
+          },
+          {
+            "id": 12345,
+            "currentOrganizationName": "Lakeview Medical Center",
+            "providerName": "Jane Doe",
+            "practiceName": "Lakeview Medical Center",
+            "officeStreetAddress1": "1234 Main St",
+            "officeStreetAddress2": "Apt 1",
+            "officeCity": "Lakeview",
+            "officeState": "CA",
+            "officeZip": "94901",
+            "officePhoneNumber": "1234567890",
+            "serviceStartDate": "2008-11-22T04:17:51.490Z",
+            "serviceEndDate": "1953-03-07T07:27:10.414Z",
+            "medicalRecordType": "imaging",
+            "status": "OPEN",
+            "completeMedicalRecord": true,
+            "retrievalId": "92867078-f9a8-db16-6ccf-b73e3d19bc29"
+          }
+        ],
+        "appointmentDate": "2005-01-20T12:51:41.040Z",
+        "requestingProviderName": "Dr. Jane Doe",
+        "referenceId": "1234567890",
+        "hieRequests": [
+          {
+            "id": "string",
+            "status": "HIE_data_available",
+            "submittedAt": "2006-12-01T20:21:29.310Z",
+            "alternativeZipCodes": [
+              "string",
+              "string"
+            ]
+          },
+          {
+            "id": "string",
+            "status": "HIE_data_available",
+            "submittedAt": "1997-12-07T17:26:41.915Z",
+            "alternativeZipCodes": [
+              "string",
+              "string"
+            ]
+          }
+        ],
+        "medicationsRequests": [
+          {
+            "id": "string",
+            "status": "HIE_data_available",
+            "submittedAt": "2018-08-15T00:05:09.255Z",
+            "alternativeZipCodes": [
+              "string",
+              "string"
+            ]
+          },
+          {
+            "id": "string",
+            "status": "HIE_data_available",
+            "submittedAt": "2016-10-19T11:14:09.371Z",
+            "alternativeZipCodes": [
+              "string",
+              "string"
+            ]
+          }
+        ],
+        "facesheetRequests": [
+          {
+            "id": "string",
+            "status": "FS_PROCESSING",
+            "name": "Facesheet-Request",
+            "submittedAt": "1955-05-22T04:55:47.624Z"
+          },
+          {
+            "id": "string",
+            "status": "FS_PROCESSING",
+            "name": "Facesheet-Request",
+            "submittedAt": "1965-09-07T18:11:30.039Z"
+          }
+        ]
+      },
+      {
+        "crrId": "7c77a44d-05f1-b688-22e2-5cbe83de306b",
+        "createdAt": "1964-07-06T15:49:24.793Z",
+        "creatorFirstName": "John",
+        "creatorLastName": "Doe",
+        "updatedAt": "1951-09-30T10:59:31.479Z",
+        "requestReason": "Information Gathering",
+        "cumulativeRequestStatus": {
+          "OPEN": 1,
+          "IN_PROGRESS": 2,
+          "COMPLETED": 3
+        },
+        "requestedProviders": [
+          {
+            "id": 12345,
+            "currentOrganizationName": "Lakeview Medical Center",
+            "providerName": "Jane Doe",
+            "practiceName": "Lakeview Medical Center",
+            "officeStreetAddress1": "1234 Main St",
+            "officeStreetAddress2": "Apt 1",
+            "officeCity": "Lakeview",
+            "officeState": "CA",
+            "officeZip": "94901",
+            "officePhoneNumber": "1234567890",
+            "serviceStartDate": "1961-02-21T10:30:24.257Z",
+            "serviceEndDate": "1996-07-30T00:14:19.117Z",
+            "medicalRecordType": "imaging",
+            "status": "OPEN",
+            "completeMedicalRecord": true,
+            "retrievalId": "a784f31e-b82f-a291-c6ae-1119f658144a"
+          },
+          {
+            "id": 12345,
+            "currentOrganizationName": "Lakeview Medical Center",
+            "providerName": "Jane Doe",
+            "practiceName": "Lakeview Medical Center",
+            "officeStreetAddress1": "1234 Main St",
+            "officeStreetAddress2": "Apt 1",
+            "officeCity": "Lakeview",
+            "officeState": "CA",
+            "officeZip": "94901",
+            "officePhoneNumber": "1234567890",
+            "serviceStartDate": "1987-05-04T00:27:20.832Z",
+            "serviceEndDate": "1978-01-15T00:39:14.780Z",
+            "medicalRecordType": "imaging",
+            "status": "OPEN",
+            "completeMedicalRecord": true,
+            "retrievalId": "b8fb05c8-552e-c0a4-b931-f33219449fa8"
+          }
+        ],
+        "appointmentDate": "1995-11-26T04:45:43.288Z",
+        "requestingProviderName": "Dr. Jane Doe",
+        "referenceId": "1234567890",
+        "hieRequests": [
+          {
+            "id": "string",
+            "status": "HIE_data_available",
+            "submittedAt": "2005-04-25T21:40:53.581Z",
+            "alternativeZipCodes": [
+              "string",
+              "string"
+            ]
+          },
+          {
+            "id": "string",
+            "status": "HIE_data_available",
+            "submittedAt": "2025-07-12T13:08:01.493Z",
+            "alternativeZipCodes": [
+              "string",
+              "string"
+            ]
+          }
+        ],
+        "medicationsRequests": [
+          {
+            "id": "string",
+            "status": "HIE_data_available",
+            "submittedAt": "1992-12-09T19:23:50.859Z",
+            "alternativeZipCodes": [
+              "string",
+              "string"
+            ]
+          },
+          {
+            "id": "string",
+            "status": "HIE_data_available",
+            "submittedAt": "1995-07-07T20:56:05.861Z",
+            "alternativeZipCodes": [
+              "string",
+              "string"
+            ]
+          }
+        ],
+        "facesheetRequests": [
+          {
+            "id": "string",
+            "status": "FS_PROCESSING",
+            "name": "Facesheet-Request",
+            "submittedAt": "2023-08-09T00:23:30.944Z"
+          },
+          {
+            "id": "string",
+            "status": "FS_PROCESSING",
+            "name": "Facesheet-Request",
+            "submittedAt": "2003-01-19T14:14:36.707Z"
+          }
+        ]
+      }
+    ],
+    "standaloneFacesheetRequests": [
+      {
+        "crrId": "45c45d41-fb5f-d337-74c6-974eb66a5bdf",
+        "createdAt": "1963-04-10T06:00:28.229Z",
+        "creatorFirstName": "John",
+        "creatorLastName": "Doe",
+        "updatedAt": "1961-06-30T00:36:03.115Z",
+        "requestReason": "Information Gathering",
+        "cumulativeRequestStatus": {
+          "OPEN": 1,
+          "IN_PROGRESS": 2,
+          "COMPLETED": 3
+        },
+        "requestedProviders": [
+          {
+            "id": 12345,
+            "currentOrganizationName": "Lakeview Medical Center",
+            "providerName": "Jane Doe",
+            "practiceName": "Lakeview Medical Center",
+            "officeStreetAddress1": "1234 Main St",
+            "officeStreetAddress2": "Apt 1",
+            "officeCity": "Lakeview",
+            "officeState": "CA",
+            "officeZip": "94901",
+            "officePhoneNumber": "1234567890",
+            "serviceStartDate": "1965-05-19T04:03:55.001Z",
+            "serviceEndDate": "1958-10-25T07:39:22.109Z",
+            "medicalRecordType": "imaging",
+            "status": "OPEN",
+            "completeMedicalRecord": true,
+            "retrievalId": "ab1221ee-301e-b5a1-7dd7-58969b00e53b"
+          },
+          {
+            "id": 12345,
+            "currentOrganizationName": "Lakeview Medical Center",
+            "providerName": "Jane Doe",
+            "practiceName": "Lakeview Medical Center",
+            "officeStreetAddress1": "1234 Main St",
+            "officeStreetAddress2": "Apt 1",
+            "officeCity": "Lakeview",
+            "officeState": "CA",
+            "officeZip": "94901",
+            "officePhoneNumber": "1234567890",
+            "serviceStartDate": "2012-12-14T07:51:43.759Z",
+            "serviceEndDate": "1953-09-27T14:42:55.670Z",
+            "medicalRecordType": "imaging",
+            "status": "OPEN",
+            "completeMedicalRecord": true,
+            "retrievalId": "ac3afb5c-bbd8-f872-8d24-94e83ac6fd00"
+          }
+        ],
+        "appointmentDate": "1990-08-11T16:17:52.829Z",
+        "requestingProviderName": "Dr. Jane Doe",
+        "referenceId": "1234567890",
+        "hieRequests": [
+          {
+            "id": "string",
+            "status": "HIE_data_available",
+            "submittedAt": "1985-04-12T13:12:05.795Z",
+            "alternativeZipCodes": [
+              "string",
+              "string"
+            ]
+          },
+          {
+            "id": "string",
+            "status": "HIE_data_available",
+            "submittedAt": "1969-05-29T02:02:47.610Z",
+            "alternativeZipCodes": [
+              "string",
+              "string"
+            ]
+          }
+        ],
+        "medicationsRequests": [
+          {
+            "id": "string",
+            "status": "HIE_data_available",
+            "submittedAt": "1951-08-20T13:39:56.884Z",
+            "alternativeZipCodes": [
+              "string",
+              "string"
+            ]
+          },
+          {
+            "id": "string",
+            "status": "HIE_data_available",
+            "submittedAt": "2024-01-05T10:00:00.632Z",
+            "alternativeZipCodes": [
+              "string",
+              "string"
+            ]
+          }
+        ],
+        "facesheetRequests": [
+          {
+            "id": "string",
+            "status": "FS_PROCESSING",
+            "name": "Facesheet-Request",
+            "submittedAt": "2011-03-01T17:48:50.758Z"
+          },
+          {
+            "id": "string",
+            "status": "FS_PROCESSING",
+            "name": "Facesheet-Request",
+            "submittedAt": "1947-04-02T05:21:16.807Z"
+          }
+        ]
+      },
+      {
+        "crrId": "ce0fbda5-c134-8d54-886c-e4b649c82760",
+        "createdAt": "2016-02-23T19:57:34.758Z",
+        "creatorFirstName": "John",
+        "creatorLastName": "Doe",
+        "updatedAt": "1952-04-23T10:14:21.169Z",
+        "requestReason": "Information Gathering",
+        "cumulativeRequestStatus": {
+          "OPEN": 1,
+          "IN_PROGRESS": 2,
+          "COMPLETED": 3
+        },
+        "requestedProviders": [
+          {
+            "id": 12345,
+            "currentOrganizationName": "Lakeview Medical Center",
+            "providerName": "Jane Doe",
+            "practiceName": "Lakeview Medical Center",
+            "officeStreetAddress1": "1234 Main St",
+            "officeStreetAddress2": "Apt 1",
+            "officeCity": "Lakeview",
+            "officeState": "CA",
+            "officeZip": "94901",
+            "officePhoneNumber": "1234567890",
+            "serviceStartDate": "1999-09-08T00:04:36.819Z",
+            "serviceEndDate": "1952-07-27T07:48:59.076Z",
+            "medicalRecordType": "imaging",
+            "status": "OPEN",
+            "completeMedicalRecord": true,
+            "retrievalId": "3448ab9c-ceef-5d5f-879e-e16a1273a4a0"
+          },
+          {
+            "id": 12345,
+            "currentOrganizationName": "Lakeview Medical Center",
+            "providerName": "Jane Doe",
+            "practiceName": "Lakeview Medical Center",
+            "officeStreetAddress1": "1234 Main St",
+            "officeStreetAddress2": "Apt 1",
+            "officeCity": "Lakeview",
+            "officeState": "CA",
+            "officeZip": "94901",
+            "officePhoneNumber": "1234567890",
+            "serviceStartDate": "1997-02-01T02:05:32.505Z",
+            "serviceEndDate": "2007-12-23T22:10:30.579Z",
+            "medicalRecordType": "imaging",
+            "status": "OPEN",
+            "completeMedicalRecord": true,
+            "retrievalId": "2e0fcc96-5978-10b7-b696-10c012180e7e"
+          }
+        ],
+        "appointmentDate": "2017-01-22T13:52:26.796Z",
+        "requestingProviderName": "Dr. Jane Doe",
+        "referenceId": "1234567890",
+        "hieRequests": [
+          {
+            "id": "string",
+            "status": "HIE_data_available",
+            "submittedAt": "1968-11-08T19:11:21.996Z",
+            "alternativeZipCodes": [
+              "string",
+              "string"
+            ]
+          },
+          {
+            "id": "string",
+            "status": "HIE_data_available",
+            "submittedAt": "2021-09-13T19:07:08.460Z",
+            "alternativeZipCodes": [
+              "string",
+              "string"
+            ]
+          }
+        ],
+        "medicationsRequests": [
+          {
+            "id": "string",
+            "status": "HIE_data_available",
+            "submittedAt": "2003-06-15T15:25:23.083Z",
+            "alternativeZipCodes": [
+              "string",
+              "string"
+            ]
+          },
+          {
+            "id": "string",
+            "status": "HIE_data_available",
+            "submittedAt": "2005-05-21T05:03:08.053Z",
+            "alternativeZipCodes": [
+              "string",
+              "string"
+            ]
+          }
+        ],
+        "facesheetRequests": [
+          {
+            "id": "string",
+            "status": "FS_PROCESSING",
+            "name": "Facesheet-Request",
+            "submittedAt": "1981-04-16T18:03:16.654Z"
+          },
+          {
+            "id": "string",
+            "status": "FS_PROCESSING",
+            "name": "Facesheet-Request",
+            "submittedAt": "1983-06-27T22:30:58.149Z"
+          }
+        ]
+      }
+    ]
+  }
+  ```
+}

@@ -1,0 +1,84 @@
+meta {
+  name: Search Patient Documents V1
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/v1/patients/:patientId/documents/search
+  body: json
+  auth: inherit
+}
+
+params:path {
+  patientId: {{patientId}}
+}
+
+headers {
+  Accept: application/json
+}
+
+body:json {
+  {
+    "categories": [
+      "procedure_notes",
+      "medications"
+    ],
+    "fromDate": "2020-12-01",
+    "toDate": "2020-12-31"
+  }
+}
+
+docs {
+  Searches the patient’s available documents using the supplied criteria. Results follow the organization’s document-set delivery mode: `CANVAS_SET` includes `CANVAS_SET`, `PRESPLICED`, and untagged historical records; `SEGMENT_SET` includes `SEGMENT_SET`, `PRESPLICED`, and untagged historical records. If no mode is configured, `CANVAS_SET` behavior applies. Partner-facing display text is returned without literal `|` separators, while identifiers, URLs, categories, dates, and splice metadata are preserved as received.
+
+  ### Fields
+
+  | Field | Description |
+  |---|---|
+  | `patientId` | Unique identifier of the patient. |
+
+  ### Example response 
+
+  ```json
+  {
+    "partnerPatientId": "8584924c-a544-f9e0-907c-91a076822b6e",
+    "documents": [
+      {
+        "documentId": "1087c31a-704f-a833-b9da-851625407139",
+        "category": "procedure_notes",
+        "urls": [
+          "https://example.com/document1.jpg",
+          "https://example.com/document2.jpg"
+        ],
+        "createdDate": "2007-09-04T15:41:18.267Z",
+        "indexedRecordSpliceType": "SEGMENT_SET",
+        "documentType": "string",
+        "documentTitle": "string",
+        "labName": "string",
+        "drugName": "string",
+        "reaction": "string",
+        "vaccineTitle": "string",
+        "docDate": "1997-05-15T00:08:32.961Z"
+      },
+      {
+        "documentId": "5e71657d-b944-0a71-77a2-838940f429d7",
+        "category": "procedure_notes",
+        "urls": [
+          "https://example.com/document1.jpg",
+          "https://example.com/document2.jpg"
+        ],
+        "createdDate": "1990-04-15T00:43:02.016Z",
+        "indexedRecordSpliceType": "PRESPLICED",
+        "documentType": "string",
+        "documentTitle": "string",
+        "labName": "string",
+        "drugName": "string",
+        "reaction": "string",
+        "vaccineTitle": "string",
+        "docDate": "1975-12-19T16:30:48.756Z"
+      }
+    ]
+  }
+  ```
+}

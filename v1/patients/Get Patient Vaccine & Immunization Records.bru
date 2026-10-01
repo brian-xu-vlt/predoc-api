@@ -1,0 +1,89 @@
+meta {
+  name: Get Patient Vaccine & Immunization Records
+  type: http
+  seq: 11
+}
+
+get {
+  url: {{baseUrl}}/v1/patients/:patientId/vaccine-records
+  body: none
+  auth: inherit
+}
+
+params:path {
+  patientId: {{patientId}}
+}
+
+headers {
+  Accept: application/json
+}
+
+docs {
+  Gets a list of vaccine and immunization records for the patient by ID. These can be downloaded via their `url` property. Partner-facing document display text fields are returned without literal `|` separators. Identifiers, URLs, statuses, dates, splice metadata, and source metadata are preserved as received.
+
+  ### Fields
+
+  | Field | Description |
+  |---|---|
+  | `patientId` | Unique identifier of the patient. |
+
+  ### Example response 200 OK
+
+  ```json
+  {
+    "partnerPatientId": "302376f1-956b-371a-87dd-33dca74848f6",
+    "vaccineRecords": [
+      {
+        "id": "2e885d1c-69cb-62d8-8d31-9abb7a680647",
+        "date": "1988-01-18",
+        "comments": "The quick brown fox jumps over the lazy dog.",
+        "createdAt": "2018-09-23T21:00:30.117Z",
+        "images": [
+          {
+            "id": "8758dc41-c4c5-1a70-823b-16323dbec274",
+            "url": "https://example.com/document.pdf",
+            "createdAt": "1975-11-12T05:19:51.846Z"
+          },
+          {
+            "id": "5cf5b382-93a5-7c20-b811-c70fe1035f0a",
+            "url": "https://example.com/document.pdf",
+            "createdAt": "2008-12-03T03:08:06.953Z"
+          }
+        ],
+        "indexedRecordSpliceType": "CANVAS_SET",
+        "type": {
+          "id": "74b32fa4-3631-b7b1-7221-b8acf2cbac3e",
+          "name": "adacelTdapVaccine",
+          "displayName": "Adacel (Tdap) Vaccine"
+        },
+        "alternateName": "someOtherVaccine"
+      },
+      {
+        "id": "596f1f93-f1a9-9147-0402-9ef161a453d4",
+        "date": "1972-05-16",
+        "comments": "The quick brown fox jumps over the lazy dog.",
+        "createdAt": "1959-05-16T08:41:03.096Z",
+        "images": [
+          {
+            "id": "a5ab902d-bd9a-c16f-1649-6741d6e2a723",
+            "url": "https://example.com/document.pdf",
+            "createdAt": "1950-01-13T09:55:03.369Z"
+          },
+          {
+            "id": "84e49884-2d5e-23f9-0394-c69484c65d49",
+            "url": "https://example.com/document.pdf",
+            "createdAt": "1955-12-02T18:53:07.501Z"
+          }
+        ],
+        "indexedRecordSpliceType": "CANVAS_SET",
+        "type": {
+          "id": "1613c522-103d-c45b-610a-a13e361a514a",
+          "name": "adacelTdapVaccine",
+          "displayName": "Adacel (Tdap) Vaccine"
+        },
+        "alternateName": "someOtherVaccine"
+      }
+    ]
+  }
+  ```
+}

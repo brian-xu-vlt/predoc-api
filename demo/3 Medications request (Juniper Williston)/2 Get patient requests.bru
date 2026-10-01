@@ -1,0 +1,29 @@
+meta {
+  name: Get patient requests
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/v1/patients/:patientId/requests
+  body: none
+  auth: inherit
+}
+
+params:path {
+  patientId: {{patientId}}
+}
+
+headers {
+  Accept: application/json
+}
+
+tests {
+  test("responds 2xx", () => {
+    expect(res.status).to.be.within(200, 299);
+  });
+}
+
+docs {
+  Re-run until the medications request is `COMPLETED`.
+}

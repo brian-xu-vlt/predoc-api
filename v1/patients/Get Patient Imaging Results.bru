@@ -1,0 +1,101 @@
+meta {
+  name: Get Patient Imaging Results
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{baseUrl}}/v1/patients/:patientId/imaging-results
+  body: none
+  auth: inherit
+}
+
+params:path {
+  patientId: {{patientId}}
+}
+
+headers {
+  Accept: application/json
+}
+
+docs {
+  Gets a list of imaging results for the patient by ID. These can be downloaded via their `url` property. Partner-facing document display text fields are returned without literal `|` separators. Identifiers, URLs, statuses, dates, splice metadata, and source metadata are preserved as received.
+
+  ### Fields
+
+  | Field | Description |
+  |---|---|
+  | `patientId` | Unique identifier of the patient. |
+
+  ### Example response 200 OK
+
+  ```json
+  {
+    "partnerPatientId": "d5f82952-a9fb-21d4-2626-6733483d3c91",
+    "imagingResults": [
+      {
+        "id": "edfad404-a302-8ac1-65a8-d260bbb8408a",
+        "title": "X-Ray Results",
+        "date": "2012-06-28",
+        "comments": "No acute findings.",
+        "createdAt": "1964-04-17T12:07:31.072Z",
+        "images": [
+          {
+            "id": "a3ad4174-bece-ef6b-87af-95df7792b639",
+            "url": "https://example.com/document.pdf",
+            "createdAt": "1993-08-29T16:53:17.915Z"
+          },
+          {
+            "id": "8cecfff9-38fe-e002-dd53-a542079760ba",
+            "url": "https://example.com/document.pdf",
+            "createdAt": "1967-10-13T03:23:50.180Z"
+          }
+        ],
+        "indexedRecordSpliceType": "PRESPLICED",
+        "type": {
+          "id": "754ee44a-cd91-917f-dbc3-73c6ba166f77",
+          "name": "xray",
+          "displayName": "X-Ray"
+        },
+        "bodyPart": {
+          "id": "84cbd41d-ceff-8585-af40-86e53af8688d",
+          "name": "cervicothoracic",
+          "displayName": "Cervicothoracic"
+        },
+        "alternateBodyPartName": "clavicle"
+      },
+      {
+        "id": "8dcef93f-4efb-4880-770b-5aa0a2842794",
+        "title": "X-Ray Results",
+        "date": "1995-10-25",
+        "comments": "No acute findings.",
+        "createdAt": "1962-11-07T15:46:24.266Z",
+        "images": [
+          {
+            "id": "f6269e70-84ad-0617-26b9-d08a5436ff61",
+            "url": "https://example.com/document.pdf",
+            "createdAt": "2010-02-03T08:00:12.871Z"
+          },
+          {
+            "id": "24865f2f-1f96-4758-5fdb-0d402759c4bc",
+            "url": "https://example.com/document.pdf",
+            "createdAt": "1973-03-14T17:21:42.477Z"
+          }
+        ],
+        "indexedRecordSpliceType": "SEGMENT_SET",
+        "type": {
+          "id": "3bedcc22-38cc-6b16-340f-0169b87c42fa",
+          "name": "xray",
+          "displayName": "X-Ray"
+        },
+        "bodyPart": {
+          "id": "037856a9-9558-dbf7-00b1-75930d7889c0",
+          "name": "cervicothoracic",
+          "displayName": "Cervicothoracic"
+        },
+        "alternateBodyPartName": "clavicle"
+      }
+    ]
+  }
+  ```
+}

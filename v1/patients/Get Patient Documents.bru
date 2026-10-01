@@ -1,0 +1,81 @@
+meta {
+  name: Get Patient Documents
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/v1/patients/:patientId/documents
+  body: none
+  auth: inherit
+}
+
+params:path {
+  patientId: {{patientId}}
+}
+
+headers {
+  Accept: application/json
+}
+
+docs {
+  Gets a list of documents for the patient by ID. These can be downloaded via their `url` property. Partner-facing document display text fields are returned without literal `|` separators. Identifiers, URLs, statuses, dates, splice metadata, and source metadata are preserved as received.
+
+  ### Fields
+
+  | Field | Description |
+  |---|---|
+  | `patientId` | Unique identifier of the patient. |
+
+  ### Example response 200 OK
+
+  ```json
+  {
+    "partnerPatientId": "5c6f9548-9b38-96d9-978d-584fdfd872f2",
+    "documents": [
+      {
+        "id": "11342568-1859-7a49-d1c4-3946b78223c6",
+        "title": "Discharge Summary",
+        "comments": "Reviewed by provider",
+        "date": "string",
+        "createdAt": "1963-01-26T04:22:24.013Z",
+        "images": [
+          {
+            "id": "d580c835-05a5-561b-30c2-010790d33a1a",
+            "url": "https://example.com/document.pdf",
+            "createdAt": "2018-10-04T10:28:59.476Z"
+          },
+          {
+            "id": "193cf72b-e130-6918-c874-9d7e82e6e00c",
+            "url": "https://example.com/document.pdf",
+            "createdAt": "1972-12-11T09:31:18.150Z"
+          }
+        ],
+        "documentType": "CONSENT AND AUTHORIZATION FORMS",
+        "indexedRecordSpliceType": "SEGMENT_SET"
+      },
+      {
+        "id": "46006878-ee53-3d93-4a26-ecaa5f2607eb",
+        "title": "Discharge Summary",
+        "comments": "Reviewed by provider",
+        "date": "string",
+        "createdAt": "1964-04-27T17:47:14.653Z",
+        "images": [
+          {
+            "id": "63492999-82d3-6c2b-7d45-e6f2a0872629",
+            "url": "https://example.com/document.pdf",
+            "createdAt": "1968-05-30T19:00:01.719Z"
+          },
+          {
+            "id": "70c53d01-1933-9aae-32aa-e9ac1b11da57",
+            "url": "https://example.com/document.pdf",
+            "createdAt": "2025-06-18T17:16:33.081Z"
+          }
+        ],
+        "documentType": "CONSENT AND AUTHORIZATION FORMS",
+        "indexedRecordSpliceType": "SEGMENT_SET"
+      }
+    ]
+  }
+  ```
+}

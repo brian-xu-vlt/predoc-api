@@ -1,0 +1,55 @@
+meta {
+  name: Request Patient Clinical Summary
+  type: http
+  seq: 21
+}
+
+post {
+  url: {{baseUrl}}/v1/patients/:patientId/summary
+  body: json
+  auth: inherit
+}
+
+params:path {
+  patientId: {{patientId}}
+}
+
+headers {
+  Accept: application/json
+}
+
+body:json {
+  {
+    "categories": [
+      "procedure_notes",
+      "additional_records"
+    ],
+    "fromDate": "2020-12-01",
+    "toDate": "2020-12-31"
+  }
+}
+
+docs {
+  Creates a clinical-summary document request for the specified patient.
+
+  Use the returned `patientSummaryRequestId` with `GET /documents/{documentId}` to check processing status and retrieve the completed document.
+
+  Source documents are selected only by the requested categories and date range. The organization’s document-set delivery mode does not filter clinical-summary source documents.
+
+  ### Fields
+
+  | Field | Description |
+  |---|---|
+  | `patientId` | Unique identifier of the patient. |
+
+  ### Example response 201 Created
+
+  ```json
+  {
+    "patientSummaryRequestStatus": "QUEUED",
+    "patientSummaryRequestStatusMessage": "Patient summary request submitted successfully",
+    "patientSummaryRequestId": "fa09e2e6-5a97-9433-d807-76fc35b84254",
+    "documentLink": "https://example.com/patient-summary.pdf"
+  }
+  ```
+}

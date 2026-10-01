@@ -1,0 +1,144 @@
+meta {
+  name: Get Patient Lab Tests
+  type: http
+  seq: 7
+}
+
+get {
+  url: {{baseUrl}}/v1/patients/:patientId/lab-tests
+  body: none
+  auth: inherit
+}
+
+params:query {
+  includeResults: true
+}
+
+params:path {
+  patientId: {{patientId}}
+}
+
+headers {
+  Accept: application/json
+}
+
+docs {
+  Gets a list of lab tests for the patient by ID. These can be downloaded via their `url` property. Partner-facing document display text fields are returned without literal `|` separators. Identifiers, URLs, statuses, dates, splice metadata, and source metadata are preserved as received.
+
+  ### Fields
+
+  | Field | Description |
+  |---|---|
+  | `includeResults` | Whether to include lab test results in the response. |
+  | `patientId` | Unique identifier of the patient. |
+
+  ### Example response 200 OK
+
+  ```json
+  {
+    "partnerPatientId": "64577bc4-a005-7a03-b737-59e95ff09b07",
+    "labTests": [
+      {
+        "id": "81eb0d02-9f5e-7368-b910-8429885195e6",
+        "type": "Lakeview Labs",
+        "title": "Bloodwork Panel",
+        "date": "1974-08-04",
+        "status": "PROCESSED",
+        "createdAt": "2008-06-12T12:04:12.343Z",
+        "images": [
+          {
+            "id": "7c9a63b5-a9d6-b7cf-a03c-3fb662ad2325",
+            "url": "https://example.com/document.pdf",
+            "createdAt": "2014-04-17T19:49:16.332Z"
+          },
+          {
+            "id": "5e2b4051-d2ff-3afb-0acb-e45d356569da",
+            "url": "https://example.com/document.pdf",
+            "createdAt": "1954-06-23T04:36:25.160Z"
+          }
+        ],
+        "results": [
+          {
+            "id": "fe089739-6c8e-5a75-9f90-07aa8871251c",
+            "labTestId": "67c31b3c-d798-3e97-ea4d-849afe89f18b",
+            "chemistryName": "CBC",
+            "value": "CBC Results",
+            "isTrendable": false,
+            "createdAt": "1979-06-22T02:34:59.548Z",
+            "specialty": {
+              "id": "cd7f2294-becf-ab69-65a0-a47b3c8ca157",
+              "name": "hematologyOncology",
+              "displayName": "Hematology/Oncology"
+            },
+            "normalRange": "10 mg/dL"
+          },
+          {
+            "id": "3a79daf0-8d83-e05b-5197-c329b18732a9",
+            "labTestId": "14f2010b-9c60-925f-6b39-53222a6dfdb1",
+            "chemistryName": "CBC",
+            "value": "CBC Results",
+            "isTrendable": true,
+            "createdAt": "2003-12-26T17:45:30.348Z",
+            "specialty": {
+              "id": "c22ff16e-875e-1e3b-a7d9-df1708f186d2",
+              "name": "hematologyOncology",
+              "displayName": "Hematology/Oncology"
+            },
+            "normalRange": "10 mg/dL"
+          }
+        ]
+      },
+      {
+        "id": "5b3593af-a6c6-fb7d-e09e-0157d9450683",
+        "type": "Lakeview Labs",
+        "title": "Bloodwork Panel",
+        "date": "1949-09-02",
+        "status": "PROCESSED",
+        "createdAt": "1988-08-11T08:05:28.496Z",
+        "images": [
+          {
+            "id": "30f1c5cb-3c4c-1a31-a0ac-5a2d1ba5561d",
+            "url": "https://example.com/document.pdf",
+            "createdAt": "2024-12-28T02:45:40.213Z"
+          },
+          {
+            "id": "af744983-2ec7-6695-8372-01f4feb16dfa",
+            "url": "https://example.com/document.pdf",
+            "createdAt": "1969-11-15T05:33:45.794Z"
+          }
+        ],
+        "results": [
+          {
+            "id": "aca93a03-da48-92c2-337e-a9bbc4a0b65a",
+            "labTestId": "92394e9c-4390-0b29-a925-2633ffa431c4",
+            "chemistryName": "CBC",
+            "value": "CBC Results",
+            "isTrendable": false,
+            "createdAt": "1994-02-11T02:06:48.981Z",
+            "specialty": {
+              "id": "53b3fe65-013c-0ac2-42ad-e59ac9389c94",
+              "name": "hematologyOncology",
+              "displayName": "Hematology/Oncology"
+            },
+            "normalRange": "10 mg/dL"
+          },
+          {
+            "id": "ba19467b-ad59-fe4f-5faa-8d739be4371c",
+            "labTestId": "7843439f-0ee3-590c-a3ce-03deb3bf3265",
+            "chemistryName": "CBC",
+            "value": "CBC Results",
+            "isTrendable": false,
+            "createdAt": "1983-05-28T20:39:42.253Z",
+            "specialty": {
+              "id": "ae0e1c40-4eec-575d-bacb-2509648e7a03",
+              "name": "hematologyOncology",
+              "displayName": "Hematology/Oncology"
+            },
+            "normalRange": "10 mg/dL"
+          }
+        ]
+      }
+    ]
+  }
+  ```
+}

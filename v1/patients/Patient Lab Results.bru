@@ -1,0 +1,75 @@
+meta {
+  name: Patient Lab Results
+  type: http
+  seq: 18
+}
+
+get {
+  url: {{baseUrl}}/v1/patients/:patientId/lab-results
+  body: json
+  auth: inherit
+}
+
+params:query {
+  searchChemistries: string
+  searchChemistries: string
+}
+
+params:path {
+  patientId: {{patientId}}
+}
+
+headers {
+  Accept: application/json
+}
+
+body:json {
+  {
+    "searchChemistries": [
+      "string",
+      "string"
+    ]
+  }
+}
+
+docs {
+  <strong>NOTE:</strong> Body usage is deprecated and will be removed in a future release. Please use query params instead. Gets the specified lab result values for the requested patient. If no criteria are provided, all results on the patient profile will be returned. The list of available labs can be retrieved via the `/patients/{patientId}/lab-results/available` endpoint. Literal `|` separators are removed from returned lab display text and ignored when matching `searchChemistries`.
+
+  ### Fields
+
+  | Field | Description |
+  |---|---|
+  | `searchChemistries` | List of lab result names to search for. Literal `|` separators are ignored during matching so values returned from `/patients/{patientId}/lab-results/available` can be used directly. |
+  | `searchChemistries` | List of lab result names to search for. Literal `|` separators are ignored during matching so values returned from `/patients/{patientId}/lab-results/available` can be used directly. |
+  | `patientId` | Unique identifier of the patient. |
+
+  ### Example response 200 OK
+
+  ```json
+  {
+    "partnerPatientId": "3a42d54c-beb9-14a7-771f-1a3fc1cf431b",
+    "labResults": [
+      {
+        "resultId": "9b2f9cf4-291d-4860-bc12-6102305efac5",
+        "resultName": "ALPHA-1-GLOBULIN",
+        "resultValue": "0.3",
+        "normalRange": "1–3",
+        "memrRetrievedDate": "2025-01-30 20:00:03",
+        "resultDateOfStudy": "2024-01-01",
+        "resultStudyName": "COMPREHENSIVE METABOLIC PANEL",
+        "resultDocumentType": "Labcorp"
+      },
+      {
+        "resultId": "9b2f9cf4-291d-4860-bc12-6102305efac5",
+        "resultName": "ALPHA-1-GLOBULIN",
+        "resultValue": "0.3",
+        "normalRange": "1–3",
+        "memrRetrievedDate": "2025-01-30 20:00:03",
+        "resultDateOfStudy": "2024-01-01",
+        "resultStudyName": "COMPREHENSIVE METABOLIC PANEL",
+        "resultDocumentType": "Labcorp"
+      }
+    ]
+  }
+  ```
+}

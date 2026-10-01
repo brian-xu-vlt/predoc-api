@@ -1,0 +1,49 @@
+meta {
+  name: Upload patient records
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/v2/records/upload
+  body: multipart-form
+  auth: inherit
+}
+
+headers {
+  Accept: application/json
+}
+
+body:multipart-form {
+  file: @file(fixtures/sample-record.pdf)
+  patientData: {"firstName": "Calvin", "lastName": "Hills", "dateOfBirth": "1989-08-16", "phoneNumber": "5557578394", "patientGender": "male", "patientAddress": {"addressLine1": "765 Dickinson Annex Unit 1", "city": "Madison", "stateCode": "WI", "postalCode": "53714"}}
+  partnerPatientId: {{patientId}}
+  ~appointmentDate: 2027-09-17
+  fileName: sample-record-{{$timestamp}}.pdf
+  ~notificationEmails: {{requestingProviderEmail}}
+  allowDuplicatePatient: false
+}
+
+docs {
+  Upload patient records to Predoc. V2 introduces protection against creating duplicate patients with the same PII.
+
+  ### Fields
+
+  | Field | Description |
+  |---|---|
+  | `patientData` | Patient data. |
+  | `partnerPatientId` | Partner patient ID. |
+  | `appointmentDate` | Appointment date. |
+  | `fileName` | File name. |
+  | `notificationEmails` | Email to send completion notification to. Should belong to the organization profile |
+  | `allowDuplicatePatient` | Bypass the duplicate patient demographics check. This check only applies when creating a new patient (i.e., no partnerPatientId is provided). Defaults to false. |
+
+  ### Example response 
+
+  ```json
+  {
+    "patientId": "4b959c95-fe67-b3a6-0ae6-3ec6e4322a05",
+    "recordUploadId": "5aceaf1e-3488-35ef-8dbd-5a17650e207e"
+  }
+  ```
+}

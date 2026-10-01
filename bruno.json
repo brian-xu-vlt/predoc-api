@@ -1,0 +1,6 @@
+{
+  "version": "1",
+  "name": "Predoc Partner API",
+  "type": "collection",
+  "ignore": ["node_modules", ".git", "mock-server"]
+}

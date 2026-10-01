@@ -1,0 +1,81 @@
+meta {
+  name: Get Patient Drug Allergies
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{baseUrl}}/v1/patients/:patientId/drug-allergies
+  body: none
+  auth: inherit
+}
+
+params:path {
+  patientId: {{patientId}}
+}
+
+headers {
+  Accept: application/json
+}
+
+docs {
+  Gets a list of drug allergies for the patient by ID. These can be downloaded via their `url` property. Partner-facing document display text fields are returned without literal `|` separators. Identifiers, URLs, statuses, dates, splice metadata, and source metadata are preserved as received.
+
+  ### Fields
+
+  | Field | Description |
+  |---|---|
+  | `patientId` | Unique identifier of the patient. |
+
+  ### Example response 200 OK
+
+  ```json
+  {
+    "partnerPatientId": "e44fae03-fc2a-e4a8-f903-bb2e4e496cda",
+    "drugAllergies": [
+      {
+        "id": "3713c26b-2434-7159-209b-c33153751682",
+        "alternateName": "Accutane",
+        "reaction": "Rash",
+        "comments": "The quick brown fox jumps over the lazy dog.",
+        "createdAt": "2005-08-19T05:06:07.009Z",
+        "images": [
+          {
+            "id": "3977de9c-6505-719e-7340-71c9f50b25bf",
+            "url": "https://example.com/document.pdf",
+            "createdAt": "1984-10-18T15:06:06.994Z"
+          },
+          {
+            "id": "522a3116-b790-bb93-905f-cb5c87ba4b95",
+            "url": "https://example.com/document.pdf",
+            "createdAt": "2022-10-27T15:07:02.322Z"
+          }
+        ],
+        "indexedRecordSpliceType": "SEGMENT_SET",
+        "drugName": "Isotretinoin"
+      },
+      {
+        "id": "9890b887-727d-2520-27f6-643064b21e7a",
+        "alternateName": "Accutane",
+        "reaction": "Rash",
+        "comments": "The quick brown fox jumps over the lazy dog.",
+        "createdAt": "1972-07-25T02:19:46.838Z",
+        "images": [
+          {
+            "id": "73c8d33b-5653-25b5-e26e-7c341f7c0232",
+            "url": "https://example.com/document.pdf",
+            "createdAt": "1970-12-08T19:42:35.478Z"
+          },
+          {
+            "id": "13c3b796-858c-c88a-4a49-d58fbb03ecf6",
+            "url": "https://example.com/document.pdf",
+            "createdAt": "1968-08-04T15:20:50.227Z"
+          }
+        ],
+        "indexedRecordSpliceType": "CANVAS_SET",
+        "drugName": "Isotretinoin"
+      }
+    ]
+  }
+  ```
+}

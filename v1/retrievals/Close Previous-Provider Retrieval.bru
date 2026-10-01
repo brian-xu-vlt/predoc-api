@@ -1,0 +1,46 @@
+meta {
+  name: Close Previous-Provider Retrieval
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/v1/retrievals/previous-providers/:retrievalId/close
+  body: json
+  auth: inherit
+}
+
+params:path {
+  retrievalId: {{retrievalId}}
+}
+
+headers {
+  Accept: application/json
+}
+
+body:json {
+  {}
+}
+
+docs {
+  Requests asynchronous closure of a manual previous-provider retrieval. The retrieval status updates when closure finishes.
+
+  > **Billing notice:** Closing a previous-provider retrieval after it has been initiated counts as a billable event.
+
+  ### Fields
+
+  | Field | Description |
+  |---|---|
+  | `retrievalId` | Retrieval id UUID. |
+
+  ### Example response 202 Accepted
+
+  ```json
+  {
+    "retrievalId": "11111111-1111-4111-8111-111111111111",
+    "requestId": "888a121d-c0f2-52ae-75a3-94692cd122f9",
+    "accepted": true,
+    "message": "Closure request accepted. Retrieval status will update shortly."
+  }
+  ```
+}

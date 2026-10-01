@@ -1,0 +1,91 @@
+meta {
+  name: Get Patient Provider Facility Notes
+  type: http
+  seq: 10
+}
+
+get {
+  url: {{baseUrl}}/v1/patients/:patientId/provider-notes
+  body: none
+  auth: inherit
+}
+
+params:path {
+  patientId: {{patientId}}
+}
+
+headers {
+  Accept: application/json
+}
+
+docs {
+  Gets a list of provider/facility notes for the patient by ID. These can be downloaded via their `url` property. Partner-facing document display text fields are returned without literal `|` separators. Identifiers, URLs, statuses, dates, splice metadata, and source metadata are preserved as received.
+
+  ### Fields
+
+  | Field | Description |
+  |---|---|
+  | `patientId` | Unique identifier of the patient. |
+
+  ### Example response 200 OK
+
+  ```json
+  {
+    "partnerPatientId": "4ddac7f2-78bc-2218-abc8-9c764ff66971",
+    "providerFacilityNotes": [
+      {
+        "id": "bad378bf-ebaf-6913-1525-1e93394135ac",
+        "providerName": "Lakeview Clinic",
+        "date": "2020-02-10",
+        "comments": "Follow up in six months.",
+        "createdAt": "2000-05-04T02:02:07.183Z",
+        "images": [
+          {
+            "id": "50f82952-c27c-c75f-443f-8a3c63c0abc3",
+            "url": "https://example.com/document.pdf",
+            "createdAt": "1970-10-03T20:04:36.394Z"
+          },
+          {
+            "id": "0fa33906-20b3-da1a-1324-9595e98b87d6",
+            "url": "https://example.com/document.pdf",
+            "createdAt": "1995-09-23T04:18:50.028Z"
+          }
+        ],
+        "indexedRecordSpliceType": "SEGMENT_SET",
+        "providerType": {
+          "id": "b48a6ba2-9a1d-31dd-3e08-7293c904b4fd",
+          "name": "internalMedicine",
+          "displayName": "Internal Medicine"
+        },
+        "alternateProviderTypeName": "nonClinicalProvider"
+      },
+      {
+        "id": "c2d96996-2ad9-eb1a-473d-879f83f9c247",
+        "providerName": "Lakeview Clinic",
+        "date": "1960-10-13",
+        "comments": "Follow up in six months.",
+        "createdAt": "1995-11-24T17:15:24.000Z",
+        "images": [
+          {
+            "id": "58d0a801-d902-20f1-d937-382d46f740af",
+            "url": "https://example.com/document.pdf",
+            "createdAt": "2021-08-05T05:11:17.098Z"
+          },
+          {
+            "id": "bda306e7-9866-648d-01bd-01ae1f21766c",
+            "url": "https://example.com/document.pdf",
+            "createdAt": "2023-04-16T00:27:56.737Z"
+          }
+        ],
+        "indexedRecordSpliceType": "PRESPLICED",
+        "providerType": {
+          "id": "72c2debd-4bac-53bc-938f-a4b4d8e849b5",
+          "name": "internalMedicine",
+          "displayName": "Internal Medicine"
+        },
+        "alternateProviderTypeName": "nonClinicalProvider"
+      }
+    ]
+  }
+  ```
+}

@@ -1,0 +1,29 @@
+meta {
+  name: Get upload status
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/v1/records/uploads/:recordUploadId/status
+  body: none
+  auth: inherit
+}
+
+params:path {
+  recordUploadId: {{recordUploadId}}
+}
+
+headers {
+  Accept: application/json
+}
+
+tests {
+  test("responds 2xx", () => {
+    expect(res.status).to.be.within(200, 299);
+  });
+}
+
+docs {
+  `IDENTIFYING` → `PROCESSING` → `READY_TO_VALIDATE` → `VALIDATING` → `VALIDATED` or `ERROR`. Re-run until it is terminal.
+}

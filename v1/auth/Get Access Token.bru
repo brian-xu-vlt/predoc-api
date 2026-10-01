@@ -1,0 +1,53 @@
+meta {
+  name: Get Access Token
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/v1/auth/token
+  body: json
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}
+
+body:json {
+  {
+    "client_id": "{{process.env.PREDOC_CLIENT_ID}}",
+    "secret_key": "{{process.env.PREDOC_SECRET_KEY}}"
+  }
+}
+
+script:post-response {
+  bru.setVar("bearerToken", res.body.access_token);
+  bru.setVar("bearerTokenExpiresAt", Date.now() + 4 * 60 * 1000);
+}
+
+docs {
+  Validates the supplied client credentials and returns a JWT access token for authenticating subsequent requests to the Predoc Partner API.
+
+  Provide `client_id` and `secret_key` in the request body. If the credentials are valid, the JWT is returned in the `access_token` field.
+
+  ### Using the token
+
+  Include the token in the `Authorization` header for subsequent requests:
+
+  ```http
+  Authorization: Bearer <access_token>
+  ```
+
+  ### Token expiration
+
+  Access tokens are valid for 5 minutes and should be refreshed before they expire.
+
+  ### Example response 200 OK
+
+  ```json
+  {
+    "access_token": "eyJh...od4w"
+  }
+  ```
+}

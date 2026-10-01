@@ -1,0 +1,41 @@
+meta {
+  name: Available Patient Lab Results
+  type: http
+  seq: 17
+}
+
+get {
+  url: {{baseUrl}}/v1/patients/:patientId/lab-results/available
+  body: none
+  auth: inherit
+}
+
+params:path {
+  patientId: {{patientId}}
+}
+
+headers {
+  Accept: application/json
+}
+
+docs {
+  Gets all of the available lab result chemistries for the requested patient. Literal `|` separators are removed from these partner-facing display values. This endpoint can be used in conjunction with the `/patients/{patientId}/lab-results` endpoint to retrieve the available lab results for the patient.
+
+  ### Fields
+
+  | Field | Description |
+  |---|---|
+  | `patientId` | Unique identifier of the patient. |
+
+  ### Example response 200 OK
+
+  ```json
+  {
+    "patientId": "16a20971-7771-5b5a-5a5a-075b18896114",
+    "availableChemistries": [
+      "ALPHA-1-GLOBULIN",
+      "ALPHA-2-GLOBULIN"
+    ]
+  }
+  ```
+}

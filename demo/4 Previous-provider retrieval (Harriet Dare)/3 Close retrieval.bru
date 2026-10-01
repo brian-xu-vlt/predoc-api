@@ -1,0 +1,35 @@
+meta {
+  name: Close retrieval
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/v1/retrievals/previous-providers/:retrievalId/close
+  body: none
+  auth: inherit
+}
+
+params:path {
+  retrievalId: {{retrievalId}}
+}
+
+headers {
+  Accept: application/json
+}
+
+script:pre-request {
+  if (!bru.getVar("retrievalCanClose")) {
+    bru.runner.skipRequest();
+  }
+}
+
+tests {
+  test("responds 2xx", () => {
+    expect(res.status).to.be.within(200, 299);
+  });
+}
+
+docs {
+  Closes the retrieval. Only allowed when `canClose` is `true`: the collection runner skips it otherwise. Re-run steps 2 and 3 once the retrieval is complete.
+}

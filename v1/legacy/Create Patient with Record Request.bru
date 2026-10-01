@@ -1,0 +1,124 @@
+meta {
+  name: Create Patient with Record Request
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/v1/requests
+  body: json
+  auth: inherit
+}
+
+headers {
+  Accept: application/json
+}
+
+body:json {
+  {
+    "releaseToOrgName": "ABC Hospital",
+    "releaseToProviderName": "Dr. Jane Doe",
+    "previousProviders": [
+      {
+        "orgName": "string",
+        "providerFirstName": "string",
+        "providerLastName": "string",
+        "datesOfService": {
+          "serviceStartDate": "2026-08-09",
+          "serviceEndDate": "2026-09-09"
+        },
+        "practiceName": "string",
+        "orgAddress": {
+          "addressLine1": "123 Main St",
+          "addressLine2": "Apt # 123",
+          "city": "Charlotte",
+          "stateCode": "NC",
+          "postalCode": "28105",
+          "countryCode": "USA"
+        },
+        "orgPhoneCountryCode": "+1",
+        "orgPhoneNumber": "5553643856",
+        "orgFaxNumber": "5553643856",
+        "specificMedicalRecordRequested": "oncology"
+      },
+      {
+        "orgName": "string",
+        "providerFirstName": "string",
+        "providerLastName": "string",
+        "datesOfService": {
+          "serviceStartDate": "2026-08-09",
+          "serviceEndDate": "2026-09-09"
+        },
+        "practiceName": "string",
+        "orgAddress": {
+          "addressLine1": "123 Main St",
+          "addressLine2": "Apt # 123",
+          "city": "Charlotte",
+          "stateCode": "NC",
+          "postalCode": "28105",
+          "countryCode": "USA"
+        },
+        "orgPhoneCountryCode": "+1",
+        "orgPhoneNumber": "5553643856",
+        "orgFaxNumber": "5553643856",
+        "specificMedicalRecordRequested": "oncology"
+      }
+    ],
+    "reasonForRequest": 0,
+    "requestingProviderEmail": "jane.doe@domain.com",
+    "firstName": "Martha",
+    "lastName": "Rangel",
+    "dateOfBirth": "1970-03-10",
+    "phoneNumber": "7175501675",
+    "patientAddress": {
+      "postalCode": "43123",
+      "addressLine1": "4990 HOOVER RD",
+      "addressLine2": "APT 227",
+      "city": "GROVE CITY",
+      "stateCode": "OH",
+      "countryCode": "USA"
+    },
+    "patientGender": "na",
+    "doNotKnowPreviousProvider": false,
+    "futureAppointmentDate": "2026-09-17",
+    "patientAuthFile": {
+      "encodedFile": "string",
+      "fileExtension": "pdf",
+      "dataType": "image"
+    },
+    "referenceId": "1234567890",
+    "sendHieRequest": true,
+    "sendMedicationsRequest": true,
+    "facesheetConfigId": "string",
+    "facesheetConfigIds": [
+      "1f8a418b-b60d-f274-f509-a392dc510484",
+      "fefeeb0a-3754-fd69-8612-ee9f4bd2486b"
+    ],
+    "middleInitial": "S",
+    "phoneCountryCode": "+1",
+    "email": "martha.rangel@domain.com"
+  }
+}
+
+docs {
+  Creates a patient and a record-retrieval request, associates them with the organization for the authenticated credential, and returns a request ID for checking status and retrieving documents programmatically.
+
+  ### Example response 201 Created
+
+  ```json
+  {
+    "partnerPatientId": "458cbe68-f15c-0819-5a3f-641e24404587",
+    "requestId": "268ac18c-47d6-6b6a-a489-954e5414d786",
+    "message": "Patient created successfully",
+    "previousProviderRetrievals": [
+      {
+        "id": "11111111-1111-4111-8111-111111111111"
+      },
+      {
+        "id": "11111111-1111-4111-8111-111111111111"
+      }
+    ],
+    "referenceId": "1234567890"
+  }
+  ```
+}

@@ -1,0 +1,56 @@
+meta {
+  name: HIE - Freddie Corkery
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{baseUrl}}/v2/requests
+  body: json
+  auth: inherit
+}
+
+headers {
+  Accept: application/json
+}
+
+body:json {
+  {
+    "releaseToOrgName": "Inato Demo Site",
+    "releaseToProviderName": "Dr. Demo Investigator",
+    "requestingProviderEmail": "{{requestingProviderEmail}}",
+    "reasonForRequest": 2,
+    "previousProviders": [],
+    "referenceId": "demo-{{$timestamp}}",
+    "allowDuplicatePatient": true,
+    "sendHieRequest": true,
+    "sendMedicationsRequest": false,
+    "patientAddress": {
+      "addressLine1": "4435 Victoria Lane",
+      "city": "Madison",
+      "stateCode": "WI",
+      "postalCode": "53703"
+    },
+    "patientGender": "male",
+    "firstName": "Freddie",
+    "lastName": "Corkery",
+    "dateOfBirth": "1971-03-08",
+    "phoneNumber": "5555555555"
+  }
+}
+
+script:post-response {
+  bru.setVar("patientId", res.body.partnerPatientId);
+  bru.setVar("requestId", res.body.requestId);
+  bru.setVar("retrievalId", res.body.previousProviderRetrievals?.[0]?.id);
+}
+
+tests {
+  test("responds 2xx", () => {
+    expect(res.status).to.be.within(200, 299);
+  });
+}
+
+docs {
+  Demographics copied verbatim from https://docs.predoc.ai/reference/sandbox-test-patients
+}

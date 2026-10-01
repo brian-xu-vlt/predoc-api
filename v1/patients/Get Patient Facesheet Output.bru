@@ -1,0 +1,306 @@
+meta {
+  name: Get Patient Facesheet Output
+  type: http
+  seq: 13
+}
+
+get {
+  url: {{baseUrl}}/v1/patients/:patientId/facesheets/requests/:facesheetRequestId/output
+  body: none
+  auth: inherit
+}
+
+params:path {
+  patientId: {{patientId}}
+  facesheetRequestId: {{facesheetRequestId}}
+}
+
+headers {
+  Accept: application/json
+}
+
+docs {
+  Returns the finalized facesheet questions, answers, rationale, and source references. Partner-facing display text is returned without literal `|` separators, while identifiers, URLs, statuses, dates, splice metadata, and source metadata are preserved as received.
+
+  ### Fields
+
+  | Field | Description |
+  |---|---|
+  | `patientId` | Unique identifier of the patient. |
+  | `facesheetRequestId` | Unique identifier of the facesheet request. |
+
+  ### Example response 200 OK
+
+  ```json
+  {
+    "partnerPatientId": "04ec7133-9266-74ad-bdbf-aafff09114c4",
+    "facesheet": {
+      "requestId": "string",
+      "questions": [
+        {
+          "references": [
+            {
+              "sources": [
+                {
+                  "source": "string",
+                  "retrievalDate": "1949-10-22T05:48:56.272Z",
+                  "curatedDataId": "string",
+                  "classificationGroupType": "encounters",
+                  "downloadUrl": "string"
+                },
+                {
+                  "source": "string",
+                  "retrievalDate": "2004-07-21T12:35:23.401Z",
+                  "curatedDataId": "string",
+                  "classificationGroupType": "family-history",
+                  "downloadUrl": "string"
+                }
+              ]
+            },
+            {
+              "sources": [
+                {
+                  "source": "string",
+                  "retrievalDate": "2015-10-17T22:16:17.336Z",
+                  "curatedDataId": "string",
+                  "classificationGroupType": "labs",
+                  "downloadUrl": "string"
+                },
+                {
+                  "source": "string",
+                  "retrievalDate": "1974-07-30T09:07:12.331Z",
+                  "curatedDataId": "string",
+                  "classificationGroupType": "provider-facility-notes",
+                  "downloadUrl": "string"
+                }
+              ]
+            }
+          ],
+          "children": [
+            {
+              "references": [
+                {
+                  "sources": [
+                    {
+                      "source": "string",
+                      "retrievalDate": "1962-01-12T11:10:03.226Z",
+                      "curatedDataId": "string",
+                      "classificationGroupType": "procedure-notes",
+                      "downloadUrl": "string"
+                    },
+                    {
+                      "source": "string",
+                      "retrievalDate": "2009-04-28T14:18:31.341Z",
+                      "curatedDataId": "string",
+                      "classificationGroupType": "medications",
+                      "downloadUrl": "string"
+                    }
+                  ]
+                },
+                {
+                  "sources": [
+                    {
+                      "source": "string",
+                      "retrievalDate": "2013-10-13T14:26:25.038Z",
+                      "curatedDataId": "string",
+                      "classificationGroupType": "providers",
+                      "downloadUrl": "string"
+                    },
+                    {
+                      "source": "string",
+                      "retrievalDate": "1965-02-07T15:51:36.892Z",
+                      "curatedDataId": "string",
+                      "classificationGroupType": "allergies",
+                      "downloadUrl": "string"
+                    }
+                  ]
+                }
+              ],
+              "question": "string",
+              "answer": "string",
+              "rationale": "string"
+            },
+            {
+              "references": [
+                {
+                  "sources": [
+                    {
+                      "source": "string",
+                      "retrievalDate": "2026-05-28T19:00:46.633Z",
+                      "curatedDataId": "string",
+                      "classificationGroupType": "other",
+                      "downloadUrl": "string"
+                    },
+                    {
+                      "source": "string",
+                      "retrievalDate": "1998-05-17T15:32:37.754Z",
+                      "curatedDataId": "string",
+                      "classificationGroupType": "medications",
+                      "downloadUrl": "string"
+                    }
+                  ]
+                },
+                {
+                  "sources": [
+                    {
+                      "source": "string",
+                      "retrievalDate": "2010-04-06T08:22:37.712Z",
+                      "curatedDataId": "string",
+                      "classificationGroupType": "family-history",
+                      "downloadUrl": "string"
+                    },
+                    {
+                      "source": "string",
+                      "retrievalDate": "1996-02-10T14:12:19.860Z",
+                      "curatedDataId": "string",
+                      "classificationGroupType": "allergies",
+                      "downloadUrl": "string"
+                    }
+                  ]
+                }
+              ],
+              "question": "string",
+              "answer": "string",
+              "rationale": "string"
+            }
+          ],
+          "question": "string",
+          "answer": "string",
+          "rationale": "string"
+        },
+        {
+          "references": [
+            {
+              "sources": [
+                {
+                  "source": "string",
+                  "retrievalDate": "2003-03-31T03:16:44.554Z",
+                  "curatedDataId": "string",
+                  "classificationGroupType": "labs",
+                  "downloadUrl": "string"
+                },
+                {
+                  "source": "string",
+                  "retrievalDate": "1983-09-11T13:35:50.645Z",
+                  "curatedDataId": "string",
+                  "classificationGroupType": "social-history",
+                  "downloadUrl": "string"
+                }
+              ]
+            },
+            {
+              "sources": [
+                {
+                  "source": "string",
+                  "retrievalDate": "1976-09-04T00:14:06.455Z",
+                  "curatedDataId": "string",
+                  "classificationGroupType": "provider-facility-notes",
+                  "downloadUrl": "string"
+                },
+                {
+                  "source": "string",
+                  "retrievalDate": "1996-08-28T08:21:40.477Z",
+                  "curatedDataId": "string",
+                  "classificationGroupType": "vaccinations",
+                  "downloadUrl": "string"
+                }
+              ]
+            }
+          ],
+          "children": [
+            {
+              "references": [
+                {
+                  "sources": [
+                    {
+                      "source": "string",
+                      "retrievalDate": "1950-09-05T06:25:22.279Z",
+                      "curatedDataId": "string",
+                      "classificationGroupType": "procedures",
+                      "downloadUrl": "string"
+                    },
+                    {
+                      "source": "string",
+                      "retrievalDate": "1980-09-15T02:21:14.452Z",
+                      "curatedDataId": "string",
+                      "classificationGroupType": "providers",
+                      "downloadUrl": "string"
+                    }
+                  ]
+                },
+                {
+                  "sources": [
+                    {
+                      "source": "string",
+                      "retrievalDate": "1994-09-21T18:05:19.264Z",
+                      "curatedDataId": "string",
+                      "classificationGroupType": "pathology-results",
+                      "downloadUrl": "string"
+                    },
+                    {
+                      "source": "string",
+                      "retrievalDate": "1977-10-14T09:52:38.653Z",
+                      "curatedDataId": "string",
+                      "classificationGroupType": "procedures",
+                      "downloadUrl": "string"
+                    }
+                  ]
+                }
+              ],
+              "question": "string",
+              "answer": "string",
+              "rationale": "string"
+            },
+            {
+              "references": [
+                {
+                  "sources": [
+                    {
+                      "source": "string",
+                      "retrievalDate": "2003-11-27T03:00:45.797Z",
+                      "curatedDataId": "string",
+                      "classificationGroupType": "imaging-notes",
+                      "downloadUrl": "string"
+                    },
+                    {
+                      "source": "string",
+                      "retrievalDate": "1956-02-08T06:26:35.116Z",
+                      "curatedDataId": "string",
+                      "classificationGroupType": "labs",
+                      "downloadUrl": "string"
+                    }
+                  ]
+                },
+                {
+                  "sources": [
+                    {
+                      "source": "string",
+                      "retrievalDate": "1957-08-04T09:17:44.012Z",
+                      "curatedDataId": "string",
+                      "classificationGroupType": "labs",
+                      "downloadUrl": "string"
+                    },
+                    {
+                      "source": "string",
+                      "retrievalDate": "2019-05-30T10:04:58.133Z",
+                      "curatedDataId": "string",
+                      "classificationGroupType": "medications",
+                      "downloadUrl": "string"
+                    }
+                  ]
+                }
+              ],
+              "question": "string",
+              "answer": "string",
+              "rationale": "string"
+            }
+          ],
+          "question": "string",
+          "answer": "string",
+          "rationale": "string"
+        }
+      ]
+    }
+  }
+  ```
+}

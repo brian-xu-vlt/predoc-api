@@ -1,0 +1,33 @@
+meta {
+  name: List webhooks
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/v1/events
+  body: none
+  auth: inherit
+}
+
+headers {
+  Accept: application/json
+}
+
+script:post-response {
+  const existing = res.body.find(
+    (configuration) =>
+      configuration.eventType === "REQUEST_COMPLETE" && configuration.url === bru.interpolate("{{webhookUri}}"),
+  );
+  bru.setVar("configurationId", existing?.configurationId);
+}
+
+tests {
+  test("responds 2xx", () => {
+    expect(res.status).to.be.within(200, 299);
+  });
+}
+
+docs {
+  All webhook configurations of the partner.
+}

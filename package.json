@@ -1,0 +1,14 @@
+{
+  "name": "predoc-api",
+  "private": true,
+  "description": "Bruno collection for the Predoc Partner API",
+  "scripts": {
+    "mock": "python3 mock-server/server.py",
+    "demo:local": "bru run demo -r --env local-mock",
+    "demo:sandbox": "bru run demo -r --env sandbox --bail",
+    "token:sandbox": "bru run \"v1/auth/Get Access Token.bru\" --env sandbox"
+  },
+  "devDependencies": {
+    "@usebruno/cli": "4.2.0"
+  }
+}

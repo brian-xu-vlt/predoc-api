@@ -1,0 +1,79 @@
+meta {
+  name: Get Patient Facesheets
+  type: http
+  seq: 14
+}
+
+get {
+  url: {{baseUrl}}/v1/patients/:patientId/facesheets
+  body: none
+  auth: inherit
+}
+
+params:path {
+  patientId: {{patientId}}
+}
+
+headers {
+  Accept: application/json
+}
+
+docs {
+  Gets a list of facesheets for the patient by ID. Facesheets with structured output include a `requestId` for retrieving that output, and their `images` contain the all-referenced-records PDF when available. Partner-facing document display text fields are returned without literal `|` separators. Identifiers, URLs, statuses, dates, splice metadata, and source metadata are preserved as received.
+
+  ### Fields
+
+  | Field | Description |
+  |---|---|
+  | `patientId` | Unique identifier of the patient. |
+
+  ### Example response 200 OK
+
+  ```json
+  {
+    "partnerPatientId": "6ed9a868-6558-263a-49c8-8fe8f8083434",
+    "facesheets": [
+      {
+        "id": "d5715c1a-667c-75a6-37d8-85e2fb14587a",
+        "name": "string",
+        "date": "1959-02-01",
+        "title": "Patient Facesheet",
+        "createdAt": "1960-09-22T06:57:09.257Z",
+        "images": [
+          {
+            "id": "dd3d4f4e-8eff-56f3-6b8a-698e72ac950d",
+            "url": "https://example.com/document.pdf",
+            "createdAt": "2021-03-26T06:09:14.798Z"
+          },
+          {
+            "id": "709020e0-4968-ddbb-c2a9-1dfcfbf1f34b",
+            "url": "https://example.com/document.pdf",
+            "createdAt": "1960-11-26T09:05:41.946Z"
+          }
+        ],
+        "requestId": "51b8c754-06d7-5125-d2b6-ec1a9934eeae"
+      },
+      {
+        "id": "a0ef2f5c-c454-440a-b540-724155048775",
+        "name": "string",
+        "date": "1970-02-07",
+        "title": "Patient Facesheet",
+        "createdAt": "1951-10-01T09:30:32.845Z",
+        "images": [
+          {
+            "id": "f6b78b38-8ed7-8fa4-4bb2-785c1f763008",
+            "url": "https://example.com/document.pdf",
+            "createdAt": "1990-12-11T19:24:23.506Z"
+          },
+          {
+            "id": "2e4c4833-12cf-083c-404d-3fd28edb3a9f",
+            "url": "https://example.com/document.pdf",
+            "createdAt": "2017-08-23T11:07:05.320Z"
+          }
+        ],
+        "requestId": "fac78e95-ecc7-b019-ebe4-fc1b3457dc62"
+      }
+    ]
+  }
+  ```
+}

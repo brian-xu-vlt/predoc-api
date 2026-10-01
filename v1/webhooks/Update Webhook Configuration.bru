@@ -1,0 +1,40 @@
+meta {
+  name: Update Webhook Configuration
+  type: http
+  seq: 1
+}
+
+patch {
+  url: {{baseUrl}}/v1/events/:configurationId
+  body: json
+  auth: inherit
+}
+
+params:path {
+  configurationId: {{configurationId}}
+}
+
+body:json {
+  {
+    "serviceName": "Analysis Ingestion",
+    "notificationEmail": "{{requestingProviderEmail}}",
+    "webhookUri": "{{webhookUri}}",
+    "isActive": true,
+    "customHeaders": [
+      {
+        "key": "X-Partner-Auth",
+        "value": "{{process.env.PREDOC_WEBHOOK_SECRET}}"
+      }
+    ]
+  }
+}
+
+docs {
+  Updates the specified webhook configuration for the authenticated credential.
+
+  ### Example response 200 OK
+
+  ```json
+
+  ```
+}
