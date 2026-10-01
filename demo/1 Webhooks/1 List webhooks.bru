@@ -15,6 +15,10 @@ headers {
 }
 
 script:post-response {
+  if (res.statusCode !== 200) {
+    console.error("Failed to list webhooks:", res.statusCode, res.body);
+    return bru.runner.skipRequest();
+  }
   const existing = res.body.find(
     (configuration) =>
       configuration.eventType === "REQUEST_COMPLETE" && configuration.url === bru.interpolate("{{webhookUri}}"),
